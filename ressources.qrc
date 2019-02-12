@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>resources/addDoctorIcon.png</file>
+        <file>resources/addPatientIcon.png</file>
+        <file>resources/polytechIcon_400x400.jpg</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>resources/polytechToursImage.png</file>
+        <file>resources/univToursImage.png</file>
+    </qresource>
+</RCC>
