@@ -18,6 +18,12 @@ public:
 private slots:
 	void on_actionQuitter_triggered();
 
+	void on_action_propos_triggered();
+
+	void on_actionPatient_triggered();
+
+	void on_actionPersonnel_de_soin_triggered();
+
 private:
 	Ui::MainWindow *ui;
 };

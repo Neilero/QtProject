@@ -3,6 +3,8 @@
         <file>resources/addDoctorIcon.png</file>
         <file>resources/addPatientIcon.png</file>
         <file>resources/polytechIcon_400x400.jpg</file>
+        <file>resources/polytechIcon_400x400.png</file>
+        <file>resources/searchIcon.png</file>
     </qresource>
     <qresource prefix="/images">
         <file>resources/polytechToursImage.png</file>

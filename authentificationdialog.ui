@@ -11,11 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Fenêtre d'authentification</string>
-  </property>
-  <property name="windowIcon">
-   <iconset resource="ressources.qrc">
-    <normaloff>:/icon/resources/polytechIcon_400x400.jpg</normaloff>:/icon/resources/polytechIcon_400x400.jpg</iconset>
+   <string>Fenêtre d'identification</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" colspan="6">
@@ -199,9 +195,6 @@
        <pointsize>12</pointsize>
       </font>
      </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
      <property name="text">
       <string>Connexion</string>
      </property>
@@ -241,8 +234,6 @@
   <tabstop>pushButtonConnect</tabstop>
   <tabstop>pushButtonCancel</tabstop>
  </tabstops>
- <resources>
-  <include location="ressources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

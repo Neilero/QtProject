@@ -24,7 +24,8 @@ void AuthentificationDialog::on_pushButtonConnect_clicked()
 		this->close();
 	}
 	else {
-		QMessageBox::critical(this, QString("Erreur d'authentitification"), QString("Login ou Mot de passe incorrecte..."));
+		QMessageBox::warning(this, QString("Erreur d'authentitification"), QString("Login ou Mot de passe incorrecte..."));
+		ui->lineEditPassword->clear();
 	}
 }
 
@@ -38,7 +39,7 @@ bool AuthentificationDialog::checkPasswordIsValid()
 	QString login = ui->lineEditLogin->text();
 	QString password = ui->lineEditPassword->text();
 
-	if ( login == "Admin" && password == "password" )
+	if ( login == "" && password == "" )
 		return true;
 
 	return false;
