@@ -28,17 +28,22 @@ SOURCES += \
 		main.cpp \
 		mainwindow.cpp \
 	authentificationdialog.cpp \
-    aboutdialog.cpp
+    aboutdialog.cpp \
+    createpatientdialog.cpp \
+    patient.cpp
 
 HEADERS += \
 		mainwindow.h \
 	authentificationdialog.h \
-    aboutdialog.h
+    aboutdialog.h \
+    createpatientdialog.h \
+    patient.h
 
 FORMS += \
 		mainwindow.ui \
 	authentificationdialog.ui \
-    aboutdialog.ui
+    aboutdialog.ui \
+    createpatientdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

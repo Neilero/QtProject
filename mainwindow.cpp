@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "aboutdialog.h"
+#include "createpatientdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
@@ -28,6 +29,8 @@ void MainWindow::on_action_propos_triggered()
 
 void MainWindow::on_actionPatient_triggered()
 {
+    CreatePatientDialog createpatientdialog(this);
+    createpatientdialog.exec();
 	ui->statusBar->showMessage("Patient ajouté", 3000);
 }
 
