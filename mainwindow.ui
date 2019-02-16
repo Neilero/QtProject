@@ -20,7 +20,7 @@
    <string>Fenêtre principale</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="ressources.qrc">
     <normaloff>:/icon/resources/polytechIcon_400x400.png</normaloff>:/icon/resources/polytechIcon_400x400.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -35,57 +35,15 @@
         <string>Rerchercher un patient</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="7">
-         <widget class="QSpinBox" name="spinBoxIdSearch"/>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_2">
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="lineEditNameSearch">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="text">
-           <string>Prénom :</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
          </widget>
-        </item>
-        <item row="0" column="6">
-         <widget class="QLabel" name="label_3">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Identifiant :</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="8">
-         <widget class="QPushButton" name="pushButtonSearchPatient">
-          <property name="text">
-           <string> Rechercher</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>:/icon/resources/searchIcon.png</normaloff>:/icon/resources/searchIcon.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="9">
-         <widget class="QTableView" name="tableView"/>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLineEdit" name="lineEditFirstnameSearch"/>
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label">
@@ -103,12 +61,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="5">
-         <widget class="QDateEdit" name="dateEditSearch"/>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEditNameSearch"/>
-        </item>
         <item row="0" column="4">
          <widget class="QLabel" name="label_4">
           <property name="sizePolicy">
@@ -125,12 +77,134 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="8">
+         <widget class="QSpinBox" name="spinBoxIdSearch">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>9999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="9">
+         <widget class="QPushButton" name="pushButtonSearchPatient">
+          <property name="text">
+           <string> Rechercher</string>
+          </property>
+          <property name="icon">
+           <iconset resource="ressources.qrc">
+            <normaloff>:/icon/resources/searchIcon.png</normaloff>:/icon/resources/searchIcon.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QDateEdit" name="dateEditBeginSearch">
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="10">
+         <widget class="QTableView" name="tableView"/>
+        </item>
+        <item row="0" column="7">
+         <widget class="QLabel" name="label_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Identifiant :</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Prénom :</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLineEdit" name="lineEditFirstnameSearch">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="6">
+         <widget class="QDateEdit" name="dateEditEndSearch">
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="searchPersonnel">
+      <widget class="QWidget" name="planification">
        <attribute name="title">
-        <string>Rechercher un personnel de soins</string>
+        <string>Planification</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="3" column="0">
+         <widget class="QPushButton" name="pushButtonEditHealthWorker">
+          <property name="text">
+           <string>Editer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="pushButtonDeleteHealthWorker">
+          <property name="text">
+           <string>Supprimer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QTreeView" name="treeViewHealthWorker"/>
+        </item>
+        <item row="0" column="0" rowspan="2" colspan="2">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Personnel actif</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2" rowspan="4">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -142,7 +216,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -182,7 +256,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionPatient">
    <property name="icon">
-    <iconset>
+    <iconset resource="ressources.qrc">
      <normaloff>:/icon/resources/addPatientIcon.png</normaloff>:/icon/resources/addPatientIcon.png</iconset>
    </property>
    <property name="text">
@@ -191,7 +265,7 @@
   </action>
   <action name="actionPersonnel_de_soin">
    <property name="icon">
-    <iconset>
+    <iconset resource="ressources.qrc">
      <normaloff>:/icon/resources/addDoctorIcon.png</normaloff>:/icon/resources/addDoctorIcon.png</iconset>
    </property>
    <property name="text">
@@ -210,6 +284,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="ressources.qrc"/>
+ </resources>
  <connections/>
 </ui>

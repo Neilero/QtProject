@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
-	ui->statusBar->showMessage("Vous venez de vous connecter", 3000);
+	ui->statusBar->showMessage("Vous venez de vous connecter", 5000);
 }
 
 MainWindow::~MainWindow()
@@ -29,12 +29,27 @@ void MainWindow::on_action_propos_triggered()
 
 void MainWindow::on_actionPatient_triggered()
 {
-    CreatePatientDialog createpatientdialog(this);
-    createpatientdialog.exec();
-	ui->statusBar->showMessage("Patient ajouté", 3000);
+	CreatePatientDialog createpatientdialog(this);
+	createpatientdialog.exec();
+	ui->statusBar->showMessage("Patient ajouté", 5000);
 }
 
 void MainWindow::on_actionPersonnel_de_soin_triggered()
 {
-	ui->statusBar->showMessage("Personnel ajouté", 3000);
+	ui->statusBar->showMessage("Personnel ajouté", 5000);
+}
+
+void MainWindow::on_healthWorker_created()
+{
+
+}
+
+void MainWindow::on_pushButtonEditHealthWorker_clicked()
+{
+	ui->statusBar->showMessage("Personnel édité", 5000);
+}
+
+void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
+{
+	ui->statusBar->showMessage("Personnel supprimé", 5000);
 }

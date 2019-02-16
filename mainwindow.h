@@ -24,6 +24,12 @@ private slots:
 
 	void on_actionPersonnel_de_soin_triggered();
 
+	void on_healthWorker_created();
+
+	void on_pushButtonEditHealthWorker_clicked();
+
+	void on_pushButtonDeleteHealthWorker_clicked();
+
 private:
 	Ui::MainWindow *ui;
 };

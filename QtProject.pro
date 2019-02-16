@@ -30,14 +30,17 @@ SOURCES += \
 	authentificationdialog.cpp \
     aboutdialog.cpp \
     createpatientdialog.cpp \
-    patient.cpp
+    patient.cpp \
+    healthworker.cpp
 
 HEADERS += \
 		mainwindow.h \
 	authentificationdialog.h \
     aboutdialog.h \
     createpatientdialog.h \
-    patient.h
+    patient.h \
+    healthworker.h \
+    healthworkertype.h
 
 FORMS += \
 		mainwindow.ui \
