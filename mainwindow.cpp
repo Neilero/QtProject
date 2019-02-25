@@ -1,18 +1,56 @@
+#include <QMessageBox>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "aboutdialog.h"
 #include "createpatientdialog.h"
+#include "c_init_bd.h"
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
-	ui->statusBar->showMessage("Vous venez de vous connecter", 5000);
+	ui->statusBar->showMessage("Bienvenue");
+
+	if (!C_INIT_BD::Creation_BD()) {
+		QMessageBox::critical(this, "Erreur de base de données", "Erreur lors de l'initialisation de la base de données.");
+		QApplication::quit();
+	}
+
+	db = QSqlDatabase::addDatabase("QSQLITE");
+	db.setHostName("localhost");
+	db.setDatabaseName("base_tmp.sqli");
+
+	db.open();
+
+	this->model = new PatientSqlTableModel(this, db);
+	model->setTable("TPatient");
+	model->select();
+
+	model->setHeaderData(0, Qt::Horizontal, tr("ID"), Qt::DisplayRole);
+	model->setHeaderData(2, Qt::Horizontal, tr("Prénom"), Qt::DisplayRole);
+	model->setHeaderData(1, Qt::Horizontal, tr("Nom"), Qt::DisplayRole);
+	model->setHeaderData(3, Qt::Horizontal, tr("Adresse"), Qt::DisplayRole);
+	model->setHeaderData(4, Qt::Horizontal, tr("Ville"), Qt::DisplayRole);
+	model->setHeaderData(5, Qt::Horizontal, tr("Code postal"), Qt::DisplayRole);
+	model->setHeaderData(6, Qt::Horizontal, tr("Commentaire"), Qt::DisplayRole);
+	model->setHeaderData(7, Qt::Horizontal, tr("Téléphone"), Qt::DisplayRole);
+	model->setHeaderData(8, Qt::Horizontal, tr("Date de consultation"), Qt::DisplayRole);
+	model->setHeaderData(9, Qt::Horizontal, tr("Durée de consultation"), Qt::DisplayRole);
+	model->setHeaderData(10, Qt::Horizontal, tr("Priorité"));
+
+//	model->insertRow( model->rowCount() );
+//	model->setData( model->index(model->rowCount()-1, 0), 8);
+//	model->setData( model->index(model->rowCount()-1, 1), "Nameless");
+//	model->submit();
+
+	ui->tableView->setModel(model);
 }
 
 MainWindow::~MainWindow()
 {
+	db.close();
 	delete ui;
 }
 
@@ -37,11 +75,6 @@ void MainWindow::on_actionPatient_triggered()
 void MainWindow::on_actionPersonnel_de_soin_triggered()
 {
 	ui->statusBar->showMessage("Personnel ajouté", 5000);
-}
-
-void MainWindow::on_healthWorker_created()
-{
-
 }
 
 void MainWindow::on_pushButtonEditHealthWorker_clicked()

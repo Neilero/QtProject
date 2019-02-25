@@ -4,7 +4,7 @@
 #include <QString>
 #include <QDate>
 
-class patient
+class Patient
 {
 
 private:
@@ -20,14 +20,34 @@ private:
 
 	//optional attributes
 	QString commentary;
-	QString phoneNumber;		//only number (ie. size == 10)
+	int phoneNumber;		//only number (ie. size == 10)
 
 	//default constructor shouldn't be used since we have compulsory attributes
-	patient();
+	Patient();
 
 public:
-	patient(QString name, QString firstname, QString address, QString town, int postalCode, QDate consultationDate, QTime consultationDuration = QTime(1,0), int priority = 1);
+	Patient(QString name, QString firstname, QString address, QString town, int postalCode, QDate consultationDate, QTime consultationDuration = QTime(1,0), int priority = 1);
 
+	QString getName() const;
+	void setName(const QString& value);
+	QString getFirstname() const;
+	void setFirstname(const QString& value);
+	QString getAddress() const;
+	void setAddress(const QString& value);
+	QString getTown() const;
+	void setTown(const QString& value);
+	int getPostalCode() const;
+	void setPostalCode(int value);
+	QDate getConsultationDate() const;
+	void setConsultationDate(const QDate& value);
+	QTime getConsultationDuration() const;
+	void setConsultationDuration(const QTime& value);
+	int getPriority() const;
+	void setPriority(int value);
+	QString getCommentary() const;
+	void setCommentary(const QString& value);
+	int getPhoneNumber() const;
+	void setPhoneNumber(int value);
 };
 
 #endif // PATIENT_H

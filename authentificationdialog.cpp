@@ -24,7 +24,7 @@ void AuthentificationDialog::on_pushButtonConnect_clicked()
 		this->close();
 	}
 	else {
-		QMessageBox::warning(this, QString("Erreur d'authentitification"), QString("Login ou Mot de passe incorrecte..."));
+		QMessageBox::warning(this, "Erreur d'authentitification", "Login ou Mot de passe incorrecte...");
 		ui->lineEditPassword->clear();
 	}
 }

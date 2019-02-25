@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,25 +28,29 @@ SOURCES += \
 		main.cpp \
 		mainwindow.cpp \
 	authentificationdialog.cpp \
-    aboutdialog.cpp \
-    createpatientdialog.cpp \
-    patient.cpp \
-    healthworker.cpp
+	aboutdialog.cpp \
+	createpatientdialog.cpp \
+	patient.cpp \
+	healthworker.cpp \
+	c_init_bd.cpp \
+    patientsqltablemodel.cpp
 
 HEADERS += \
 		mainwindow.h \
 	authentificationdialog.h \
-    aboutdialog.h \
-    createpatientdialog.h \
-    patient.h \
-    healthworker.h \
-    healthworkertype.h
+	aboutdialog.h \
+	createpatientdialog.h \
+	patient.h \
+	healthworker.h \
+	healthworkertype.h \
+	c_init_bd.h \
+    patientsqltablemodel.h
 
 FORMS += \
 		mainwindow.ui \
 	authentificationdialog.ui \
-    aboutdialog.ui \
-    createpatientdialog.ui
+	aboutdialog.ui \
+	createpatientdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -54,4 +58,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    ressources.qrc
+	ressources.qrc
