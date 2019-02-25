@@ -15,6 +15,8 @@ public:
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 
 	void insertPatient(Patient &newPatient);
+
+	QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 };
 
 #endif // PATIENTSQLTABLEMODEL_H

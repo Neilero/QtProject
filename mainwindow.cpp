@@ -28,18 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	model->setTable("TPatient");
 	model->select();
 
-	model->setHeaderData(0, Qt::Horizontal, tr("ID"), Qt::DisplayRole);
-	model->setHeaderData(2, Qt::Horizontal, tr("Prénom"), Qt::DisplayRole);
-	model->setHeaderData(1, Qt::Horizontal, tr("Nom"), Qt::DisplayRole);
-	model->setHeaderData(3, Qt::Horizontal, tr("Adresse"), Qt::DisplayRole);
-	model->setHeaderData(4, Qt::Horizontal, tr("Ville"), Qt::DisplayRole);
-	model->setHeaderData(5, Qt::Horizontal, tr("Code postal"), Qt::DisplayRole);
-	model->setHeaderData(6, Qt::Horizontal, tr("Commentaire"), Qt::DisplayRole);
-	model->setHeaderData(7, Qt::Horizontal, tr("Téléphone"), Qt::DisplayRole);
-	model->setHeaderData(8, Qt::Horizontal, tr("Date de consultation"), Qt::DisplayRole);
-	model->setHeaderData(9, Qt::Horizontal, tr("Durée de consultation"), Qt::DisplayRole);
-	model->setHeaderData(10, Qt::Horizontal, tr("Priorité"));
-
 //	model->insertRow( model->rowCount() );
 //	model->setData( model->index(model->rowCount()-1, 0), 8);
 //	model->setData( model->index(model->rowCount()-1, 1), "Nameless");
