@@ -74,3 +74,8 @@ void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 {
 	ui->statusBar->showMessage("Personnel supprimé", 5000);
 }
+
+void MainWindow::on_pushButtonSearchPatient_clicked()
+{
+
+}
