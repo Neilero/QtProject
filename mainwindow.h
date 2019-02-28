@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "patientsqltablemodel.h"
+#include "patientproxytablemodel.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,6 +17,9 @@ class MainWindow : public QMainWindow
 public:
 	explicit MainWindow(QWidget *parent = nullptr);
 	~MainWindow();
+
+private:
+	void createConnections();
 
 private slots:
 	void on_actionQuitter_triggered();
@@ -35,6 +39,7 @@ private slots:
 private:
 	Ui::MainWindow *ui;
 	PatientSqlTableModel *model;
+	PatientProxyTableModel *proxy;
 	QSqlDatabase db;
 };
 

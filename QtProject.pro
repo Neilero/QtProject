@@ -33,7 +33,8 @@ SOURCES += \
 	patient.cpp \
 	healthworker.cpp \
 	c_init_bd.cpp \
-    patientsqltablemodel.cpp
+    patientsqltablemodel.cpp \
+    patientproxytablemodel.cpp
 
 HEADERS += \
 		mainwindow.h \
@@ -44,7 +45,8 @@ HEADERS += \
 	healthworker.h \
 	healthworkertype.h \
 	c_init_bd.h \
-    patientsqltablemodel.h
+    patientsqltablemodel.h \
+    patientproxytablemodel.h
 
 FORMS += \
 		mainwindow.ui \

@@ -28,18 +28,32 @@ MainWindow::MainWindow(QWidget *parent) :
 	model->setTable("TPatient");
 	model->select();
 
+	this->proxy = new PatientProxyTableModel(this);
+
+	proxy->setSourceModel(model);
+	ui->tableView->setModel(proxy);
+
 //	model->insertRow( model->rowCount() );
 //	model->setData( model->index(model->rowCount()-1, 0), 8);
 //	model->setData( model->index(model->rowCount()-1, 1), "Nameless");
 //	model->submit();
 
-	ui->tableView->setModel(model);
+	createConnections();
 }
 
 MainWindow::~MainWindow()
 {
 	db.close();
 	delete ui;
+}
+
+void MainWindow::createConnections()
+{
+	QObject::connect(ui->searchNameLineEdit, SIGNAL(textChanged(QString)), proxy, SLOT(setFilterName(QString)));
+	QObject::connect(ui->searchFirstnameLineEdit, SIGNAL(textChanged(QString)), proxy, SLOT(setFilterFirstname(QString)));
+	QObject::connect(ui->searchIDSpinBox, SIGNAL(valueChanged(int)), proxy, SLOT(setFilterID(int)));
+	QObject::connect(ui->searchBeginDateEdit, SIGNAL(dateChanged(QDate)), proxy, SLOT(setFilterBeginDate(QDate)));
+	QObject::connect(ui->searchEndDateEdit, SIGNAL(dateChanged(QDate)), proxy, SLOT(setFilterEndDate(QDate)));
 }
 
 void MainWindow::on_actionQuitter_triggered()
@@ -77,5 +91,7 @@ void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 
 void MainWindow::on_pushButtonSearchPatient_clicked()
 {
+	if (!ui->searchNameLineEdit->text().isEmpty()) {
 
+	}
 }

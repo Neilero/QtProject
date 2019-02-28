@@ -1,0 +1,33 @@
+#ifndef PATIENTPROXYTABLEMODEL_H
+#define PATIENTPROXYTABLEMODEL_H
+
+#include <QObject>
+#include <QSortFilterProxyModel>
+#include <QDate>
+
+class PatientProxyTableModel : public QSortFilterProxyModel
+{
+	Q_OBJECT
+
+private:
+	QString filterName;
+	QString filterFirstname;
+	int filterID;
+	QDate filterBeginDate;
+	QDate filterEndDate;
+
+public:
+	PatientProxyTableModel(QObject* parent = nullptr);
+
+	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+	QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+
+public slots:
+	void setFilterName(QString name);
+	void setFilterFirstname(QString firstname);
+	void setFilterID(int ID);
+	void setFilterBeginDate(QDate beginDate);
+	void setFilterEndDate(QDate endDate);
+};
+
+#endif // PATIENTPROXYTABLEMODEL_H
