@@ -3,25 +3,30 @@
 
 #include <QDialog>
 
+#include "patient.h"
+
 namespace Ui {
 class CreatePatientDialog;
 }
 
 class CreatePatientDialog : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit CreatePatientDialog(QWidget *parent = nullptr);
-    ~CreatePatientDialog();
+	explicit CreatePatientDialog(QWidget *parent = nullptr);
+	~CreatePatientDialog();
+
+signals:
+	void patientCreated(Patient newPatient);
 
 private slots:
-    void on_buttonBox_accepted();
+	void on_buttonBox_accepted();
 
-    void on_buttonBox_rejected();
+	void on_buttonBox_rejected();
 
 private:
-    Ui::CreatePatientDialog *ui;
+	Ui::CreatePatientDialog *ui;
 };
 
 #endif // CREATEPATIENTDIALOG_H

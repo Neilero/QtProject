@@ -5,6 +5,7 @@
 
 #include "patientsqltablemodel.h"
 #include "patientproxytablemodel.h"
+#include "createpatientdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -41,6 +42,7 @@ private:
 	PatientSqlTableModel *model;
 	PatientProxyTableModel *proxy;
 	QSqlDatabase db;
+	CreatePatientDialog *createPatientDialog;
 };
 
 #endif // MAINWINDOW_H

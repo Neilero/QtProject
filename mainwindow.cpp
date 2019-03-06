@@ -3,7 +3,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "aboutdialog.h"
-#include "createpatientdialog.h"
 #include "c_init_bd.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -18,11 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 		QApplication::quit();
 	}
 
-	db = QSqlDatabase::addDatabase("QSQLITE");
-	db.setHostName("localhost");
-	db.setDatabaseName("base_tmp.sqli");
-
-	db.open();
+	db = QSqlDatabase::database();
 
 	this->model = new PatientSqlTableModel(this, db);
 	model->setTable("TPatient");
@@ -32,11 +27,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	proxy->setSourceModel(model);
 	ui->tableView->setModel(proxy);
-
-//	model->insertRow( model->rowCount() );
-//	model->setData( model->index(model->rowCount()-1, 0), 8);
-//	model->setData( model->index(model->rowCount()-1, 1), "Nameless");
-//	model->submit();
 
 	createConnections();
 }
@@ -49,6 +39,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::createConnections()
 {
+	//connect ui filters to proxy filter model
 	QObject::connect(ui->searchNameLineEdit, SIGNAL(textChanged(QString)), proxy, SLOT(setFilterName(QString)));
 	QObject::connect(ui->searchFirstnameLineEdit, SIGNAL(textChanged(QString)), proxy, SLOT(setFilterFirstname(QString)));
 	QObject::connect(ui->searchIDSpinBox, SIGNAL(valueChanged(int)), proxy, SLOT(setFilterID(int)));
@@ -69,9 +60,16 @@ void MainWindow::on_action_propos_triggered()
 
 void MainWindow::on_actionPatient_triggered()
 {
-	CreatePatientDialog createpatientdialog(this);
-	createpatientdialog.exec();
-	ui->statusBar->showMessage("Patient ajouté", 5000);
+	createPatientDialog = new CreatePatientDialog(this);
+
+	QObject::connect(createPatientDialog, SIGNAL(patientCreated(Patient)), model, SLOT(insertPatient(Patient)));
+
+	if (createPatientDialog->exec() == QDialog::Accepted) {
+		ui->statusBar->showMessage("Patient ajouté", 5000);
+	}
+
+	QObject::disconnect(createPatientDialog, SIGNAL(patientCreated(Patient)), model, SLOT(insertPatient(Patient)));
+	delete createPatientDialog;
 }
 
 void MainWindow::on_actionPersonnel_de_soin_triggered()
@@ -91,7 +89,5 @@ void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 
 void MainWindow::on_pushButtonSearchPatient_clicked()
 {
-	if (!ui->searchNameLineEdit->text().isEmpty()) {
-
-	}
+	//...
 }

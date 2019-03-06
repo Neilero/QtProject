@@ -381,7 +381,7 @@
     </widget>
    </item>
    <item row="10" column="1" colspan="3">
-    <widget class="QPlainTextEdit" name="plainTextEdit"/>
+    <widget class="QPlainTextEdit" name="plainTextEditCommentary"/>
    </item>
   </layout>
  </widget>
@@ -395,7 +395,7 @@
   <tabstop>dateEditConsultationDay</tabstop>
   <tabstop>timeEditDuration</tabstop>
   <tabstop>horizontalSliderPriority</tabstop>
-  <tabstop>plainTextEdit</tabstop>
+  <tabstop>plainTextEditCommentary</tabstop>
  </tabstops>
  <resources/>
  <connections>

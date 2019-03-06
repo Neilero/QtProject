@@ -2,16 +2,24 @@
 
 #include <QDebug>
 
-Patient::Patient(QString name, QString firstname, QString address, QString town, int postalCode, QDate consultationDate, QTime consultationDuration, int priority)
+Patient::Patient(QString name, QString firstname, QString address, QString town, int postalCode, QDate consultationDate, QTime consultationDuration, int priority, QString commentary, int phoneNumber)
 {
-	this->name = name;
-	this->firstname = firstname;
-	this->address = address;
-	this->town = town;
-	this->postalCode = postalCode;
-	this->consultationDate = consultationDate;
-	this->consultationDuration = consultationDuration;
-	this->priority = priority;
+	this->setName(name);
+	this->setFirstname(firstname);
+	this->setAddress(address);
+	this->setTown(town);
+	this->setPostalCode(postalCode);
+	this->setConsultationDate(consultationDate);
+	this->setConsultationDuration(consultationDuration);
+	this->setPriority(priority);
+	this->setCommentary(commentary);
+
+	if (phoneNumber == NULL) {
+		this->phoneNumber = NULL;
+	}
+	else {
+		this->setPhoneNumber(phoneNumber);
+	}
 }
 
 QString Patient::getName() const

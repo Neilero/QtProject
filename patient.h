@@ -26,7 +26,7 @@ private:
 	Patient();
 
 public:
-	Patient(QString name, QString firstname, QString address, QString town, int postalCode, QDate consultationDate, QTime consultationDuration = QTime(1,0), int priority = 1);
+	Patient(QString name, QString firstname, QString address, QString town, int postalCode, QDate consultationDate, QTime consultationDuration = QTime(1,0), int priority = 1, QString commentary = QString(""), int phoneNumber = 0);
 
 	QString getName() const;
 	void setName(const QString& value);

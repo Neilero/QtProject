@@ -11,8 +11,8 @@ PatientProxyTableModel::PatientProxyTableModel(QObject* parent):
 
 bool PatientProxyTableModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
-	QModelIndex indexName = sourceModel()->index(source_row, 2, source_parent);
-	QModelIndex indexFirstname = sourceModel()->index(source_row, 1, source_parent);
+	QModelIndex indexName = sourceModel()->index(source_row, 1, source_parent);
+	QModelIndex indexFirstname = sourceModel()->index(source_row, 2, source_parent);
 	QModelIndex indexID = sourceModel()->index(source_row, 0, source_parent);
 	QModelIndex indexDate = sourceModel()->index(source_row, 8, source_parent);
 
