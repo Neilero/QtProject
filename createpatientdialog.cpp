@@ -20,6 +20,7 @@ void CreatePatientDialog::on_buttonBox_accepted()
 	bool * conversionOk = nullptr;
 
 	//TODO : change to 1. Create empty patient 2. set all values and check set for error
+	//ERROR : crash if try to create an empty patient
 	qDebug() << "WARNING : TODO in CreatePatientDialog::on_buttonBox_accepted function" << endl;
 
 	QString name = ui->lineEditName->text();

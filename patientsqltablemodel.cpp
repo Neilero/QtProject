@@ -2,6 +2,7 @@
 
 #include <QSqlRecord>
 #include <QSqlField>
+#include <QDebug>
 
 PatientSqlTableModel::PatientSqlTableModel(QObject* parent, QSqlDatabase db)
 	: QSqlTableModel(parent, db)
@@ -20,54 +21,50 @@ Qt::ItemFlags PatientSqlTableModel::flags(const QModelIndex& index) const
 
 void PatientSqlTableModel::insertPatient(Patient newPatient)
 {
-	QSqlRecord patientLine;
+	//start a transaction
+	database().transaction();
 
-	//add fields to db line
+	//create an empty record from the model structure
+	QSqlRecord patientLine = record();
 
-	QSqlField name("Nom", QVariant::String);
-	name.setValue(newPatient.getName());
-	patientLine.append(name);
+	//the Id is auto-increment so we don't set it up
+	patientLine.remove( patientLine.indexOf("Id") );
 
-	QSqlField firstname("Prenom", QVariant::String);
-	firstname.setValue(newPatient.getFirstname());
-	patientLine.append(firstname);
+	//set the other fields of the new patient db line
 
-	QSqlField address("Adresse", QVariant::String);
-	address.setValue(newPatient.getAddress());
-	patientLine.append(address);
+	patientLine.setValue("Nom", newPatient.getName());
 
-	QSqlField town("Ville", QVariant::String);
-	town.setValue(newPatient.getTown());
-	patientLine.append(town);
+	patientLine.setValue("Prenom", newPatient.getFirstname());
 
-	QSqlField postalCode("CP", QVariant::Int);
-	postalCode.setValue(newPatient.getPostalCode());
-	patientLine.append(postalCode);
+	patientLine.setValue("Adresse", newPatient.getAddress());
 
-	QSqlField comment("Commentaire", QVariant::String);
-	comment.setValue(newPatient.getCommentary());
-	patientLine.append(comment);
+	patientLine.setValue("Ville", newPatient.getTown());
 
-	QSqlField phone("Tel", QVariant::Int);
-	phone.setValue(newPatient.getPhoneNumber());
-	patientLine.append(phone);
+	patientLine.setValue("CP", newPatient.getPostalCode());
 
-	QSqlField consultationDate("DateConsultation", QVariant::Date);
-	consultationDate.setValue(newPatient.getConsultationDate());
-	patientLine.append(consultationDate);
+	patientLine.setValue("Commentaire", newPatient.getCommentary());
 
-	QSqlField consultationDuration("DureeConsultation", QVariant::Int);
-	int duration = newPatient.getConsultationDuration().minute() + (newPatient.getConsultationDuration().hour() * 60);
-	consultationDuration.setValue(duration);
-	patientLine.append(consultationDuration);
+	patientLine.setValue("Tel", newPatient.getPhoneNumber());
 
-	QSqlField priority("Priorite", QVariant::Int);
-	priority.setValue(newPatient.getPriority());
-	patientLine.append(priority);
+	patientLine.setValue("DateConsultation", newPatient.getConsultationDate());
 
-	//add the record to the db
+	int consultationDuration = newPatient.getConsultationDuration().minute() + (newPatient.getConsultationDuration().hour() * 60);
+	patientLine.setValue("DureeConsultation", consultationDuration);
 
-	insertRecord(-1, patientLine);
+	patientLine.setValue("Priorite", newPatient.getPriority());
+
+	//try adding the record to the db
+
+	if( insertRecord(-1, patientLine) ){
+		//if ok, commit changes
+		submitAll();
+
+		emit patientInserted();
+	}
+	else{
+		//else, rollback
+		database().rollback();
+	}
 }
 
 QVariant PatientSqlTableModel::headerData(int section, Qt::Orientation orientation, int role) const

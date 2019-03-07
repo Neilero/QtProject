@@ -37,6 +37,8 @@ private slots:
 
 	void on_pushButtonSearchPatient_clicked();
 
+	void on_patientInserted();
+
 private:
 	Ui::MainWindow *ui;
 	PatientSqlTableModel *model;

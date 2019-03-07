@@ -19,6 +19,9 @@ public:
 public slots:
 	void insertPatient(Patient newPatient);
 
+signals:
+	void patientInserted();
+
 };
 
 #endif // PATIENTSQLTABLEMODEL_H

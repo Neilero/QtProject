@@ -45,6 +45,9 @@ void MainWindow::createConnections()
 	QObject::connect(ui->searchIDSpinBox, SIGNAL(valueChanged(int)), proxy, SLOT(setFilterID(int)));
 	QObject::connect(ui->searchBeginDateEdit, SIGNAL(dateChanged(QDate)), proxy, SLOT(setFilterBeginDate(QDate)));
 	QObject::connect(ui->searchEndDateEdit, SIGNAL(dateChanged(QDate)), proxy, SLOT(setFilterEndDate(QDate)));
+
+	//connect signal patient inserted into the DB
+	QObject::connect(model, SIGNAL(patientInserted(void)), this, SLOT(on_patientInserted(void)));
 }
 
 void MainWindow::on_actionQuitter_triggered()
@@ -64,9 +67,7 @@ void MainWindow::on_actionPatient_triggered()
 
 	QObject::connect(createPatientDialog, SIGNAL(patientCreated(Patient)), model, SLOT(insertPatient(Patient)));
 
-	if (createPatientDialog->exec() == QDialog::Accepted) {
-		ui->statusBar->showMessage("Patient ajouté", 5000);
-	}
+	createPatientDialog->exec();
 
 	QObject::disconnect(createPatientDialog, SIGNAL(patientCreated(Patient)), model, SLOT(insertPatient(Patient)));
 	delete createPatientDialog;
@@ -90,4 +91,9 @@ void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 void MainWindow::on_pushButtonSearchPatient_clicked()
 {
 	//...
+}
+
+void MainWindow::on_patientInserted()
+{
+	ui->statusBar->showMessage("Patient ajouté", 5000);
 }
