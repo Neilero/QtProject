@@ -19,9 +19,19 @@ private:
 	QString password;
 
 public:
-	HealthWorker();
+    HealthWorker(QString name, QString firstname,QString login, QString password);
+    HealthWorker(QString name, QString firstname, HealthWorkerType type);
 
-
+    QString getName() const;
+    void setName(const QString &value);
+    QString getFirstname() const;
+    void setFirstname(const QString &value);
+    HealthWorkerType getType() const;
+    void setType(const HealthWorkerType &value);
+    QString getLogin() const;
+    void setLogin(const QString &value);
+    QString getPassword() const;
+    void setPassword(const QString &value);
 };
 
 #endif // HEALTHWORKER_H
