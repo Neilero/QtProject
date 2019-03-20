@@ -19,14 +19,23 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	db = QSqlDatabase::database();
 
-	this->model = new PatientSqlTableModel(this, db);
-	model->setTable("TPatient");
-	model->select();
+	//init patient model
+	this->patientModel = new PatientSqlTableModel(this, db);
+	patientModel->setTable("TPatient");
+	patientModel->select();
 
-	this->proxy = new PatientProxyTableModel(this);
+	//init patient proxy model
+	this->patientProxy = new PatientProxyTableModel(this);
 
-	proxy->setSourceModel(model);
-	ui->tableView->setModel(proxy);
+	//init patient table
+	patientProxy->setSourceModel(patientModel);
+	ui->tableView->setModel(patientProxy);
+
+	//init healthworker model
+	this->healthworkerModel = new HealthWorkerTreeModel(this, db);
+
+	//init healthworker tree
+	ui->treeViewHealthWorker->setModel(healthworkerModel);
 
 	createConnections();
 }
@@ -40,14 +49,22 @@ MainWindow::~MainWindow()
 void MainWindow::createConnections()
 {
 	//connect ui filters to proxy filter model
-	QObject::connect(ui->searchNameLineEdit, SIGNAL(textChanged(QString)), proxy, SLOT(setFilterName(QString)));
-	QObject::connect(ui->searchFirstnameLineEdit, SIGNAL(textChanged(QString)), proxy, SLOT(setFilterFirstname(QString)));
-	QObject::connect(ui->searchIDSpinBox, SIGNAL(valueChanged(int)), proxy, SLOT(setFilterID(int)));
-	QObject::connect(ui->searchBeginDateEdit, SIGNAL(dateChanged(QDate)), proxy, SLOT(setFilterBeginDate(QDate)));
-	QObject::connect(ui->searchEndDateEdit, SIGNAL(dateChanged(QDate)), proxy, SLOT(setFilterEndDate(QDate)));
+	QObject::connect(ui->searchNameLineEdit, SIGNAL(textChanged(QString)), patientProxy, SLOT(setFilterName(QString)));
+	QObject::connect(ui->searchFirstnameLineEdit, SIGNAL(textChanged(QString)), patientProxy, SLOT(setFilterFirstname(QString)));
+	QObject::connect(ui->searchIDSpinBox, SIGNAL(valueChanged(int)), patientProxy, SLOT(setFilterID(int)));
+	QObject::connect(ui->searchBeginDateEdit, SIGNAL(dateChanged(QDate)), patientProxy, SLOT(setFilterBeginDate(QDate)));
+	QObject::connect(ui->searchEndDateEdit, SIGNAL(dateChanged(QDate)), patientProxy, SLOT(setFilterEndDate(QDate)));
 
 	//connect signal patient inserted into the DB
-	QObject::connect(model, SIGNAL(patientInserted(void)), this, SLOT(on_patientInserted(void)));
+	QObject::connect(patientModel, SIGNAL(patientInserted(void)), this, SLOT(on_patientInserted(void)));
+
+	//connect signal dataChanged to the tree model
+	QObject::connect(healthworkerModel->getHealthWorkerTableModel(),
+					 SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)),
+					 healthworkerModel, SLOT(updateData()));
+	QObject::connect(healthworkerModel->getHealthWorkerTypeTableModel(),
+					 SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)),
+					 healthworkerModel, SLOT(updateData()));
 }
 
 void MainWindow::on_actionQuitter_triggered()
@@ -65,11 +82,11 @@ void MainWindow::on_actionPatient_triggered()
 {
 	createPatientDialog = new CreatePatientDialog(this);
 
-	QObject::connect(createPatientDialog, SIGNAL(patientCreated(Patient)), model, SLOT(insertPatient(Patient)));
+	QObject::connect(createPatientDialog, SIGNAL(patientCreated(Patient)), patientModel, SLOT(insertPatient(Patient)));
 
 	createPatientDialog->exec();
 
-	QObject::disconnect(createPatientDialog, SIGNAL(patientCreated(Patient)), model, SLOT(insertPatient(Patient)));
+	QObject::disconnect(createPatientDialog, SIGNAL(patientCreated(Patient)), patientModel, SLOT(insertPatient(Patient)));
 	delete createPatientDialog;
 }
 
@@ -90,7 +107,7 @@ void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 
 void MainWindow::on_pushButtonSearchPatient_clicked()
 {
-	//...
+	//nothing to do since the search is in real time...
 }
 
 void MainWindow::on_patientInserted()
