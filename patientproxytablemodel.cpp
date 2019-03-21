@@ -78,3 +78,14 @@ void PatientProxyTableModel::setFilterEndDate(QDate endDate)
 		invalidateFilter();
 	}
 }
+
+bool PatientProxyTableModel::deletePatient(const QModelIndex& indexToDelete)
+{
+	int rowSelected = indexToDelete.row();
+
+	PatientSqlTableModel * patientSourceModel = static_cast<PatientSqlTableModel*>( sourceModel() );
+	bool deleted = removeRow(rowSelected);
+	patientSourceModel->select();
+
+	return deleted;
+}

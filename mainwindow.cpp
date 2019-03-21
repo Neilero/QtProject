@@ -110,12 +110,12 @@ void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 	}
 }
 
-void MainWindow::on_pushButtonSearchPatient_clicked()
+void MainWindow::on_pushButtonDeletePatient_clicked()
 {
 	QModelIndex currentIndex = ui->tableView->currentIndex();
 
 	if (currentIndex.isValid()) {
-		if (patientModel->deletePatient( ui->tableView->currentIndex() ) ) {
+		if (patientProxy->deletePatient( ui->tableView->currentIndex() ) ) {
 			ui->statusBar->showMessage("Patient supprimé, 5000");
 		}
 		else {

@@ -5,6 +5,8 @@
 #include <QSortFilterProxyModel>
 #include <QDate>
 
+#include "patientsqltablemodel.h"
+
 class PatientProxyTableModel : public QSortFilterProxyModel
 {
 	Q_OBJECT
@@ -28,6 +30,8 @@ public slots:
 	void setFilterID(int ID);
 	void setFilterBeginDate(QDate beginDate);
 	void setFilterEndDate(QDate endDate);
+
+	bool deletePatient(const QModelIndex& indexToDelete);
 };
 
 #endif // PATIENTPROXYTABLEMODEL_H

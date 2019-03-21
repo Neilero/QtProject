@@ -18,7 +18,6 @@ public:
 
 public slots:
 	void insertPatient(Patient newPatient);
-	bool deletePatient(const QModelIndex &indexToDelete);
 
 signals:
 	void patientInserted();

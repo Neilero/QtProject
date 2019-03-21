@@ -36,7 +36,7 @@ private slots:
 
 	void on_pushButtonDeleteHealthWorker_clicked();
 
-	void on_pushButtonSearchPatient_clicked();
+	void on_pushButtonDeletePatient_clicked();
 
 	void on_patientInserted();
 

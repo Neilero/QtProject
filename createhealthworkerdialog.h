@@ -15,8 +15,6 @@ public:
 	explicit createHealthWorkerDialog(QWidget *parent = nullptr);
 	~createHealthWorkerDialog();
 
-
-
 private:
 	Ui::createHealthWorkerDialog *ui;
 };

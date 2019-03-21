@@ -79,8 +79,9 @@ void HealthWorkerTreeModel::updateData()
 		int healthWorkerType = healthWorkerRecord.field(3).value().toInt();
 
 		//check if record has been removed
-		if (healthWorkerID == 0)
+		if (healthWorkerID == 0){
 			continue;
+		}
 
 		//build healthworker item
 		QStandardItem * healthWorker = new QStandardItem(healthWorkerName + " " + healthWorkerFirstname);
@@ -98,15 +99,6 @@ void HealthWorkerTreeModel::deleteHealthWorker(const QModelIndex& indexToDelete)
 		return;
 
 	QStandardItem * itemToDelete = itemFromIndex(indexToDelete);
-
-	qDebug();
-	qDebug() << "Deleted :"
-			 << healthWorkerTableModel->record( itemToDelete->data().toInt() -1 ).field(1).value().toString()
-			 << healthWorkerTableModel->record( itemToDelete->data().toInt() -1 ).field(2).value().toString()
-			 << "("
-			 << healthWorkerTableModel->record( itemToDelete->data().toInt() -1 ).field(0).value().toInt()
-			 << ")";
-	qDebug();
 
 	healthWorkerTableModel->removeRow( itemToDelete->data().toInt() -1 );
 	healthWorkerTableModel->submitAll();

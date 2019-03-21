@@ -5,6 +5,7 @@
         <file>resources/polytechIcon_400x400.jpg</file>
         <file>resources/polytechIcon_400x400.png</file>
         <file>resources/searchIcon.png</file>
+        <file>resources/baseline_delete_black_48dp.png</file>
     </qresource>
     <qresource prefix="/images">
         <file>resources/polytechToursImage.png</file>

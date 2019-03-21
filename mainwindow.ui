@@ -92,13 +92,13 @@
          </widget>
         </item>
         <item row="0" column="10">
-         <widget class="QPushButton" name="pushButtonSearchPatient">
+         <widget class="QPushButton" name="pushButtonDeletePatient">
           <property name="text">
            <string> Supprimer</string>
           </property>
           <property name="icon">
            <iconset resource="ressources.qrc">
-            <normaloff>:/icon/resources/searchIcon.png</normaloff>:/icon/resources/searchIcon.png</iconset>
+            <normaloff>:/icon/resources/baseline_delete_black_48dp.png</normaloff>:/icon/resources/baseline_delete_black_48dp.png</iconset>
           </property>
          </widget>
         </item>
@@ -304,7 +304,7 @@
   <tabstop>searchBeginDateEdit</tabstop>
   <tabstop>searchEndDateEdit</tabstop>
   <tabstop>searchIDSpinBox</tabstop>
-  <tabstop>pushButtonSearchPatient</tabstop>
+  <tabstop>pushButtonDeletePatient</tabstop>
   <tabstop>tableView</tabstop>
   <tabstop>pushButtonEditHealthWorker</tabstop>
   <tabstop>pushButtonDeleteHealthWorker</tabstop>
