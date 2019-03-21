@@ -10,6 +10,7 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent) :
 {
 	ui->setupUi(this);
     patient = new Patient();
+    qDebug << "TODO : liste d’identifiants de ressource (CreatePatientDialog)" << endl;
 }
 
 CreatePatientDialog::~CreatePatientDialog()
