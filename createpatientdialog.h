@@ -21,12 +21,15 @@ signals:
 	void patientCreated(Patient newPatient);
 
 private slots:
-	void on_buttonBox_accepted();
+    void on_buttonBox_accepted();
+
+    void accept();
 
 	void on_buttonBox_rejected();
 
 private:
 	Ui::CreatePatientDialog *ui;
+    Patient* patient;
 };
 
 #endif // CREATEPATIENTDIALOG_H

@@ -70,6 +70,16 @@
        <family>Calibri</family>
       </font>
      </property>
+     <property name="dateTime">
+      <datetime>
+       <hour>0</hour>
+       <minute>0</minute>
+       <second>0</second>
+       <year>2018</year>
+       <month>12</month>
+       <day>31</day>
+      </datetime>
+     </property>
      <property name="minimumDateTime">
       <datetime>
        <hour>0</hour>
@@ -212,6 +222,9 @@
      </property>
      <property name="text">
       <string>Adresse :</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
