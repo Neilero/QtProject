@@ -5,6 +5,8 @@
 #include <QStandardItemModel>
 #include <QSqlTableModel>
 
+#include "createhealthworkerdialog.h"
+
 class HealthWorkerTreeModel : public QStandardItemModel
 {
 	Q_OBJECT
@@ -16,7 +18,6 @@ private:
 public:
 	HealthWorkerTreeModel(QObject* parent = nullptr, QSqlDatabase db = QSqlDatabase());
 	QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
-
 
 	QSqlTableModel* getHealthWorkerTableModel() const;
 	QSqlTableModel* getHealthWorkerTypeTableModel() const;

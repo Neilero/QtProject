@@ -67,6 +67,13 @@ void PatientSqlTableModel::insertPatient(Patient newPatient)
 	}
 }
 
+bool PatientSqlTableModel::deletePatient(const QModelIndex& indexToDelete)
+{
+	qDebug() << indexToDelete.data(0);
+
+	return true;
+}
+
 QVariant PatientSqlTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	if (role == Qt::DisplayRole)

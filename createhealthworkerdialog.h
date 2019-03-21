@@ -9,14 +9,16 @@ class createHealthWorkerDialog;
 
 class createHealthWorkerDialog : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit createHealthWorkerDialog(QWidget *parent = 0);
-    ~createHealthWorkerDialog();
+	explicit createHealthWorkerDialog(QWidget *parent = nullptr);
+	~createHealthWorkerDialog();
+
+
 
 private:
-    Ui::createHealthWorkerDialog *ui;
+	Ui::createHealthWorkerDialog *ui;
 };
 
 #endif // CREATEHEALTHWORKERDIALOG_H
