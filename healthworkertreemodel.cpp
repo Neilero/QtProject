@@ -19,6 +19,21 @@ HealthWorkerTreeModel::HealthWorkerTreeModel(QObject* parent, QSqlDatabase db)
 	updateData();
 }
 
+QVariant HealthWorkerTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+	if (role == Qt::DisplayRole)
+	{
+		if (orientation == Qt::Horizontal) {
+
+			if (section == 0 )
+				return QString("Personnel de soin");
+
+		}
+	}
+
+	return QVariant();
+}
+
 QSqlTableModel* HealthWorkerTreeModel::getHealthWorkerTableModel() const
 {
 	return healthWorkerTableModel;
@@ -63,6 +78,10 @@ void HealthWorkerTreeModel::updateData()
 		QString healthWorkerFirstname = healthWorkerRecord.field(2).value().toString();
 		int healthWorkerType = healthWorkerRecord.field(3).value().toInt();
 
+		//check if record has been removed
+		if (healthWorkerID == 0)
+			continue;
+
 		//build healthworker item
 		QStandardItem * healthWorker = new QStandardItem(healthWorkerName + " " + healthWorkerFirstname);
 		healthWorker->setData(healthWorkerID);
@@ -71,4 +90,29 @@ void HealthWorkerTreeModel::updateData()
 		//insert healthworker into its type item.
 		healthWorkerTypes.value(healthWorkerType)->insertRow(0, healthWorker);
 	}
+}
+
+void HealthWorkerTreeModel::deleteHealthWorker(const QModelIndex& indexToDelete)
+{
+	if (!indexToDelete.isValid())
+		return;
+
+	QStandardItem * itemToDelete = itemFromIndex(indexToDelete);
+
+	qDebug();
+	qDebug() << "Deleted :"
+			 << healthWorkerTableModel->record( itemToDelete->data().toInt() -1 ).field(1).value().toString()
+			 << healthWorkerTableModel->record( itemToDelete->data().toInt() -1 ).field(2).value().toString()
+			 << "("
+			 << healthWorkerTableModel->record( itemToDelete->data().toInt() -1 ).field(0).value().toInt()
+			 << ")";
+	qDebug();
+
+	healthWorkerTableModel->removeRow( itemToDelete->data().toInt() -1 );
+	healthWorkerTableModel->submitAll();
+}
+
+void HealthWorkerTreeModel::updateHealthWorker(QModelIndex* indexToUpdate)
+{
+
 }

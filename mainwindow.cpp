@@ -102,6 +102,7 @@ void MainWindow::on_pushButtonEditHealthWorker_clicked()
 
 void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 {
+	healthworkerModel->deleteHealthWorker( ui->treeViewHealthWorker->currentIndex() );
 	ui->statusBar->showMessage("Personnel supprimé", 5000);
 }
 
