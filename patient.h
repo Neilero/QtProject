@@ -22,10 +22,8 @@ private:
 	QString commentary;
 	int phoneNumber;		//only number (ie. size == 10)
 
-	//default constructor shouldn't be used since we have compulsory attributes
-	Patient();
-
 public:
+    Patient();
 	Patient(QString name, QString firstname, QString address, QString town, int postalCode, QDate consultationDate, QTime consultationDuration = QTime(1,0), int priority = 1, QString commentary = QString(""), int phoneNumber = 0);
 
 	QString getName() const;
