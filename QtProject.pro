@@ -33,9 +33,10 @@ SOURCES += \
 	patient.cpp \
 	healthworker.cpp \
 	c_init_bd.cpp \
-    patientsqltablemodel.cpp \
-    patientproxytablemodel.cpp \
-    createhealthworkerdialog.cpp
+	patientsqltablemodel.cpp \
+	patientproxytablemodel.cpp \
+	createhealthworkerdialog.cpp \
+    healthworkertreemodel.cpp
 
 HEADERS += \
 		mainwindow.h \
@@ -46,16 +47,17 @@ HEADERS += \
 	healthworker.h \
 	healthworkertype.h \
 	c_init_bd.h \
-    patientsqltablemodel.h \
-    patientproxytablemodel.h \
-    createhealthworkerdialog.h
+	patientsqltablemodel.h \
+	patientproxytablemodel.h \
+	createhealthworkerdialog.h \
+    healthworkertreemodel.h
 
 FORMS += \
 		mainwindow.ui \
 	authentificationdialog.ui \
 	aboutdialog.ui \
 	createpatientdialog.ui \
-    createhealthworkerdialog.ui
+	createhealthworkerdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

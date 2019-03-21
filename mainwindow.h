@@ -5,6 +5,7 @@
 
 #include "patientsqltablemodel.h"
 #include "patientproxytablemodel.h"
+#include "healthworkertreemodel.h"
 #include "createpatientdialog.h"
 
 namespace Ui {
@@ -41,8 +42,9 @@ private slots:
 
 private:
 	Ui::MainWindow *ui;
-	PatientSqlTableModel *model;
-	PatientProxyTableModel *proxy;
+	PatientSqlTableModel *patientModel;
+	PatientProxyTableModel *patientProxy;
+	HealthWorkerTreeModel *healthworkerModel;
 	QSqlDatabase db;
 	CreatePatientDialog *createPatientDialog;
 };
