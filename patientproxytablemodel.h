@@ -21,8 +21,9 @@ private:
 public:
 	PatientProxyTableModel(QObject* parent = nullptr);
 
-	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
-	QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
+	QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+	Qt::ItemFlags flags(const QModelIndex& index) const override;
 
 public slots:
 	void setFilterName(QString name);

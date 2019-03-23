@@ -11,11 +11,14 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 {
 	ui->setupUi(this);
 
-	if (editedRow < 0)
+	if (editedRow < 0) {
 		editMode = false;
+		ui->labelTitle->setText("Création d'un nouveau patient");
+	}
 	else {
 		editMode = true;
 		this->editedRow = editedRow;
+		ui->labelTitle->setText("Édition d'un patient");
 	}
 
 	qDebug() << "TODO : liste d’identifiants de ressource (CreatePatientDialog)" << endl;

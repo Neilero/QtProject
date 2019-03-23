@@ -95,8 +95,8 @@ void MainWindow::on_actionPatient_triggered()
 
 void MainWindow::on_actionPersonnel_de_soin_triggered()
 {
-    createHealthWorkerDialog = new CreateHealthWorkerDialog(this);
-    createHealthWorkerDialog->exec();
+	createHealthWorkerDialog = new CreateHealthWorkerDialog(this);
+	createHealthWorkerDialog->exec();
 
 
 	ui->statusBar->showMessage("Personnel ajouté", 5000);
@@ -144,7 +144,7 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
 	QSqlRecord patientRecord = patientModel->record( patientProxy->data( patientProxy->index( index.row(), 0 ) ).toInt() -1 );
 
-	createPatientDialog = new CreatePatientDialog(this, patientRecord.field(0).value().toInt());
+	createPatientDialog = new CreatePatientDialog(this, patientRecord.field(0).value().toInt() -1);
 
 	createPatientDialog->setName( patientRecord.field(1).value().toString() );
 

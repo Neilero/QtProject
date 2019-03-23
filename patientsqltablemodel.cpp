@@ -12,8 +12,11 @@ PatientSqlTableModel::PatientSqlTableModel(QObject* parent, QSqlDatabase db)
 
 Qt::ItemFlags PatientSqlTableModel::flags(const QModelIndex& index) const
 {
-	Q_UNUSED(index);
-	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+	if ( index.column() == 0 )
+		return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+	else {
+		return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
+	}
 }
 
 void PatientSqlTableModel::insertPatient(Patient newPatient)
@@ -50,6 +53,8 @@ void PatientSqlTableModel::insertPatient(Patient newPatient)
 
 	patientLine.setValue("Priorite", newPatient.getPriority());
 
+	qDebug() << patientLine;
+
 	//try adding the record to the db
 
 	if( insertRecord(-1, patientLine) ){
@@ -57,13 +62,11 @@ void PatientSqlTableModel::insertPatient(Patient newPatient)
 		submitAll();
 		select();
 
-		qDebug() << "ok";
-
 		emit patientInserted();
 	}
 	else{
 		//else, rollback
-		qDebug() << database().lastError();
+		qDebug() << lastError();
 		database().rollback();
 	}
 }

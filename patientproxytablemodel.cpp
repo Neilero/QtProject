@@ -40,6 +40,17 @@ QVariant PatientProxyTableModel::headerData(int section, Qt::Orientation orienta
 	return sourceModel()->headerData(section, orientation, role);
 }
 
+/**
+ * @brief PatientProxyTableModel::flags used to allow the source model to be editable without allowing the view to edit the model
+ * @param index the index of the model (not used)
+ * @return Qt::ItemIsEnabled | Qt::ItemIsSelectable (all items are enabled and selectable)
+ */
+Qt::ItemFlags PatientProxyTableModel::flags(const QModelIndex& index) const
+{
+	Q_UNUSED(index);
+	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+}
+
 void PatientProxyTableModel::setFilterName(QString name)
 {
 	filterName = name;
