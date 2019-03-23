@@ -8,7 +8,7 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::CreatePatientDialog)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 	patient = new Patient();
 	qDebug() << "TODO : liste d’identifiants de ressource (CreatePatientDialog)" << endl;
 }
@@ -17,12 +17,57 @@ CreatePatientDialog::~CreatePatientDialog()
 {
 	delete ui;
 }
-/*
-void CreatePatientDialog::on_buttonBox_accepted()
-{
 
+void CreatePatientDialog::setName(QString name)
+{
+	ui->lineEditName->setText(name);
 }
-*/
+
+void CreatePatientDialog::setFirstname(QString firstname)
+{
+	ui->lineEditSurname->setText(firstname);
+}
+
+void CreatePatientDialog::setAddress(QString address)
+{
+	ui->lineEditAddress->setText(address);
+}
+
+void CreatePatientDialog::setCommentary(QString commentary)
+{
+	ui->plainTextEditCommentary->setPlainText(commentary);
+}
+
+void CreatePatientDialog::setConsultationDate(QDate consultationDate)
+{
+	ui->dateEditConsultationDay->setDate(consultationDate);
+}
+
+void CreatePatientDialog::setConsultationDuration(QTime duration)
+{
+	ui->timeEditDuration->setTime(duration);
+}
+
+void CreatePatientDialog::setPhoneNumber(int phoneNumber)
+{
+	ui->lineEditPhone->setText( QString(phoneNumber) );
+}
+
+void CreatePatientDialog::setPostalCode(int postalCode)
+{
+	ui->lineEditPostCode->setText( QString(postalCode) );
+}
+
+void CreatePatientDialog::setPriority(int priority)
+{
+	ui->horizontalSliderPriority->setValue(priority);
+}
+
+void CreatePatientDialog::setTown(QString town)
+{
+	ui->lineEditTown->setText(town);
+}
+
 void CreatePatientDialog::accept()
 {
 	bool * conversionOk = nullptr;
@@ -62,7 +107,11 @@ void CreatePatientDialog::accept()
 		this->patient->setAddress(ui->lineEditAddress->text());
 	}
 	catch(int e){
-		error.append("L'adresse du patient est incorrecte\n");
+		if (e == 1)
+			error.append("L'adresse du patient est vide.\n");
+		else {
+			error.append("L'adresse du patient est incorrect.\n");
+		}
 	}
 
 
@@ -117,12 +166,7 @@ void CreatePatientDialog::accept()
 
 
 	//set the durations of the consultations
-	try{
-		this->patient->setConsultationDuration(ui->timeEditDuration->time());
-	}
-	catch(int e){
-		error.append("La durée de consultation est incorrecte.\n");
-	}
+	this->patient->setConsultationDuration(ui->timeEditDuration->time());
 
 
 	//set the priority of the consultation
@@ -138,12 +182,7 @@ void CreatePatientDialog::accept()
 
 
 	//add a commentary
-	try{
-		this->patient->setCommentary(ui->plainTextEditCommentary->toPlainText());
-	}
-	catch(int e){
-		this->patient->setCommentary(QString(""));
-	}
+	this->patient->setCommentary(ui->plainTextEditCommentary->toPlainText());
 
 	if(error.isEmpty()){
 		this->close();

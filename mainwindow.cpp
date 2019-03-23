@@ -1,4 +1,7 @@
 #include <QMessageBox>
+#include <QSqlRecord>
+#include <QSqlField>
+#include <QDebug>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -127,4 +130,24 @@ void MainWindow::on_pushButtonDeletePatient_clicked()
 void MainWindow::on_patientInserted()
 {
 	ui->statusBar->showMessage("Patient ajouté", 5000);
+}
+
+void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
+{
+	QSqlRecord patientRecord = patientModel->record( patientProxy->data( patientProxy->index( index.row(), 0 ) ).toInt() -1 );
+
+	CreatePatientDialog editDialog(this);
+
+	editDialog.setName( patientRecord.field(1).value().toString() );
+	editDialog.setFirstname( patientRecord.field(2).value().toString() );
+	editDialog.setAddress( patientRecord.field(3).value().toString() );
+	editDialog.setTown( patientRecord.field(4).value().toString() );
+	editDialog.setPostalCode( patientRecord.field(5).value().toInt() );
+	editDialog.setCommentary( patientRecord.field(6).value().toString() );
+	editDialog.setPhoneNumber( patientRecord.field(7).value().toInt() );
+	editDialog.setConsultationDate( patientRecord.field(8).value().toDate() );
+	editDialog.setConsultationDuration( patientRecord.field(9).value().toDateTime().time() );
+	editDialog.setPriority( patientRecord.field(10).value().toInt() );
+
+	//TODO edit creation dialog to allow edition and not only creation
 }

@@ -17,19 +17,27 @@ public:
 	explicit CreatePatientDialog(QWidget *parent = nullptr);
 	~CreatePatientDialog();
 
+	void setName(QString name);
+	void setFirstname(QString firstname);
+	void setAddress(QString address);
+	void setCommentary(QString commentary);
+	void setConsultationDate(QDate consultationDate);
+	void setConsultationDuration(QTime duration);
+	void setPhoneNumber(int phoneNumber);
+	void setPostalCode(int postalCode);
+	void setPriority(int priority);
+	void setTown(QString town);
+
 signals:
 	void patientCreated(Patient newPatient);
 
 private slots:
-    void on_buttonBox_accepted();
-
-    void accept();
-
+	void accept();
 	void on_buttonBox_rejected();
 
 private:
 	Ui::CreatePatientDialog *ui;
-    Patient* patient;
+	Patient* patient;
 };
 
 #endif // CREATEPATIENTDIALOG_H

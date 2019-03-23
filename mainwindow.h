@@ -40,6 +40,8 @@ private slots:
 
 	void on_patientInserted();
 
+	void on_tableView_doubleClicked(const QModelIndex &index);
+
 private:
 	Ui::MainWindow *ui;
 	PatientSqlTableModel *patientModel;
