@@ -2,8 +2,10 @@
 #define CREATEHEALTHWORKERDIALOG_H
 
 #include <QDialog>
-#include "healthworker.h"
-
+#include <QSqlTableModel>
+#include <QSqlRecord>
+#include <QSqlField>
+#include <QComboBox>
 #include "healthworker.h"
 
 namespace Ui {
@@ -26,9 +28,13 @@ private slots:
 
 	void on_buttonBox_rejected();
 
+    void on_ComboxBoxCurrentIndex_Changed(int index);
+
 private:
+    void init_comboBox(QComboBox comboBox);
 	Ui::CreateHealthWorkerDialog *ui;
 	HealthWorker* healthworker;
+    QSqlTableModel* healthWorkerTypeTable;
 };
 
 #endif // CREATEHEALTHWORKERDIALOG_H

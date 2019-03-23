@@ -2,6 +2,7 @@
 
 #include <QSqlRecord>
 #include <QSqlField>
+#include <QSqlRecord>
 #include <QMap>
 #include <QDebug>
 
