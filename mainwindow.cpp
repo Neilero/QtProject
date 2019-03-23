@@ -95,6 +95,10 @@ void MainWindow::on_actionPatient_triggered()
 
 void MainWindow::on_actionPersonnel_de_soin_triggered()
 {
+    createHealthWorkerDialog = new CreateHealthWorkerDialog(this);
+    createHealthWorkerDialog->exec();
+
+
 	ui->statusBar->showMessage("Personnel ajouté", 5000);
 }
 

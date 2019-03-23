@@ -49,6 +49,7 @@ private:
 	HealthWorkerTreeModel *healthworkerModel;
 	QSqlDatabase db;
 	CreatePatientDialog *createPatientDialog;
+    CreateHealthWorkerDialog *createHealthWorkerDialog;
 };
 
 #endif // MAINWINDOW_H

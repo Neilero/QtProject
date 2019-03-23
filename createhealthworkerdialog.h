@@ -6,6 +6,7 @@
 #include <QSqlRecord>
 #include <QSqlField>
 #include <QComboBox>
+#include <QDebug>
 #include "healthworker.h"
 
 namespace Ui {

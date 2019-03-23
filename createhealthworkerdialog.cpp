@@ -5,17 +5,23 @@ CreateHealthWorkerDialog::CreateHealthWorkerDialog(QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::CreateHealthWorkerDialog)
 {
-    //Combobox
+    ui->setupUi(this);
+
+    //Signal when the combobox index changes
     QObject::connect(ui->comboBoxType,SIGNAL(currentIndexChanged(int)),this,SLOT(on_ComboxBoxCurrentIndex_Changed(int)));
+
+    //get the datas from the db
     QSqlDatabase db = QSqlDatabase::database();
     healthWorkerTypeTable = new QSqlTableModel(this, db);
     healthWorkerTypeTable->setTable("TType");
     healthWorkerTypeTable->select();
-    QString healthWorkerTypeField = healthWorkerTypeTable->record(0).field(1).value().toString();
 
-    ui->comboBoxType->addItem(healthWorkerTypeField);
-	ui->setupUi(this);
-
+    //get each type and add the combobox
+    for(int typeIndex = 0; typeIndex < healthWorkerTypeTable->rowCount(); typeIndex++)
+    {
+        QString healthWorkerTypeField = healthWorkerTypeTable->record(typeIndex).field(1).value().toString();
+        ui->comboBoxType->addItem(healthWorkerTypeField);
+    }
 }
 
 CreateHealthWorkerDialog::~CreateHealthWorkerDialog()
@@ -36,5 +42,5 @@ void CreateHealthWorkerDialog::on_buttonBox_rejected()
 void CreateHealthWorkerDialog::on_ComboxBoxCurrentIndex_Changed(int index)
 {
 
-    this->close();
+    //this->close();
 }
