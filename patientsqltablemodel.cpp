@@ -53,8 +53,6 @@ void PatientSqlTableModel::insertPatient(Patient newPatient)
 
 	patientLine.setValue("Priorite", newPatient.getPriority());
 
-	qDebug() << patientLine;
-
 	//try adding the record to the db
 
 	if( insertRecord(-1, patientLine) ){
@@ -65,8 +63,7 @@ void PatientSqlTableModel::insertPatient(Patient newPatient)
 		emit patientInserted();
 	}
 	else{
-		//else, rollback
-		qDebug() << lastError();
+        //else, rollback
 		database().rollback();
 	}
 }

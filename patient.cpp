@@ -156,7 +156,7 @@ int Patient::getPhoneNumber() const
 void Patient::setPhoneNumber(int value)
 {
    if(value == 0)
-      throw(1);
+      phoneNumber = 0;
    else if (100000000 <= value && value <= 999999999)
        phoneNumber = value;
    else
