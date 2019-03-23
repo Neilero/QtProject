@@ -8,7 +8,7 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::CreatePatientDialog)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
 	patient = new Patient();
 	qDebug() << "TODO : liste d’identifiants de ressource (CreatePatientDialog)" << endl;
 }
@@ -17,15 +17,14 @@ CreatePatientDialog::~CreatePatientDialog()
 {
 	delete ui;
 }
-
+/*
 void CreatePatientDialog::on_buttonBox_accepted()
 {
 
 }
-
+*/
 void CreatePatientDialog::accept()
 {
-
 	bool * conversionOk = nullptr;
 	QString error = "";
 
