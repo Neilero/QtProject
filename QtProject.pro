@@ -9,6 +9,7 @@ QT       += core gui sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = QtProject
+CONFIG += c++11
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -36,7 +37,7 @@ SOURCES += \
 	patientsqltablemodel.cpp \
 	patientproxytablemodel.cpp \
 	createhealthworkerdialog.cpp \
-    healthworkertreemodel.cpp
+	healthworkertreemodel.cpp
 
 HEADERS += \
 		mainwindow.h \
@@ -50,7 +51,7 @@ HEADERS += \
 	patientsqltablemodel.h \
 	patientproxytablemodel.h \
 	createhealthworkerdialog.h \
-    healthworkertreemodel.h
+	healthworkertreemodel.h
 
 FORMS += \
 		mainwindow.ui \

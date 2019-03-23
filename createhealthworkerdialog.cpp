@@ -1,14 +1,24 @@
 #include "createhealthworkerdialog.h"
 #include "ui_createhealthworkerdialog.h"
 
-createHealthWorkerDialog::createHealthWorkerDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::createHealthWorkerDialog)
+CreateHealthWorkerDialog::CreateHealthWorkerDialog(QWidget *parent) :
+	QDialog(parent),
+	ui(new Ui::CreateHealthWorkerDialog)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 }
 
-createHealthWorkerDialog::~createHealthWorkerDialog()
+CreateHealthWorkerDialog::~CreateHealthWorkerDialog()
 {
-    delete ui;
+	delete ui;
+}
+
+void CreateHealthWorkerDialog::accept()
+{
+	//TODO creation of healthworker
+}
+
+void CreateHealthWorkerDialog::on_buttonBox_rejected()
+{
+	this->close();
 }

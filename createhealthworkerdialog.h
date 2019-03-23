@@ -7,7 +7,7 @@
 #include "healthworker.h"
 
 namespace Ui {
-class createHealthWorkerDialog;
+class CreateHealthWorkerDialog;
 }
 
 class CreateHealthWorkerDialog : public QDialog
@@ -15,20 +15,20 @@ class CreateHealthWorkerDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit createHealthWorkerDialog(QWidget *parent = nullptr);
-	~createHealthWorkerDialog();
+	explicit CreateHealthWorkerDialog(QWidget *parent = nullptr);
+	~CreateHealthWorkerDialog();
 
 signals:
 //    void healthWorkerCreated(HealthWorker newHealthWorker);
 
 private slots:
-    void accept();
+	void accept();
 
-    void on_buttonBox_rejected();
+	void on_buttonBox_rejected();
 
 private:
-    Ui::createHealthWorkerDialog *ui;
-    HealthWorker* healthworker;
+	Ui::CreateHealthWorkerDialog *ui;
+	HealthWorker* healthworker;
 };
 
 #endif // CREATEHEALTHWORKERDIALOG_H
