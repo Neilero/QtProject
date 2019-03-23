@@ -7,9 +7,6 @@ CreateHealthWorkerDialog::CreateHealthWorkerDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //Signal when the combobox index changes
-    QObject::connect(ui->comboBoxType,SIGNAL(currentIndexChanged(int)),this,SLOT(on_ComboxBoxCurrentIndex_Changed(int)));
-
     //get the datas from the db
     QSqlDatabase db = QSqlDatabase::database();
     healthWorkerTypeTable = new QSqlTableModel(this, db);
@@ -39,8 +36,21 @@ void CreateHealthWorkerDialog::on_buttonBox_rejected()
 	this->close();
 }
 
-void CreateHealthWorkerDialog::on_ComboxBoxCurrentIndex_Changed(int index)
+void CreateHealthWorkerDialog::on_comboBoxType_currentIndexChanged(int index)
 {
 
-    //this->close();
+    if(ui->comboBoxType->itemText(index) == "Informaticien")
+    {
+        ui->labelLogin->setVisible(true);
+        ui->lineEditLogin->setVisible(true);
+        ui->labelPassword->setVisible(true);
+        ui->lineEditPassword->setVisible(true);
+    }
+    else
+    {
+        ui->labelLogin->setVisible(false);
+        ui->lineEditLogin->setVisible(false);
+        ui->labelPassword->setVisible(false);
+        ui->lineEditPassword->setVisible(false);
+    }
 }

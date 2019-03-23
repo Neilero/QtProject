@@ -21,15 +21,12 @@ public:
 	explicit CreateHealthWorkerDialog(QWidget *parent = nullptr);
 	~CreateHealthWorkerDialog();
 
-signals:
-//    void healthWorkerCreated(HealthWorker newHealthWorker);
-
 private slots:
 	void accept();
 
 	void on_buttonBox_rejected();
 
-    void on_ComboxBoxCurrentIndex_Changed(int index);
+    void on_comboBoxType_currentIndexChanged(int index);
 
 private:
     void init_comboBox(QComboBox comboBox);
