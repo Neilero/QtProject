@@ -4,12 +4,14 @@
 #include <QMessageBox>
 #include <QDebug>
 
-CreatePatientDialog::CreatePatientDialog(QWidget *parent) :
+CreatePatientDialog::CreatePatientDialog(QWidget *parent, bool editMode) :
 	QDialog(parent),
-	ui(new Ui::CreatePatientDialog)
+	ui(new Ui::CreatePatientDialog),
+	patient(new Patient()),
+	editMode(editMode)
 {
 	ui->setupUi(this);
-	patient = new Patient();
+
 	qDebug() << "TODO : liste d’identifiants de ressource (CreatePatientDialog)" << endl;
 }
 
@@ -40,22 +42,22 @@ void CreatePatientDialog::setCommentary(QString commentary)
 
 void CreatePatientDialog::setConsultationDate(QDate consultationDate)
 {
-	ui->dateEditConsultationDay->setDate(consultationDate);
+	ui->dateEditConsultationDay->setDate( consultationDate );
 }
 
 void CreatePatientDialog::setConsultationDuration(QTime duration)
 {
-	ui->timeEditDuration->setTime(duration);
+	ui->timeEditDuration->setTime( duration );
 }
 
 void CreatePatientDialog::setPhoneNumber(int phoneNumber)
 {
-	ui->lineEditPhone->setText( QString(phoneNumber) );
+	ui->lineEditPhone->setText( QString::number(phoneNumber, 10).insert(0, '0') );
 }
 
 void CreatePatientDialog::setPostalCode(int postalCode)
 {
-	ui->lineEditPostCode->setText( QString(postalCode) );
+	ui->lineEditPostCode->setText( QString::number(postalCode, 10) );
 }
 
 void CreatePatientDialog::setPriority(int priority)
@@ -66,6 +68,7 @@ void CreatePatientDialog::setPriority(int priority)
 void CreatePatientDialog::setTown(QString town)
 {
 	ui->lineEditTown->setText(town);
+	ui->lineEditTown->setCursorPosition(0);
 }
 
 void CreatePatientDialog::accept()
@@ -85,7 +88,6 @@ void CreatePatientDialog::accept()
 		else
 			error.append("Le nom du patient est incorrect.\n");
 	}
-
 
 
 	//Set the firstname of the patient
@@ -184,13 +186,30 @@ void CreatePatientDialog::accept()
 	//add a commentary
 	this->patient->setCommentary(ui->plainTextEditCommentary->toPlainText());
 
+
+	//check if error was reported
 	if(error.isEmpty()){
 		this->close();
-		emit patientCreated(*patient);
+
+		if (editMode) {
+			emit patientEdited(*patient);
+		}
+		else {
+			emit patientCreated(*patient);
+		}
 	}
 	else
 	{
-		QMessageBox::warning(this,"Erreur de création du patient",error);
+		QString warningTitle;
+
+		if (editMode) {
+			warningTitle = "Erreur d'édition du patient";
+		}
+		else {
+			warningTitle = "Erreur de création du patient";
+		}
+
+		QMessageBox::warning(this,warningTitle,error);
 	}
 }
 

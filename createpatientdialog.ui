@@ -80,16 +80,6 @@
        <day>31</day>
       </datetime>
      </property>
-     <property name="minimumDateTime">
-      <datetime>
-       <hour>0</hour>
-       <minute>0</minute>
-       <second>0</second>
-       <year>2018</year>
-       <month>1</month>
-       <day>1</day>
-      </datetime>
-     </property>
      <property name="calendarPopup">
       <bool>true</bool>
      </property>
@@ -113,6 +103,12 @@
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="tickPosition">
+      <enum>QSlider::TicksBelow</enum>
+     </property>
+     <property name="tickInterval">
+      <number>1</number>
      </property>
     </widget>
    </item>

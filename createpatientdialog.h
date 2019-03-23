@@ -14,7 +14,7 @@ class CreatePatientDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit CreatePatientDialog(QWidget *parent = nullptr);
+	explicit CreatePatientDialog(QWidget *parent = nullptr, bool editMode = false);
 	~CreatePatientDialog();
 
 	void setName(QString name);
@@ -30,6 +30,7 @@ public:
 
 signals:
 	void patientCreated(Patient newPatient);
+	void patientEdited(Patient editedPatient);
 
 private slots:
 	void accept();
@@ -38,6 +39,7 @@ private slots:
 private:
 	Ui::CreatePatientDialog *ui;
 	Patient* patient;
+	bool editMode;
 };
 
 #endif // CREATEPATIENTDIALOG_H

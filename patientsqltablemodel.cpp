@@ -67,6 +67,54 @@ void PatientSqlTableModel::insertPatient(Patient newPatient)
 	}
 }
 
+void PatientSqlTableModel::editPatient(Patient editedPatient)
+{
+	//start a transaction
+	database().transaction();
+
+	//create an empty record from the model structure
+	QSqlRecord patientLine = record();
+
+	//the Id is auto-increment so we don't set it up
+	patientLine.remove( patientLine.indexOf("Id") );
+
+	//set the other fields of the new patient db line
+
+	patientLine.setValue("Nom", editedPatient.getName());
+
+	patientLine.setValue("Prenom", editedPatient.getFirstname());
+
+	patientLine.setValue("Adresse", editedPatient.getAddress());
+
+	patientLine.setValue("Ville", editedPatient.getTown());
+
+	patientLine.setValue("CP", editedPatient.getPostalCode());
+
+	patientLine.setValue("Commentaire", editedPatient.getCommentary());
+
+	patientLine.setValue("Tel", editedPatient.getPhoneNumber());
+
+	patientLine.setValue("DateConsultation", editedPatient.getConsultationDate());
+
+	int consultationDuration = editedPatient.getConsultationDuration().minute() + (editedPatient.getConsultationDuration().hour() * 60);
+	patientLine.setValue("DureeConsultation", consultationDuration);
+
+	patientLine.setValue("Priorite", editedPatient.getPriority());
+
+	//try adding the record to the db
+
+	if( insertRecord(-1, patientLine) ){
+		//if ok, commit changes
+		submitAll();
+
+		emit patientInserted();
+	}
+	else{
+		//else, rollback
+		database().rollback();
+	}
+}
+
 QVariant PatientSqlTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	if (role == Qt::DisplayRole)

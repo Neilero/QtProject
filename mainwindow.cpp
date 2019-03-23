@@ -108,8 +108,9 @@ void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 	QModelIndex currentIndex = ui->treeViewHealthWorker->currentIndex();
 
 	if (currentIndex.isValid()) {
-		if (healthworkerModel->deleteHealthWorker( currentIndex ))
+		if (healthworkerModel->deleteHealthWorker( currentIndex )) {
 			ui->statusBar->showMessage("Personnel supprimé", 5000);
+		}
 		else {
 			ui->statusBar->showMessage("Erreur lors de la suppression d'un personnel de soin !", 5000);
 		}
@@ -139,18 +140,33 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
 	QSqlRecord patientRecord = patientModel->record( patientProxy->data( patientProxy->index( index.row(), 0 ) ).toInt() -1 );
 
-	CreatePatientDialog editDialog(this);
+	createPatientDialog = new CreatePatientDialog(this, true);
 
-	editDialog.setName( patientRecord.field(1).value().toString() );
-	editDialog.setFirstname( patientRecord.field(2).value().toString() );
-	editDialog.setAddress( patientRecord.field(3).value().toString() );
-	editDialog.setTown( patientRecord.field(4).value().toString() );
-	editDialog.setPostalCode( patientRecord.field(5).value().toInt() );
-	editDialog.setCommentary( patientRecord.field(6).value().toString() );
-	editDialog.setPhoneNumber( patientRecord.field(7).value().toInt() );
-	editDialog.setConsultationDate( patientRecord.field(8).value().toDate() );
-	editDialog.setConsultationDuration( patientRecord.field(9).value().toDateTime().time() );
-	editDialog.setPriority( patientRecord.field(10).value().toInt() );
+	createPatientDialog->setName( patientRecord.field(1).value().toString() );
 
-	//TODO edit creation dialog to allow edition and not only creation
+	createPatientDialog->setFirstname( patientRecord.field(2).value().toString() );
+
+	createPatientDialog->setAddress( patientRecord.field(3).value().toString() );
+
+	createPatientDialog->setTown( patientRecord.field(4).value().toString() );
+
+	createPatientDialog->setPostalCode( patientRecord.field(5).value().toInt() );
+
+	createPatientDialog->setCommentary( patientRecord.field(6).value().toString() );
+
+	createPatientDialog->setPhoneNumber( patientRecord.field(7).value().toInt() );
+
+	createPatientDialog->setConsultationDate( patientRecord.field(8).value().toDate() );
+
+	QTime consultationDuration = QTime( patientRecord.field(9).value().toInt() / 60, patientRecord.field(9).value().toInt() % 60 );
+	createPatientDialog->setConsultationDuration( consultationDuration );
+
+	createPatientDialog->setPriority( patientRecord.field(10).value().toInt() );
+
+	//connect the dialog to the appropriate slot of the DAO
+	QObject::connect(createPatientDialog, SIGNAL(patientEdited(Patient)), patientModel, SLOT(insertPatient(Patient)));
+
+	createPatientDialog->exec();
+
+	QObject::disconnect(createPatientDialog, SIGNAL(patientEdited(Patient)), patientModel, SLOT(insertPatient(Patient)));
 }
