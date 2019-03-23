@@ -105,11 +105,14 @@ void MainWindow::on_pushButtonEditHealthWorker_clicked()
 
 void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 {
-	QModelIndex currentIndex = ui->tableView->currentIndex();
+	QModelIndex currentIndex = ui->treeViewHealthWorker->currentIndex();
 
 	if (currentIndex.isValid()) {
-		healthworkerModel->deleteHealthWorker( ui->treeViewHealthWorker->currentIndex() );
-		ui->statusBar->showMessage("Personnel supprimé", 5000);
+		if (healthworkerModel->deleteHealthWorker( currentIndex ))
+			ui->statusBar->showMessage("Personnel supprimé", 5000);
+		else {
+			ui->statusBar->showMessage("Erreur lors de la suppression d'un personnel de soin !", 5000);
+		}
 	}
 }
 
@@ -118,7 +121,7 @@ void MainWindow::on_pushButtonDeletePatient_clicked()
 	QModelIndex currentIndex = ui->tableView->currentIndex();
 
 	if (currentIndex.isValid()) {
-		if (patientProxy->deletePatient( ui->tableView->currentIndex() ) ) {
+		if ( patientProxy->deletePatient( ui->tableView->currentIndex() ) ) {
 			ui->statusBar->showMessage("Patient supprimé, 5000");
 		}
 		else {

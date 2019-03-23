@@ -24,7 +24,7 @@ public:
 
 public slots:
 	void updateData();
-	void deleteHealthWorker(const QModelIndex& indexToDelete);
+	bool deleteHealthWorker(const QModelIndex& indexToDelete);
 	void updateHealthWorker(QModelIndex * indexToUpdate);
 };
 

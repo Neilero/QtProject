@@ -93,15 +93,21 @@ void HealthWorkerTreeModel::updateData()
 	}
 }
 
-void HealthWorkerTreeModel::deleteHealthWorker(const QModelIndex& indexToDelete)
+bool HealthWorkerTreeModel::deleteHealthWorker(const QModelIndex& indexToDelete)
 {
 	if (!indexToDelete.isValid())
-		return;
+		return false;
 
 	QStandardItem * itemToDelete = itemFromIndex(indexToDelete);
 
-	healthWorkerTableModel->removeRow( itemToDelete->data().toInt() -1 );
-	healthWorkerTableModel->submitAll();
+	bool healthWorkerDeleted = healthWorkerTableModel->removeRow( itemToDelete->data().toInt() -1 );
+
+	if (!healthWorkerDeleted)
+		return false;
+
+	healthWorkerDeleted = healthWorkerTableModel->submitAll();
+
+	return healthWorkerDeleted;
 }
 
 void HealthWorkerTreeModel::updateHealthWorker(QModelIndex* indexToUpdate)
