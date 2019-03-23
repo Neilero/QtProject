@@ -18,7 +18,7 @@ public:
 
 public slots:
 	void insertPatient(Patient newPatient);
-	void editPatient(Patient editedPatient);
+	void editPatient(Patient editedPatient, int row);
 
 signals:
 	void patientInserted();

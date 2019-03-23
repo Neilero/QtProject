@@ -4,13 +4,19 @@
 #include <QMessageBox>
 #include <QDebug>
 
-CreatePatientDialog::CreatePatientDialog(QWidget *parent, bool editMode) :
+CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 	QDialog(parent),
 	ui(new Ui::CreatePatientDialog),
-	patient(new Patient()),
-	editMode(editMode)
+	patient(new Patient())
 {
 	ui->setupUi(this);
+
+	if (editedRow < 0)
+		editMode = false;
+	else {
+		editMode = true;
+		this->editedRow = editedRow;
+	}
 
 	qDebug() << "TODO : liste d’identifiants de ressource (CreatePatientDialog)" << endl;
 }
@@ -192,7 +198,7 @@ void CreatePatientDialog::accept()
 		this->close();
 
 		if (editMode) {
-			emit patientEdited(*patient);
+			emit patientEdited(*patient, editedRow);
 		}
 		else {
 			emit patientCreated(*patient);

@@ -140,7 +140,7 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
 	QSqlRecord patientRecord = patientModel->record( patientProxy->data( patientProxy->index( index.row(), 0 ) ).toInt() -1 );
 
-	createPatientDialog = new CreatePatientDialog(this, true);
+	createPatientDialog = new CreatePatientDialog(this, patientRecord.field(0).value().toInt());
 
 	createPatientDialog->setName( patientRecord.field(1).value().toString() );
 
@@ -164,9 +164,9 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 	createPatientDialog->setPriority( patientRecord.field(10).value().toInt() );
 
 	//connect the dialog to the appropriate slot of the DAO
-	QObject::connect(createPatientDialog, SIGNAL(patientEdited(Patient)), patientModel, SLOT(insertPatient(Patient)));
+	QObject::connect(createPatientDialog, SIGNAL(patientEdited(Patient, int)), patientModel, SLOT(editPatient(Patient, int)));
 
 	createPatientDialog->exec();
 
-	QObject::disconnect(createPatientDialog, SIGNAL(patientEdited(Patient)), patientModel, SLOT(insertPatient(Patient)));
+	QObject::disconnect(createPatientDialog, SIGNAL(patientEdited(Patient, int)), patientModel, SLOT(editPatient(Patient, int)));
 }

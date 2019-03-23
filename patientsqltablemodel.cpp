@@ -2,6 +2,7 @@
 
 #include <QSqlRecord>
 #include <QSqlField>
+#include <QSqlError>
 #include <QDebug>
 
 PatientSqlTableModel::PatientSqlTableModel(QObject* parent, QSqlDatabase db)
@@ -11,12 +12,8 @@ PatientSqlTableModel::PatientSqlTableModel(QObject* parent, QSqlDatabase db)
 
 Qt::ItemFlags PatientSqlTableModel::flags(const QModelIndex& index) const
 {
-	if (index.column() != 0) {
-		return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
-	}
-	else {
-		return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-	}
+	Q_UNUSED(index);
+	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
 void PatientSqlTableModel::insertPatient(Patient newPatient)
@@ -58,61 +55,50 @@ void PatientSqlTableModel::insertPatient(Patient newPatient)
 	if( insertRecord(-1, patientLine) ){
 		//if ok, commit changes
 		submitAll();
+		select();
+
+		qDebug() << "ok";
 
 		emit patientInserted();
 	}
 	else{
 		//else, rollback
+		qDebug() << database().lastError();
 		database().rollback();
 	}
 }
 
-void PatientSqlTableModel::editPatient(Patient editedPatient)
+void PatientSqlTableModel::editPatient(Patient editedPatient, int row)
 {
 	//start a transaction
 	database().transaction();
 
-	//create an empty record from the model structure
-	QSqlRecord patientLine = record();
+	//set the values of the edited patient to its new ones
 
-	//the Id is auto-increment so we don't set it up
-	patientLine.remove( patientLine.indexOf("Id") );
+	setData( index(row, 1), editedPatient.getName() );
 
-	//set the other fields of the new patient db line
+	setData( index(row, 2), editedPatient.getFirstname() );
 
-	patientLine.setValue("Nom", editedPatient.getName());
+	setData( index(row, 3), editedPatient.getAddress() );
 
-	patientLine.setValue("Prenom", editedPatient.getFirstname());
+	setData( index(row, 4), editedPatient.getTown() );
 
-	patientLine.setValue("Adresse", editedPatient.getAddress());
+	setData( index(row, 5), editedPatient.getPostalCode() );
 
-	patientLine.setValue("Ville", editedPatient.getTown());
+	setData( index(row, 6), editedPatient.getCommentary() );
 
-	patientLine.setValue("CP", editedPatient.getPostalCode());
+	setData( index(row, 7), editedPatient.getPhoneNumber() );
 
-	patientLine.setValue("Commentaire", editedPatient.getCommentary());
-
-	patientLine.setValue("Tel", editedPatient.getPhoneNumber());
-
-	patientLine.setValue("DateConsultation", editedPatient.getConsultationDate());
+	setData( index(row, 8), editedPatient.getConsultationDate() );
 
 	int consultationDuration = editedPatient.getConsultationDuration().minute() + (editedPatient.getConsultationDuration().hour() * 60);
-	patientLine.setValue("DureeConsultation", consultationDuration);
+	setData( index(row, 9), consultationDuration );
 
-	patientLine.setValue("Priorite", editedPatient.getPriority());
+	setData( index(row, 10), editedPatient.getPriority() );
 
-	//try adding the record to the db
-
-	if( insertRecord(-1, patientLine) ){
-		//if ok, commit changes
-		submitAll();
-
-		emit patientInserted();
-	}
-	else{
-		//else, rollback
-		database().rollback();
-	}
+	//submit changes
+	submitAll();
+	select();
 }
 
 QVariant PatientSqlTableModel::headerData(int section, Qt::Orientation orientation, int role) const
