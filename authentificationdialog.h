@@ -2,6 +2,9 @@
 #define AUTHENTIFICATIONDIALOG_H
 
 #include <QDialog>
+#include <QSqlTableModel>
+
+#include "mainwindow.h"
 
 namespace Ui {
 class AuthentificationDialog;
@@ -22,7 +25,8 @@ private slots:
 
 private:
 	Ui::AuthentificationDialog *ui;
-	QWidget *parent;
+	MainWindow *parent;
+	QSqlTableModel *accountModel;
 
 	bool checkPasswordIsValid();
 };

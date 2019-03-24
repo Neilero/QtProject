@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
-	ui->statusBar->showMessage("Bienvenue");
 
 	if (!C_INIT_BD::Creation_BD()) {
 		QMessageBox::critical(this, "Erreur de base de données", "Erreur lors de l'initialisation de la base de données.");
@@ -41,6 +40,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->treeViewHealthWorker->setModel(healthworkerModel);
 
 	createConnections();
+
+	ui->statusBar->showMessage("Bienvenue");
 }
 
 MainWindow::~MainWindow()
@@ -232,4 +233,9 @@ void MainWindow::on_treeViewHealthWorker_doubleClicked(const QModelIndex &index)
 	QObject::disconnect(createHealthWorkerDialog, SIGNAL(healthworkerEdited(HealthWorker, int)), healthworkerModel, SLOT(editHealthWorker(HealthWorker, int)));
 
 	delete createHealthWorkerDialog;
+}
+
+QSqlDatabase MainWindow::getDb() const
+{
+	return db;
 }

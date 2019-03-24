@@ -20,6 +20,8 @@ public:
 	explicit MainWindow(QWidget *parent = nullptr);
 	~MainWindow();
 
+	QSqlDatabase getDb() const;
+
 private:
 	void createConnections();
 
