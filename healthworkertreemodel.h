@@ -22,10 +22,15 @@ public:
 	QSqlTableModel* getHealthWorkerTableModel() const;
 	QSqlTableModel* getHealthWorkerTypeTableModel() const;
 
+signals:
+	void healthWorkerInserted();
+	void healthWorkerEdited();
+
 public slots:
 	void updateData();
 	bool deleteHealthWorker(const QModelIndex& indexToDelete);
-	void updateHealthWorker(QModelIndex * indexToUpdate);
+	void insertHealthWorker(HealthWorker newHealthWorker);
+	void editHealthWorker(HealthWorker editedHealthWorker, int editedRow);
 };
 
 #endif // HEALTHWORKERTREEMODEL_H

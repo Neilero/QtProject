@@ -19,21 +19,31 @@ class CreateHealthWorkerDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit CreateHealthWorkerDialog(QWidget *parent = nullptr);
+	explicit CreateHealthWorkerDialog(QWidget *parent = nullptr, int editedRow = -1);
 	~CreateHealthWorkerDialog();
+
+	void setName(QString name);
+	void setFirstName(QString firstName);
+	void setType(int type);
+	void setLogin(QString login);
+	void setPassword(QString password);
+
+signals:
+	void healthworkerCreated(HealthWorker newHealthWorker);
+	void healthworkerEdited(HealthWorker editedHealthWorker, int editedRow);
 
 private slots:
 	void accept();
-
 	void on_buttonBox_rejected();
-
-    void on_comboBoxType_currentIndexChanged(int index);
+	void on_comboBoxType_currentIndexChanged(int index);
 
 private:
-    void init_comboBox(QComboBox comboBox);
+	void init_comboBox(QComboBox comboBox);
 	Ui::CreateHealthWorkerDialog *ui;
 	HealthWorker* healthworker;
-    QSqlTableModel* healthWorkerTypeTable;
+	QSqlTableModel* healthWorkerTypeTable;
+	bool editMode;
+	int editedRow;
 };
 
 #endif // CREATEHEALTHWORKERDIALOG_H

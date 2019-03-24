@@ -40,6 +40,12 @@ private slots:
 
 	void on_patientInserted();
 
+	void on_patientEdited();
+
+	void on_healthWorkerInserted();
+
+	void on_healthWorkerEdited();
+
 	void on_tableView_doubleClicked(const QModelIndex &index);
 
 private:
@@ -49,7 +55,7 @@ private:
 	HealthWorkerTreeModel *healthworkerModel;
 	QSqlDatabase db;
 	CreatePatientDialog *createPatientDialog;
-    CreateHealthWorkerDialog *createHealthWorkerDialog;
+	CreateHealthWorkerDialog *createHealthWorkerDialog;
 };
 
 #endif // MAINWINDOW_H

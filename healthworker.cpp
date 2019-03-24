@@ -2,83 +2,88 @@
 
 HealthWorker::HealthWorker(QString name, QString firstname,QString login, QString password)
 {
-    this->setName(name);
-    this->setFirstname(firstname);
-    this->setType(HealthWorkerType::computerScientist);
-    this->setLogin(login);
-    this->setPassword(password);
+	this->setName(name);
+	this->setFirstname(firstname);
+	this->setType(7);
+	this->setLogin(login);
+	this->setPassword(password);
 }
 
-HealthWorker::HealthWorker(QString name, QString firstname, HealthWorkerType type)
+HealthWorker::HealthWorker(QString name, QString firstname, int type)
 {
-    this->setName(name);
-    this->setFirstname(firstname);
-    this->setType(type);
+	this->setName(name);
+	this->setFirstname(firstname);
+	this->setType(type);
+}
+
+HealthWorker::HealthWorker()
+{
+
 }
 
 QString HealthWorker::getName() const
 {
-    return name;
+	return name;
 }
 
 void HealthWorker::setName(const QString &value)
 {
-    if (value.isEmpty())
-        throw(1);
-    else if (value.at(0).isUpper())
-        name = value;
-    else
-        throw(2);
+	if (value.isEmpty())
+		throw(1);
+	else if (value.at(0).isUpper())
+		this->name = value;
+	else
+		throw(2);
 }
 
 
 QString HealthWorker::getFirstname() const
 {
-    return firstname;
+	return firstname;
 }
 
 void HealthWorker::setFirstname(const QString &value)
 {
-    if(value.isEmpty())
-        throw(1);
-    else if (value.at(0).isUpper())
-        firstname = value;
-    else
-        throw(2);
+	if(value.isEmpty())
+		throw(1);
+	else if (value.at(0).isUpper())
+		firstname = value;
+	else
+		throw(2);
 }
 
-HealthWorkerType HealthWorker::getType() const
+int HealthWorker::getType() const
 {
-    return type;
+	return type;
 }
 
-void HealthWorker::setType(const HealthWorkerType &value)
+void HealthWorker::setType(int value)
 {
-    qDebug() << "TODO Je sais plus comment ça fait quand c'est vide ça" << endl;
+	type = value;
 }
 
 QString HealthWorker::getLogin() const
 {
-    return login;
+	return login;
 }
 
 void HealthWorker::setLogin(const QString &value)
 {
-    if(value.isEmpty())
-        throw(1);
-    else
-        login = value;
+	if(value.isEmpty())
+		throw(1);
+	else
+		login = value;
 }
 
 QString HealthWorker::getPassword() const
 {
-    return password;
+	return password;
 }
 
 void HealthWorker::setPassword(const QString &value)
 {
-    if(value.isEmpty())
-        throw(1);
-    else
-        password = value;
+	if(value.isEmpty())
+		throw(1);
+	else
+		password = value;
 }

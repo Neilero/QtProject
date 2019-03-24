@@ -2,13 +2,13 @@
 #define HEALTHWORKERTYPE_H
 
 enum class HealthWorkerType {
-	medicA,
-	medicB,
-	radiologist,
-	nurse,
-	physiotherapist,
-	psychologist,
-	computerScientist
+	medicA = 1,
+	medicB = 2,
+	radiologist = 3,
+	nurse = 4,
+	physiotherapist = 5,
+	psychologist = 6,
+	computerScientist = 7
 };
 
 #endif // HEALTHWORKERTYPE_H

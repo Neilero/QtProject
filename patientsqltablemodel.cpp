@@ -63,7 +63,7 @@ void PatientSqlTableModel::insertPatient(Patient newPatient)
 		emit patientInserted();
 	}
 	else{
-        //else, rollback
+		//else, rollback
 		database().rollback();
 	}
 }
@@ -97,7 +97,8 @@ void PatientSqlTableModel::editPatient(Patient editedPatient, int row)
 	setData( index(row, 10), editedPatient.getPriority() );
 
 	//submit changes
-	submitAll();
+	if (submitAll())
+		emit patientEdited();
 	select();
 }
 
