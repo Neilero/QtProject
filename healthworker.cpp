@@ -4,12 +4,12 @@ HealthWorker::HealthWorker(QString name, QString firstname,QString login, QStrin
 {
 	this->setName(name);
 	this->setFirstname(firstname);
-	this->setType(7);
+	this->setType(HealthWorkerType::computerScientist);
 	this->setLogin(login);
 	this->setPassword(password);
 }
 
-HealthWorker::HealthWorker(QString name, QString firstname, int type)
+HealthWorker::HealthWorker(QString name, QString firstname, HealthWorkerType type)
 {
 	this->setName(name);
 	this->setFirstname(firstname);

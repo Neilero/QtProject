@@ -131,7 +131,7 @@ void HealthWorkerTreeModel::insertHealthWorker(HealthWorker newHealthWorker)
 	int IdType = static_cast<int>(newHealthWorker.getType());
 	healthWorkerLine.setValue("IdType", IdType);
 
-	if (newHealthWorker.getType() == 7) {
+	if (newHealthWorker.getType() == HealthWorkerType::computerScientist) {
 		//TODO add login and pass to db
 	}
 

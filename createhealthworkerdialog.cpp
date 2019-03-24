@@ -105,10 +105,10 @@ void CreateHealthWorkerDialog::accept()
 
 	//set the type
 	int typeID = ui->comboBoxType->currentData().toInt();
-	this->healthworker->setType( typeID );
+	this->healthworker->setType( static_cast<HealthWorkerType>(typeID) );
 
 	//check login and password in case of type = "informaticien"
-	if(this->healthworker->getType() == 7)
+	if(this->healthworker->getType() == HealthWorkerType::computerScientist)
 	{
 		//check login
 		if(ui->lineEditLogin->text().isEmpty())
