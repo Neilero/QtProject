@@ -32,8 +32,6 @@ private slots:
 
 	void on_actionPersonnel_de_soin_triggered();
 
-	void on_pushButtonEditHealthWorker_clicked();
-
 	void on_pushButtonDeleteHealthWorker_clicked();
 
 	void on_pushButtonDeletePatient_clicked();
@@ -47,6 +45,8 @@ private slots:
 	void on_healthWorkerEdited();
 
 	void on_tableView_doubleClicked(const QModelIndex &index);
+
+	void on_treeViewHealthWorker_doubleClicked(const QModelIndex &index);
 
 private:
 	Ui::MainWindow *ui;
