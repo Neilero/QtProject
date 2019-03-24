@@ -58,8 +58,11 @@ void MainWindow::createConnections()
 	QObject::connect(ui->searchBeginDateEdit, SIGNAL(dateChanged(QDate)), patientProxy, SLOT(setFilterBeginDate(QDate)));
 	QObject::connect(ui->searchEndDateEdit, SIGNAL(dateChanged(QDate)), patientProxy, SLOT(setFilterEndDate(QDate)));
 
-	//connect signal patient inserted into the DB
+	//connect signal patient inserted into the DB to the corresponding slot in this
 	QObject::connect(patientModel, SIGNAL(patientInserted(void)), this, SLOT(on_patientInserted(void)));
+
+	//connect signal patient edited into the DB to the corresponding slot in this
+	QObject::connect(patientModel, SIGNAL(patientEdited(void)), this, SLOT(on_patientEdited(void)));
 
 	//connect signal dataChanged to the tree model
 	QObject::connect(healthworkerModel->getHealthWorkerTableModel(),
@@ -68,6 +71,12 @@ void MainWindow::createConnections()
 	QObject::connect(healthworkerModel->getHealthWorkerTypeTableModel(),
 					 SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)),
 					 healthworkerModel, SLOT(updateData()));
+
+	//connect signal healthworker inserted into the DB to the corresponding slot in this
+	QObject::connect(healthworkerModel, SIGNAL(healthWorkerInserted(void)), this, SLOT(on_healthWorkerInserted(void)));
+
+	//connect signal healthworker edited into the DB to the corresponding slot in this
+	QObject::connect(healthworkerModel, SIGNAL(healthWorkerEdited(void)), this, SLOT(on_healthWorkerEdited(void)));
 }
 
 void MainWindow::on_actionQuitter_triggered()
@@ -96,15 +105,36 @@ void MainWindow::on_actionPatient_triggered()
 void MainWindow::on_actionPersonnel_de_soin_triggered()
 {
 	createHealthWorkerDialog = new CreateHealthWorkerDialog(this);
+
+	QObject::connect(createHealthWorkerDialog, SIGNAL(healthworkerCreated(HealthWorker)), healthworkerModel, SLOT(insertHealthWorker(HealthWorker)));
+
 	createHealthWorkerDialog->exec();
 
+	QObject::disconnect(createHealthWorkerDialog, SIGNAL(healthworkerCreated(HealthWorker)), healthworkerModel, SLOT(insertHealthWorker(HealthWorker)));
 
-	ui->statusBar->showMessage("Personnel ajouté", 5000);
+	delete createHealthWorkerDialog;
 }
 
 void MainWindow::on_pushButtonEditHealthWorker_clicked()
 {
-	ui->statusBar->showMessage("Personnel édité", 5000);
+	QSqlRecord healthWorkerRecord = healthworkerModel->getHealthWorkerTableModel()->record( healthworkerModel->data( healthworkerModel->index( ui->treeViewHealthWorker->currentIndex().row(), 0 ) ).toInt() -1 );
+
+	createHealthWorkerDialog = new CreateHealthWorkerDialog(this, healthWorkerRecord.field(0).value().toInt() -1);
+
+	createHealthWorkerDialog->setName( healthWorkerRecord.field(1).value().toString() );
+
+	createHealthWorkerDialog->setFirstName( healthWorkerRecord.field(2).value().toString() );
+
+	createHealthWorkerDialog->setType( healthWorkerRecord.field(3).value().toInt() );
+
+	//connect the dialog to the appropriate slot of the DAO
+	QObject::connect(createHealthWorkerDialog, SIGNAL(healthworkerEdited(HealthWorker, int)), healthworkerModel, SLOT(editHealthWorker(HealthWorker, int)));
+
+	createHealthWorkerDialog->exec();
+
+	QObject::disconnect(createHealthWorkerDialog, SIGNAL(healthworkerEdited(HealthWorker, int)), healthworkerModel, SLOT(editHealthWorker(HealthWorker, int)));
+
+	delete createHealthWorkerDialog;
 }
 
 void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
@@ -140,6 +170,23 @@ void MainWindow::on_patientInserted()
 	ui->statusBar->showMessage("Patient ajouté", 5000);
 }
 
+void MainWindow::on_patientEdited()
+{
+	ui->statusBar->showMessage("Patient édité", 5000);
+}
+
+void MainWindow::on_healthWorkerInserted()
+{
+	ui->statusBar->showMessage("Personnel de soins ajouté", 5000);
+}
+
+void MainWindow::on_healthWorkerEdited()
+{
+	ui->statusBar->showMessage("Personnel de soins édité", 5000);
+}
+
+
+
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
 	QSqlRecord patientRecord = patientModel->record( patientProxy->data( patientProxy->index( index.row(), 0 ) ).toInt() -1 );
@@ -173,4 +220,6 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 	createPatientDialog->exec();
 
 	QObject::disconnect(createPatientDialog, SIGNAL(patientEdited(Patient, int)), patientModel, SLOT(editPatient(Patient, int)));
+
+	delete createPatientDialog;
 }

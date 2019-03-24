@@ -111,7 +111,62 @@ bool HealthWorkerTreeModel::deleteHealthWorker(const QModelIndex& indexToDelete)
 	return healthWorkerDeleted;
 }
 
-void HealthWorkerTreeModel::updateHealthWorker(QModelIndex* indexToUpdate)
+void HealthWorkerTreeModel::insertHealthWorker(HealthWorker newHealthWorker)
 {
+	//start a transaction
+	healthWorkerTableModel->database().transaction();
 
+	//create an empty record from the model structure
+	QSqlRecord healthWorkerLine = healthWorkerTableModel->record();
+
+	//the Id is auto-increment so we don't set it up
+	healthWorkerLine.remove( healthWorkerLine.indexOf("Id") );
+
+	//set the other fields of the new patient db line
+
+	healthWorkerLine.setValue("Nom", newHealthWorker.getName());
+
+	healthWorkerLine.setValue("Prenom", newHealthWorker.getFirstname());
+
+	int IdType = static_cast<int>(newHealthWorker.getType());
+	healthWorkerLine.setValue("IdType", IdType);
+
+	if (newHealthWorker.getType() == 7) {
+		//TODO add login and pass to db
+	}
+
+	//try adding the record to the db
+
+	if( healthWorkerTableModel->insertRecord(-1, healthWorkerLine) ){
+		//if ok, commit changes
+		healthWorkerTableModel->submitAll();
+		healthWorkerTableModel->select();
+
+		emit healthWorkerInserted();
+	}
+	else{
+		//else, rollback
+		healthWorkerTableModel->database().rollback();
+	}
+}
+
+void HealthWorkerTreeModel::editHealthWorker(HealthWorker editedHealthWorker, int editedRow)
+{
+	//start a transaction
+	healthWorkerTableModel->database().transaction();
+
+	//set the values of the edited patient to its new ones
+
+	healthWorkerTableModel->setData( index(editedRow, 1), editedHealthWorker.getName() );
+
+	healthWorkerTableModel->setData( index(editedRow, 2), editedHealthWorker.getFirstname() );
+
+	int IdType = static_cast<int>(editedHealthWorker.getType());
+	healthWorkerTableModel->setData( index(editedRow, 3), IdType );
+
+	//submit changes
+	if (healthWorkerTableModel->submitAll()) {
+		emit healthWorkerEdited();
+		healthWorkerTableModel->select();
+	}
 }

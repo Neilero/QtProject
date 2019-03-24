@@ -22,6 +22,7 @@ public slots:
 
 signals:
 	void patientInserted();
+	void patientEdited();
 
 };
 

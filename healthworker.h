@@ -6,17 +6,14 @@
 #include <QString>
 #include <QDebug>
 
-#include "healthworkertype.h"
-
-class HealthWorker : public QObject
+class HealthWorker
 {
-	Q_OBJECT
 
 private:
 	//Generic attributes
 	QString name;
 	QString firstname;
-	HealthWorkerType type;
+	int type;
 
 	//Attributes specific to "computerScientist" type
 	QString login;
@@ -24,14 +21,15 @@ private:
 
 public:
 	HealthWorker(QString name, QString firstname,QString login, QString password);
-	HealthWorker(QString name, QString firstname, HealthWorkerType type);
+	HealthWorker(QString name, QString firstname, int type);
+	HealthWorker();
 
 	QString getName() const;
 	void setName(const QString &value);
 	QString getFirstname() const;
 	void setFirstname(const QString &value);
-	HealthWorkerType getType() const;
-	void setType(const HealthWorkerType &value);
+	int getType() const;
+	void setType(int value);
 	QString getLogin() const;
 	void setLogin(const QString &value);
 	QString getPassword() const;
