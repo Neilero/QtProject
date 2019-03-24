@@ -97,7 +97,12 @@ void CreatePatientDialog::setPriority(int priority)
 void CreatePatientDialog::setTown(QString town)
 {
 	ui->lineEditTown->setText(town);
-	ui->lineEditTown->setCursorPosition(0);
+    ui->lineEditTown->setCursorPosition(0);
+}
+
+void CreatePatientDialog::setResources(QList resourcesList)
+{
+    ui->listWidget->selectedItems(resourcesList);
 }
 
 void CreatePatientDialog::accept()

@@ -6,6 +6,7 @@
 #include <QSqlTableModel>
 #include <QSqlField>
 #include <QSqlRecord>
+#include <QList>
 #include "patient.h"
 
 namespace Ui {
@@ -30,6 +31,7 @@ public:
 	void setPostalCode(int postalCode);
 	void setPriority(int priority);
 	void setTown(QString town);
+    void setResources(QList resourcesList);
 
 signals:
 	void patientCreated(Patient newPatient);
