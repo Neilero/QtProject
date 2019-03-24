@@ -6,6 +6,8 @@
 #include <QString>
 #include <QDebug>
 
+#include <healthworkertype.h>
+
 class HealthWorker
 {
 
@@ -13,7 +15,7 @@ private:
 	//Generic attributes
 	QString name;
 	QString firstname;
-	int type;
+	HealthWorkerType type;
 
 	//Attributes specific to "computerScientist" type
 	QString login;
@@ -21,15 +23,15 @@ private:
 
 public:
 	HealthWorker(QString name, QString firstname,QString login, QString password);
-	HealthWorker(QString name, QString firstname, int type);
+	HealthWorker(QString name, QString firstname, HealthWorkerType type);
 	HealthWorker();
 
 	QString getName() const;
 	void setName(const QString &value);
 	QString getFirstname() const;
 	void setFirstname(const QString &value);
-	int getType() const;
-	void setType(int value);
+	HealthWorkerType getType() const;
+	void setType(const HealthWorkerType &value);
 	QString getLogin() const;
 	void setLogin(const QString &value);
 	QString getPassword() const;

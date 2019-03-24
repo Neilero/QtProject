@@ -52,12 +52,12 @@ void HealthWorker::setFirstname(const QString &value)
 		throw(2);
 }
 
-int HealthWorker::getType() const
+HealthWorkerType HealthWorker::getType() const
 {
 	return type;
 }
 
-void HealthWorker::setType(int value)
+void HealthWorker::setType(const HealthWorkerType &value)
 {
 	type = value;
 }

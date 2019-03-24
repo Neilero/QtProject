@@ -31,7 +31,7 @@ public:
 	void setPostalCode(int postalCode);
 	void setPriority(int priority);
 	void setTown(QString town);
-    void setResources(QList<int> resourcesList);
+	void setResources(QList<int> resourcesList);
 
 signals:
 	void patientCreated(Patient newPatient);
@@ -42,10 +42,10 @@ private slots:
 	void on_buttonBox_rejected();
 
 private:
-    QListWidget* list;
+	QListWidget* list;
 	Ui::CreatePatientDialog *ui;
 	Patient* patient;
-    QSqlTableModel* resourceTable;
+	QSqlTableModel* resourceTable;
 	bool editMode;
 	int editedRow;
 };

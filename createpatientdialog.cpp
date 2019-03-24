@@ -3,9 +3,6 @@
 
 #include <QMessageBox>
 #include <QDebug>
-#include <QCheckBox>
-#include <QSqlDatabase>
-#include <QSqlTableModel>
 
 CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 	QDialog(parent),
@@ -13,25 +10,6 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 	patient(new Patient())
 {
 	ui->setupUi(this);
-
-    //get ressources
-    QSqlDatabase db = QSqlDatabase::database();
-    resourceTable = new QSqlTableModel(this, db);
-    resourceTable->setTable("TRessource");
-    resourceTable->select();
-
-    //add each resource to the QListWidget
-    for(int resourceIndex = 0; resourceIndex < resourceTable->rowCount(); resourceIndex++)
-    {
-        //add the item to the list
-        ui->listWidget->addItem(resourceTable->record(resourceIndex).field(1).value().toString() + " " + resourceTable->record(resourceIndex).field(2).value().toString());
-        //get the curent item
-        QListWidgetItem* curentItem = ui->listWidget->item(resourceIndex);
-        //add flag to curent item
-        curentItem->setFlags(ui->listWidget->item(resourceIndex)->flags() | Qt::ItemIsUserCheckable);
-        //set the surent Item unchecked
-        curentItem->setCheckState(Qt::Unchecked);
-    }
 
 	if (editedRow < 0) {
 		editMode = false;
@@ -42,6 +20,8 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 		this->editedRow = editedRow;
 		ui->labelTitle->setText("Édition d'un patient");
 	}
+
+	qDebug() << "TODO : liste d’identifiants de ressource (CreatePatientDialog)" << endl;
 }
 
 CreatePatientDialog::~CreatePatientDialog()
@@ -97,31 +77,32 @@ void CreatePatientDialog::setPriority(int priority)
 void CreatePatientDialog::setTown(QString town)
 {
 	ui->lineEditTown->setText(town);
-    ui->lineEditTown->setCursorPosition(0);
+	ui->lineEditTown->setCursorPosition(0);
 }
 
 void CreatePatientDialog::setResources(QList<int> resourcesList)
 {
-    for(int resourceIndex; resourceIndex < resourcesList.size();resourceIndex++)
-    {
-        ui->listWidget->item(resourcesList.at(resourceIndex))->setCheckState(Qt::Checked);
-    }
+	for(int resourceIndex; resourceIndex < resourcesList.size();resourceIndex++)
+	{
+		ui->listWidget->item(resourcesList.at(resourceIndex))->setCheckState(Qt::Checked);
+	}
 }
 
 void CreatePatientDialog::accept()
 {
-    //check the convertions errors
+	qDebug() <<"TODO erreurs de conversion"<<endl;
+	//check the convertions errors
 	bool * conversionOk = nullptr;
-    //report all input error
+	//report all input error
 	QString error = "";
 
 	//Set the name of the patient
-    try
-    {
+	try
+	{
 		this->patient->setName(ui->lineEditName->text());
 	}
-    catch(int e)
-    {
+	catch(int e)
+	{
 		if(e==1)
 			error.append("Completer le nom du patient.\n");
 		else if(e==2)
@@ -174,7 +155,7 @@ void CreatePatientDialog::accept()
 
 	//Set the postal code of the patient
 	try{
-        this->patient->setPostalCode(ui->lineEditPostCode->text().remove(" ").toInt(conversionOk, 10));
+		this->patient->setPostalCode(ui->lineEditPostCode->text().remove(" ").toInt(conversionOk, 10));
 	}
 	catch(int e){
 		if(e == 1)
@@ -186,7 +167,7 @@ void CreatePatientDialog::accept()
 
 	//Set the number of the patient
 	try{
-        this->patient->setPhoneNumber(ui->lineEditPhone->text().remove(" ").toInt(conversionOk, 10));
+		this->patient->setPhoneNumber(ui->lineEditPhone->text().remove(" ").toInt(conversionOk, 10));
 	}
 	catch(int e){
 		if(e==1)
@@ -223,16 +204,16 @@ void CreatePatientDialog::accept()
 			error.append("La priorité est invalide.\n");
 	}
 
+
 	//add a commentary
 	this->patient->setCommentary(ui->plainTextEditCommentary->toPlainText());
 
-    //add each resource
-    for(int resourceIndex=0; resourceIndex < ui->listWidget->count(); resourceIndex++)
-    {
-        if(ui->listWidget->item(resourceIndex)->checkState() == Qt::Checked)
-            patient->addToResourceList(resourceTable->record(resourceIndex).field(0).value().toInt());
-    }
-
+	//add each resource
+	for(int resourceIndex=0; resourceIndex < ui->listWidget->count(); resourceIndex++)
+	{
+		if(ui->listWidget->item(resourceIndex)->checkState() == Qt::Checked)
+			patient->addToResourceList(resourceTable->record(resourceIndex).field(0).value().toInt());
+	}
 
 	//check if error was reported
 	if(error.isEmpty()){
