@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QDate>
+#include <QList>
 
 class Patient
 {
@@ -17,6 +18,7 @@ private:
 	QDate consultationDate;		//must never be earlier than "today"
 	QTime consultationDuration; //default : 1h
 	int priority;				// 1 (default) <= priority <= 5
+    QList<int> resourceList;
 
 	//optional attributes
 	QString commentary;
@@ -46,6 +48,9 @@ public:
 	void setCommentary(const QString& value);
 	int getPhoneNumber() const;
 	void setPhoneNumber(int value);
+    QList<int> getResourceList() const;
+    void setResourceList(const QList<int> &value);
+    void addToResourceList(int value);
 };
 
 #endif // PATIENT_H

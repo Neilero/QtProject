@@ -20,14 +20,11 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
     resourceTable->setTable("TRessource");
     resourceTable->select();
 
-
-//for each resource
-    qDebug()<<"Tester sur la table depuis la db"<<endl;
-
-    for(int resourceIndex = 0; resourceIndex < 3/*resourceTable->rowCount()*/; resourceIndex++)
+    //add each resource to the QListWidget
+    for(int resourceIndex = 0; resourceIndex < resourceTable->rowCount(); resourceIndex++)
     {
         //add the item to the list
-        ui->listWidget->addItem("Item" + QString::number( resourceIndex ));
+        ui->listWidget->addItem(resourceTable->record(resourceIndex).field(1).value().toString() + " " + resourceTable->record(resourceIndex).field(2).value().toString());
         //get the curent item
         QListWidgetItem* curentItem = ui->listWidget->item(resourceIndex);
         //add flag to curent item
@@ -100,7 +97,12 @@ void CreatePatientDialog::setPriority(int priority)
 void CreatePatientDialog::setTown(QString town)
 {
 	ui->lineEditTown->setText(town);
-	ui->lineEditTown->setCursorPosition(0);
+    ui->lineEditTown->setCursorPosition(0);
+}
+
+void CreatePatientDialog::setResources(QList resourcesList)
+{
+    ui->listWidget->selectedItems(resourcesList);
 }
 
 void CreatePatientDialog::accept()
@@ -219,9 +221,15 @@ void CreatePatientDialog::accept()
 			error.append("La priorité est invalide.\n");
 	}
 
-
 	//add a commentary
 	this->patient->setCommentary(ui->plainTextEditCommentary->toPlainText());
+
+    //add resources
+    for(int resourceIndex=0; resourceIndex < ui->listWidget->count(); resourceIndex++)
+    {
+        if(ui->listWidget->item(resourceIndex)->checkState() == Qt::Checked)
+            patient->addToResourceList(resourceTable->record(resourceIndex).field(0).value().toInt());
+    }
 
 
 	//check if error was reported
