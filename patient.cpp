@@ -2,6 +2,7 @@
 
 #include <QDebug>
 
+
 Patient::Patient()
 {
 
@@ -34,7 +35,6 @@ void Patient::setName(const QString& value)
         name = value;
     else
         throw(2);
-
 }
 
 QString Patient::getFirstname() const
@@ -154,6 +154,19 @@ void Patient::setPhoneNumber(int value)
        phoneNumber = value;
    else
        throw(2);
-
 }
 
+QList<int> Patient::getResourceList() const
+{
+    return resourceList;
+}
+
+void Patient::setResourceList(const QList<int> &value)
+{
+    resourceList = value;
+}
+
+void Patient::addToResourceList(int value)
+{
+    resourceList.append(value);
+}

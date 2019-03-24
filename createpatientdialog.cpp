@@ -216,9 +216,15 @@ void CreatePatientDialog::accept()
 			error.append("La priorité est invalide.\n");
 	}
 
-
 	//add a commentary
 	this->patient->setCommentary(ui->plainTextEditCommentary->toPlainText());
+
+    //add resources
+    for(int resourceIndex=0; resourceIndex < ui->listWidget->count(); resourceIndex++)
+    {
+        if(ui->listWidget->item(resourceIndex)->checkState() == Qt::Checked)
+            patient->addToResourceList(resourceTable->record(resourceIndex).field(0).value().toInt());
+    }
 
 
 	//check if error was reported
