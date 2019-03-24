@@ -24,7 +24,7 @@ public:
 
 	void setName(QString name);
 	void setFirstName(QString firstName);
-	void setType(int type);
+    void setType(HealthWorkerType type);
 	void setLogin(QString login);
 	void setPassword(QString password);
 

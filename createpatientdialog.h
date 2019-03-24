@@ -42,9 +42,10 @@ private slots:
 	void on_buttonBox_rejected();
 
 private:
-	QListWidget* list;
+    QListWidget* ressourceList;
 	Ui::CreatePatientDialog *ui;
-	Patient* patient;
+    Patient* patient;
+    QSqlDatabase db;
 	QSqlTableModel* resourceTable;
 	bool editMode;
 	int editedRow;

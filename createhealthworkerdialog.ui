@@ -172,10 +172,18 @@
     <widget class="QComboBox" name="comboBoxType"/>
    </item>
    <item row="2" column="2">
-    <widget class="QLineEdit" name="lineEditFirstName"/>
+    <widget class="QLineEdit" name="lineEditFirstName">
+     <property name="inputMask">
+      <string>&gt;A&lt;xxxxxxxxxxxxxxxxxxx</string>
+     </property>
+    </widget>
    </item>
    <item row="1" column="2">
-    <widget class="QLineEdit" name="lineEditName"/>
+    <widget class="QLineEdit" name="lineEditName">
+     <property name="inputMask">
+      <string>&gt;A&lt;xxxxxxxxxxxxxxxxxxx</string>
+     </property>
+    </widget>
    </item>
    <item row="1" column="3" rowspan="5">
     <spacer name="horizontalSpacer_2">

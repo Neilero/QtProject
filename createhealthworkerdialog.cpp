@@ -50,9 +50,9 @@ void CreateHealthWorkerDialog::setFirstName(QString firstName)
 	ui->lineEditFirstName->setText(firstName);
 }
 
-void CreateHealthWorkerDialog::setType(int type)
+void CreateHealthWorkerDialog::setType(HealthWorkerType type)
 {
-	ui->comboBoxType->setCurrentIndex( type-1 );
+    ui->comboBoxType->setCurrentIndex( static_cast<int>(type) -1 );
 }
 
 void CreateHealthWorkerDialog::setLogin(QString login)
@@ -67,16 +67,13 @@ void CreateHealthWorkerDialog::setPassword(QString password)
 
 void CreateHealthWorkerDialog::accept()
 {
-	qDebug() <<"TODO erreurs de conversion (createhealthworkerdialog.cpp"<<endl;
-	//check the convertions errors
-	bool * conversionOk = nullptr;
 	//report all input error
 	QString error = "";
 
 	//Set the name
 	try
 	{
-		this->healthworker->setName(ui->lineEditName->text());
+        this->healthworker->setName(ui->lineEditName->text());
 	}
 	catch(int e)
 	{
