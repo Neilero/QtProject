@@ -115,28 +115,6 @@ void MainWindow::on_actionPersonnel_de_soin_triggered()
 	delete createHealthWorkerDialog;
 }
 
-void MainWindow::on_pushButtonEditHealthWorker_clicked()
-{
-	QSqlRecord healthWorkerRecord = healthworkerModel->getHealthWorkerTableModel()->record( healthworkerModel->data( healthworkerModel->index( ui->treeViewHealthWorker->currentIndex().row(), 0 ) ).toInt() -1 );
-
-	createHealthWorkerDialog = new CreateHealthWorkerDialog(this, healthWorkerRecord.field(0).value().toInt() -1);
-
-	createHealthWorkerDialog->setName( healthWorkerRecord.field(1).value().toString() );
-
-	createHealthWorkerDialog->setFirstName( healthWorkerRecord.field(2).value().toString() );
-
-	createHealthWorkerDialog->setType( healthWorkerRecord.field(3).value().toInt() );
-
-	//connect the dialog to the appropriate slot of the DAO
-	QObject::connect(createHealthWorkerDialog, SIGNAL(healthworkerEdited(HealthWorker, int)), healthworkerModel, SLOT(editHealthWorker(HealthWorker, int)));
-
-	createHealthWorkerDialog->exec();
-
-	QObject::disconnect(createHealthWorkerDialog, SIGNAL(healthworkerEdited(HealthWorker, int)), healthworkerModel, SLOT(editHealthWorker(HealthWorker, int)));
-
-	delete createHealthWorkerDialog;
-}
-
 void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 {
 	QModelIndex currentIndex = ui->treeViewHealthWorker->currentIndex();
@@ -222,4 +200,36 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 	QObject::disconnect(createPatientDialog, SIGNAL(patientEdited(Patient, int)), patientModel, SLOT(editPatient(Patient, int)));
 
 	delete createPatientDialog;
+}
+
+void MainWindow::on_treeViewHealthWorker_doubleClicked(const QModelIndex &index)
+{
+	if (index.parent() == QModelIndex()) return;
+
+	int healthWorkerId = healthworkerModel->itemFromIndex(index)->data().toInt();
+	QSqlRecord healthWorkerRecord = healthworkerModel->getHealthWorkerTableModel()->record( healthWorkerId -1 );
+
+	qDebug() << healthWorkerRecord;
+
+	createHealthWorkerDialog = new CreateHealthWorkerDialog(this, healthWorkerRecord.field(0).value().toInt() -1);
+
+	createHealthWorkerDialog->setName( healthWorkerRecord.field(1).value().toString() );
+
+	createHealthWorkerDialog->setFirstName( healthWorkerRecord.field(2).value().toString() );
+
+	HealthWorkerType healthworkerType = static_cast<HealthWorkerType>( healthWorkerRecord.field(3).value().toInt() );
+	createHealthWorkerDialog->setType( healthworkerType );
+
+	if ( healthworkerType == HealthWorkerType::computerScientist ) {
+		//TODO set login / password
+	}
+
+	//connect the dialog to the appropriate slot of the DAO
+	QObject::connect(createHealthWorkerDialog, SIGNAL(healthworkerEdited(HealthWorker, int)), healthworkerModel, SLOT(editHealthWorker(HealthWorker, int)));
+
+	createHealthWorkerDialog->exec();
+
+	QObject::disconnect(createHealthWorkerDialog, SIGNAL(healthworkerEdited(HealthWorker, int)), healthworkerModel, SLOT(editHealthWorker(HealthWorker, int)));
+
+	delete createHealthWorkerDialog;
 }
