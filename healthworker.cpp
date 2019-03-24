@@ -16,6 +16,21 @@ HealthWorker::HealthWorker(QString name, QString firstname, HealthWorkerType typ
     this->setType(type);
 }
 
+QString HealthWorker::getName() const
+{
+    return name;
+}
+
+void HealthWorker::setName(const QString &value)
+{
+    if (value.isEmpty())
+        throw(1);
+    else if (value.at(0).isUpper())
+        name = value;
+    else
+        throw(2);
+}
+
 
 QString HealthWorker::getFirstname() const
 {
@@ -24,7 +39,12 @@ QString HealthWorker::getFirstname() const
 
 void HealthWorker::setFirstname(const QString &value)
 {
-    firstname = value;
+    if(value.isEmpty())
+        throw(1);
+    else if (value.at(0).isUpper())
+        firstname = value;
+    else
+        throw(2);
 }
 
 HealthWorkerType HealthWorker::getType() const
@@ -34,7 +54,7 @@ HealthWorkerType HealthWorker::getType() const
 
 void HealthWorker::setType(const HealthWorkerType &value)
 {
-    type = value;
+    qDebug() << "TODO Je sais plus comment ça fait quand c'est vide ça" << endl;
 }
 
 QString HealthWorker::getLogin() const
@@ -44,7 +64,10 @@ QString HealthWorker::getLogin() const
 
 void HealthWorker::setLogin(const QString &value)
 {
-    login = value;
+    if(value.isEmpty())
+        throw(1);
+    else
+        login = value;
 }
 
 QString HealthWorker::getPassword() const
@@ -54,14 +77,8 @@ QString HealthWorker::getPassword() const
 
 void HealthWorker::setPassword(const QString &value)
 {
-    password = value;
-}
-QString HealthWorker::getName() const
-{
-    return name;
-}
-
-void HealthWorker::setName(const QString &value)
-{
-    name = value;
+    if(value.isEmpty())
+        throw(1);
+    else
+        password = value;
 }

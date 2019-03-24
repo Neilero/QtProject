@@ -28,15 +28,13 @@ QString Patient::getName() const
 
 void Patient::setName(const QString& value)
 {
-    if (value.isEmpty()){
+    if (value.isEmpty())
         throw(1);
-    }
-    else{
-        if (value.at(0).isUpper())
-            name = value;
-        else
-            throw(2);
-	}
+    else if (value.at(0).isUpper())
+        name = value;
+    else
+        throw(2);
+
 }
 
 QString Patient::getFirstname() const
@@ -46,15 +44,12 @@ QString Patient::getFirstname() const
 
 void Patient::setFirstname(const QString& value)
 {
-    if(value.isEmpty()){
+    if(value.isEmpty())
         throw(1);
-    }
-    else{
-        if (value.at(0).isUpper())
+    else if (value.at(0).isUpper())
             firstname = value;
         else
             throw(2);
-    }
 }
 
 QString Patient::getAddress() const
@@ -65,9 +60,7 @@ QString Patient::getAddress() const
 void Patient::setAddress(const QString& value)
 {
     if(value.isEmpty())
-    {
         throw(1);
-    }
     else
         address = value;
 }

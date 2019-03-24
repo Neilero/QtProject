@@ -2,6 +2,7 @@
 #define CREATEHEALTHWORKERDIALOG_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include <QSqlTableModel>
 #include <QSqlRecord>
 #include <QSqlField>

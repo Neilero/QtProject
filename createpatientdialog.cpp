@@ -82,14 +82,19 @@ void CreatePatientDialog::setTown(QString town)
 
 void CreatePatientDialog::accept()
 {
+    qDebug() <<"TODO erreurs de conversion"<<endl;
+    //check the convertions errors
 	bool * conversionOk = nullptr;
+    //report all input error
 	QString error = "";
 
 	//Set the name of the patient
-	try{
+    try
+    {
 		this->patient->setName(ui->lineEditName->text());
 	}
-	catch(int e){
+    catch(int e)
+    {
 		if(e==1)
 			error.append("Completer le nom du patient.\n");
 		else if(e==2)

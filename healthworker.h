@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QMetaType>
 #include <QString>
+#include <QDebug>
 
 #include "healthworkertype.h"
 
