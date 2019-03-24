@@ -31,7 +31,7 @@ public:
 	void setPostalCode(int postalCode);
 	void setPriority(int priority);
 	void setTown(QString town);
-    void setResources(QList resourcesList);
+    void setResources(QList<int> resourcesList);
 
 signals:
 	void patientCreated(Patient newPatient);

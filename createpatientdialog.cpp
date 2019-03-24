@@ -100,14 +100,16 @@ void CreatePatientDialog::setTown(QString town)
     ui->lineEditTown->setCursorPosition(0);
 }
 
-void CreatePatientDialog::setResources(QList resourcesList)
+void CreatePatientDialog::setResources(QList<int> resourcesList)
 {
-    ui->listWidget->selectedItems(resourcesList);
+    for(int resourceIndex; resourceIndex < resourcesList.size();resourceIndex++)
+    {
+        ui->listWidget->item(resourcesList.at(resourceIndex))->setCheckState(Qt::Checked);
+    }
 }
 
 void CreatePatientDialog::accept()
 {
-    qDebug() <<"TODO erreurs de conversion"<<endl;
     //check the convertions errors
 	bool * conversionOk = nullptr;
     //report all input error
@@ -172,7 +174,7 @@ void CreatePatientDialog::accept()
 
 	//Set the postal code of the patient
 	try{
-		this->patient->setPostalCode(ui->lineEditPostCode->text().remove(" ").toInt(conversionOk, 10));
+        this->patient->setPostalCode(ui->lineEditPostCode->text().remove(" ").toInt(conversionOk, 10));
 	}
 	catch(int e){
 		if(e == 1)
@@ -184,7 +186,7 @@ void CreatePatientDialog::accept()
 
 	//Set the number of the patient
 	try{
-		this->patient->setPhoneNumber(ui->lineEditPhone->text().remove(" ").toInt(conversionOk, 10));
+        this->patient->setPhoneNumber(ui->lineEditPhone->text().remove(" ").toInt(conversionOk, 10));
 	}
 	catch(int e){
 		if(e==1)
@@ -224,7 +226,7 @@ void CreatePatientDialog::accept()
 	//add a commentary
 	this->patient->setCommentary(ui->plainTextEditCommentary->toPlainText());
 
-    //add resources
+    //add each resource
     for(int resourceIndex=0; resourceIndex < ui->listWidget->count(); resourceIndex++)
     {
         if(ui->listWidget->item(resourceIndex)->checkState() == Qt::Checked)
