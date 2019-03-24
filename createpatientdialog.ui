@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>630</width>
-    <height>402</height>
+    <height>535</height>
    </rect>
   </property>
   <property name="font">
@@ -63,28 +63,6 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="1">
-    <widget class="QDateEdit" name="dateEditConsultationDay">
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-      </font>
-     </property>
-     <property name="dateTime">
-      <datetime>
-       <hour>0</hour>
-       <minute>0</minute>
-       <second>0</second>
-       <year>2018</year>
-       <month>12</month>
-       <day>31</day>
-      </datetime>
-     </property>
-     <property name="calendarPopup">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="9" column="1" colspan="3">
     <widget class="QSlider" name="horizontalSliderPriority">
      <property name="font">
@@ -112,6 +90,43 @@
      </property>
     </widget>
    </item>
+   <item row="7" column="1">
+    <widget class="QDateEdit" name="dateEditConsultationDay">
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+      </font>
+     </property>
+     <property name="dateTime">
+      <datetime>
+       <hour>0</hour>
+       <minute>0</minute>
+       <second>0</second>
+       <year>2018</year>
+       <month>12</month>
+       <day>31</day>
+      </datetime>
+     </property>
+     <property name="calendarPopup">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+      </font>
+     </property>
+     <property name="text">
+      <string>Prénom :</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0" colspan="4">
     <widget class="QLabel" name="labelTitle">
      <property name="font">
@@ -125,6 +140,36 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" colspan="3">
+    <widget class="QLineEdit" name="lineEditSurname">
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+      </font>
+     </property>
+     <property name="inputMask">
+      <string>&gt;A&lt;xxxxxxxxxxxxxxxxxxx</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="0">
+    <widget class="QLabel" name="label_9">
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+      </font>
+     </property>
+     <property name="text">
+      <string>Commentaire : </string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
      </property>
     </widget>
    </item>
@@ -149,48 +194,18 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1" colspan="3">
-    <widget class="QLineEdit" name="lineEditSurname">
+   <item row="12" column="3">
+    <widget class="QDialogButtonBox" name="buttonBox">
      <property name="font">
       <font>
        <family>Calibri</family>
       </font>
      </property>
-     <property name="inputMask">
-      <string>&gt;A&lt;xxxxxxxxxxxxxxxxxxx</string>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label">
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-      </font>
-     </property>
-     <property name="text">
-      <string>Prénom :</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="0">
-    <widget class="QLabel" name="label_9">
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-      </font>
-     </property>
-     <property name="text">
-      <string>Commentaire : </string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -206,24 +221,6 @@
      </property>
      <property name="maxLength">
       <number>32767</number>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-      </font>
-     </property>
-     <property name="text">
-      <string>Adresse :</string>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
@@ -253,18 +250,21 @@
      </property>
     </widget>
    </item>
-   <item row="12" column="3">
-    <widget class="QDialogButtonBox" name="buttonBox">
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_3">
      <property name="font">
       <font>
        <family>Calibri</family>
       </font>
      </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+     <property name="text">
+      <string>Adresse :</string>
      </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     <property name="textFormat">
+      <enum>Qt::PlainText</enum>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
@@ -344,6 +344,21 @@
      </property>
     </widget>
    </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_10">
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+      </font>
+     </property>
+     <property name="text">
+      <string>Téléphone : </string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
    <item row="7" column="2">
     <widget class="QLabel" name="label_7">
      <property name="font">
@@ -374,23 +389,21 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_10">
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-      </font>
-     </property>
+   <item row="8" column="1" colspan="2">
+    <widget class="QListWidget" name="listWidget"/>
+   </item>
+   <item row="10" column="1" colspan="3">
+    <widget class="QPlainTextEdit" name="plainTextEditCommentary"/>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="label_5">
      <property name="text">
-      <string>Téléphone : </string>
+      <string>Ressources : </string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-   </item>
-   <item row="10" column="1" colspan="3">
-    <widget class="QPlainTextEdit" name="plainTextEditCommentary"/>
    </item>
   </layout>
  </widget>

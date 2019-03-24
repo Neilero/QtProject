@@ -2,7 +2,10 @@
 #define CREATEPATIENTDIALOG_H
 
 #include <QDialog>
-
+#include <QListWidget>
+#include <QSqlTableModel>
+#include <QSqlField>
+#include <QSqlRecord>
 #include "patient.h"
 
 namespace Ui {
@@ -37,8 +40,10 @@ private slots:
 	void on_buttonBox_rejected();
 
 private:
+    QListWidget* list;
 	Ui::CreatePatientDialog *ui;
 	Patient* patient;
+    QSqlTableModel* resourceTable;
 	bool editMode;
 	int editedRow;
 };

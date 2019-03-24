@@ -3,6 +3,9 @@
 
 #include <QMessageBox>
 #include <QDebug>
+#include <QCheckBox>
+#include <QSqlDatabase>
+#include <QSqlTableModel>
 
 CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 	QDialog(parent),
@@ -10,6 +13,28 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 	patient(new Patient())
 {
 	ui->setupUi(this);
+
+    //get ressources
+    QSqlDatabase db = QSqlDatabase::database();
+    resourceTable = new QSqlTableModel(this, db);
+    resourceTable->setTable("TRessource");
+    resourceTable->select();
+
+
+//for each resource
+    qDebug()<<"Tester sur la table depuis la db"<<endl;
+
+    for(int resourceIndex = 0; resourceIndex < 3/*resourceTable->rowCount()*/; resourceIndex++)
+    {
+        //add the item to the list
+        ui->listWidget->addItem("Item" + QString::number( resourceIndex ));
+        //get the curent item
+        QListWidgetItem* curentItem = ui->listWidget->item(resourceIndex);
+        //add flag to curent item
+        curentItem->setFlags(ui->listWidget->item(resourceIndex)->flags() | Qt::ItemIsUserCheckable);
+        //set the surent Item unchecked
+        curentItem->setCheckState(Qt::Unchecked);
+    }
 
 	if (editedRow < 0) {
 		editMode = false;
@@ -20,8 +45,6 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 		this->editedRow = editedRow;
 		ui->labelTitle->setText("Édition d'un patient");
 	}
-
-	qDebug() << "TODO : liste d’identifiants de ressource (CreatePatientDialog)" << endl;
 }
 
 CreatePatientDialog::~CreatePatientDialog()
