@@ -2,12 +2,22 @@
 
 #include <QDebug>
 
+/**
+ * @brief Constructor
+ * @param the parent of the object
+ */
 PatientProxyTableModel::PatientProxyTableModel(QObject* parent):
 	QSortFilterProxyModel (parent),
 	filterID(0)
 {
 }
 
+/**
+ * @brief PatientProxyTableModel::filterAcceptsRow
+ * @param source_row
+ * @param source_parent
+ * @return
+ */
 bool PatientProxyTableModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
 	QModelIndex indexName = sourceModel()->index(source_row, 1, source_parent);

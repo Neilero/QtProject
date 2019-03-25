@@ -19,11 +19,17 @@ AuthentificationDialog::AuthentificationDialog(QWidget *parent) :
 	accountModel->select();
 }
 
+/**
+ * @brief Destructor
+ */
 AuthentificationDialog::~AuthentificationDialog()
 {
 	delete ui;
 }
 
+/**
+ * @brief when the connect button is clicked, connect if the login and password are correct
+ */
 void AuthentificationDialog::on_pushButtonConnect_clicked()
 {
 	if(checkPasswordIsValid()) {
@@ -41,11 +47,18 @@ void AuthentificationDialog::on_pushButtonConnect_clicked()
 	}
 }
 
+/**
+ * @brief when the cancel button is click, quit the application
+ */
 void AuthentificationDialog::on_pushButtonCancel_clicked()
 {
 	QApplication::quit();
 }
 
+/**
+ * @brief Check if the password is valid
+ * @return true if the password is valid, false if it's wrong
+ */
 bool AuthentificationDialog::checkPasswordIsValid()
 {
 	QString login = ui->lineEditLogin->text();

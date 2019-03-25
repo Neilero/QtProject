@@ -4,6 +4,7 @@
 #include <QSqlError>
 #include <QTimer>
 #include <QDebug>
+#include <QFile>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"

@@ -6,11 +6,11 @@
 #include <QMap>
 #include <QDebug>
 
-QSqlTableModel* HealthWorkerTreeModel::getAccountTableModel() const
-{
-	return accountTableModel;
-}
-
+/**
+ * @brief Constructor
+ * @param the parent of the object
+ * @param the database
+ */
 HealthWorkerTreeModel::HealthWorkerTreeModel(QObject* parent, QSqlDatabase db)
 	: QStandardItemModel(parent)
 {
@@ -29,6 +29,13 @@ HealthWorkerTreeModel::HealthWorkerTreeModel(QObject* parent, QSqlDatabase db)
 	updateData();
 }
 
+/**
+ * @brief Return string to set to the header
+ * @param the section of the header
+ * @param the orientation of the header
+ * @param the role role of the header
+ * @return
+ */
 QVariant HealthWorkerTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	if (role == Qt::DisplayRole)
@@ -43,16 +50,36 @@ QVariant HealthWorkerTreeModel::headerData(int section, Qt::Orientation orientat
 	return QVariant();
 }
 
+/**
+ * @brief get the accountTableModel
+ * @return the accountTableModel
+ */
+QSqlTableModel* HealthWorkerTreeModel::getAccountTableModel() const
+{
+    return accountTableModel;
+}
+
+/**
+ * @brief get the healthWorkerTableModel
+ * @return the healthWorkerTableModel
+ */
 QSqlTableModel* HealthWorkerTreeModel::getHealthWorkerTableModel() const
 {
 	return healthWorkerTableModel;
 }
 
+/**
+ * @brief get the healthWorkerTypeTableModel
+ * @return the healthWorkerTypeTableModel
+ */
 QSqlTableModel* HealthWorkerTreeModel::getHealthWorkerTypeTableModel() const
 {
 	return healthWorkerTypeTableModel;
 }
 
+/**
+ * @brief update the datas for the treeModel
+ */
 void HealthWorkerTreeModel::updateData()
 {
 	//empty all data
@@ -102,6 +129,11 @@ void HealthWorkerTreeModel::updateData()
 	}
 }
 
+/**
+ * @brief delete a health worker
+ * @param index of the health worker to delete
+ * @return true if the health worker is deleted
+ */
 bool HealthWorkerTreeModel::deleteHealthWorker(const QModelIndex& indexToDelete)
 {
 	if (!indexToDelete.isValid())
@@ -119,6 +151,10 @@ bool HealthWorkerTreeModel::deleteHealthWorker(const QModelIndex& indexToDelete)
 	return healthWorkerDeleted;
 }
 
+/**
+ * @brief add a health worker
+ * @param the new health worker to ass
+ */
 void HealthWorkerTreeModel::insertHealthWorker(HealthWorker newHealthWorker)
 {
 	//start a transaction
@@ -193,6 +229,11 @@ void HealthWorkerTreeModel::insertHealthWorker(HealthWorker newHealthWorker)
 
 }
 
+/**
+ * @brief edit an existing health worker
+ * @param the new health worker
+ * @param the line to edit
+ */
 void HealthWorkerTreeModel::editHealthWorker(HealthWorker editedHealthWorker, int editedRow)
 {
 	//start a transaction
