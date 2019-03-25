@@ -37,6 +37,8 @@ MainWindow::~MainWindow()
 
 bool MainWindow::initDb()
 {
+	qDebug() << "Init DB";
+
 	db = QSqlDatabase::addDatabase("QSQLITE");
 
 	if(db.isValid())
@@ -46,7 +48,7 @@ bool MainWindow::initDb()
 		db.setPassword("password");
 
 		if (!QFile::exists("base_tmp.sqli")) {
-			return resetDb();
+			return false;
 		}
 
 		db.setDatabaseName("base_tmp.sqli");
@@ -65,6 +67,8 @@ bool MainWindow::initDb()
 
 void MainWindow::initModels()
 {
+	qDebug() << "Init Models";
+
 	//init patient model
 	this->patientModel = new PatientSqlTableModel(this, db);
 
@@ -290,6 +294,10 @@ QSqlDatabase MainWindow::getDb() const
 
 bool MainWindow::resetDb()
 {
+	delete patientModel;
+	delete patientProxy;
+	delete healthworkerModel;
+
 	db.close();
 	db.removeDatabase("QSQLITE");
 

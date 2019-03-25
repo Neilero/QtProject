@@ -21,7 +21,7 @@ CreateHealthWorkerDialog::CreateHealthWorkerDialog(QWidget *parent, int editedRo
 	}
 
 	//get the datas from the db
-	QSqlDatabase db = static_cast<MainWindow>(parent).getDb();
+	QSqlDatabase db = static_cast<MainWindow*>(parent)->getDb();
 	healthWorkerTypeTable = new QSqlTableModel(this, db);
 	healthWorkerTypeTable->setTable("TType");
 	healthWorkerTypeTable->select();

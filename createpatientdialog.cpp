@@ -11,7 +11,7 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 	patient(new Patient())
 {
 	//init the table for listWidget
-	db = static_cast<MainWindow>(parent).getDb();
+	db = static_cast<MainWindow*>(parent)->getDb();
 	resourceTable = new QSqlTableModel(this, db);
 	resourceTable->setTable("TRessource");
 	resourceTable->select();
