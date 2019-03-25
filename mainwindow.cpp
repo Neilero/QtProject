@@ -210,8 +210,6 @@ void MainWindow::on_treeViewHealthWorker_doubleClicked(const QModelIndex &index)
 	int healthWorkerId = healthworkerModel->itemFromIndex(index)->data().toInt();
 	QSqlRecord healthWorkerRecord = healthworkerModel->getHealthWorkerTableModel()->record( healthWorkerId -1 );
 
-	qDebug() << healthWorkerRecord;
-
 	createHealthWorkerDialog = new CreateHealthWorkerDialog(this, healthWorkerRecord.field(0).value().toInt() -1);
 
 	createHealthWorkerDialog->setName( healthWorkerRecord.field(1).value().toString() );
@@ -222,7 +220,18 @@ void MainWindow::on_treeViewHealthWorker_doubleClicked(const QModelIndex &index)
 	createHealthWorkerDialog->setType( healthworkerType );
 
 	if ( healthworkerType == HealthWorkerType::computerScientist ) {
-		//TODO set login / password
+
+		int healthWorkerId = healthWorkerRecord.field(0).value().toInt();
+
+		for (int row=0; row < healthworkerModel->getAccountTableModel()->rowCount(); row++) {
+			QSqlRecord accountRecord = healthworkerModel->getAccountTableModel()->record( row );
+
+			if ( accountRecord.field(1).value().toInt() == healthWorkerId ) {
+				createHealthWorkerDialog->setLogin( accountRecord.field(2).value().toString() );
+
+				createHealthWorkerDialog->setPassword( accountRecord.field(3).value().toString() );
+			}
+		}
 	}
 
 	//connect the dialog to the appropriate slot of the DAO

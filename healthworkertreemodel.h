@@ -14,6 +14,7 @@ class HealthWorkerTreeModel : public QStandardItemModel
 private:
 	QSqlTableModel * healthWorkerTableModel;
 	QSqlTableModel * healthWorkerTypeTableModel;
+	QSqlTableModel * accountTableModel;
 
 public:
 	HealthWorkerTreeModel(QObject* parent = nullptr, QSqlDatabase db = QSqlDatabase());
@@ -21,6 +22,7 @@ public:
 
 	QSqlTableModel* getHealthWorkerTableModel() const;
 	QSqlTableModel* getHealthWorkerTypeTableModel() const;
+	QSqlTableModel* getAccountTableModel() const;
 
 signals:
 	void healthWorkerInserted();
