@@ -16,9 +16,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 	ui->setupUi(this);
 
+	patientModel = nullptr;
+
 	if (!initDb()) {
-		QMessageBox::critical(this, "Erreur de base de données", "Erreur lors de l'initialisation de la base de données.");
-		QTimer::singleShot(0, qApp, SLOT(quit()));
+		QMessageBox::critical(this, "Erreur de base de données", "Erreur lors de l'initialisation de la base de données. La base de donnée va être mis à zéro.");
+		resetDb();
 	}
 
 	initModels();
@@ -30,13 +32,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    db.close();
+	delete patientModel;
+	delete patientProxy;
+	delete healthworkerModel;
+
+	db.close();
     db.removeDatabase("QSQLITE");
 	delete ui;
 }
 
 bool MainWindow::initDb()
 {
+	qDebug() << "Init DB";
+
 	db = QSqlDatabase::addDatabase("QSQLITE");
 
 	if(db.isValid())
@@ -46,7 +54,7 @@ bool MainWindow::initDb()
 		db.setPassword("password");
 
 		if (!QFile::exists("base_tmp.sqli")) {
-			return resetDb();
+			return false;
 		}
 
 		db.setDatabaseName("base_tmp.sqli");
@@ -65,6 +73,8 @@ bool MainWindow::initDb()
 
 void MainWindow::initModels()
 {
+	qDebug() << "Init Models";
+
 	//init patient model
 	this->patientModel = new PatientSqlTableModel(this, db);
 
@@ -154,10 +164,10 @@ void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 
 	if (currentIndex.isValid()) {
 		if (healthworkerModel->deleteHealthWorker( currentIndex )) {
-			ui->statusBar->showMessage("Personnel supprimé", 5000);
+			ui->statusBar->showMessage("Personnel supprimé");
 		}
 		else {
-			ui->statusBar->showMessage("Erreur lors de la suppression d'un personnel de soin !", 5000);
+			ui->statusBar->showMessage("Erreur lors de la suppression d'un personnel de soin !");
 		}
 	}
 }
@@ -168,34 +178,33 @@ void MainWindow::on_pushButtonDeletePatient_clicked()
 
 	if (currentIndex.isValid()) {
 		if ( patientProxy->deletePatient( ui->tableView->currentIndex() ) ) {
-			ui->statusBar->showMessage("Patient supprimé, 5000");
+			ui->statusBar->showMessage("Patient supprimé");
 		}
 		else {
-			ui->statusBar->showMessage("Erreur lors de la suppression d'un patient !", 5000);
+			ui->statusBar->showMessage("Erreur lors de la suppression d'un patient !");
 		}
 	}
 }
 
 void MainWindow::on_patientInserted()
 {
-	ui->statusBar->showMessage("Patient ajouté", 5000);
+	ui->statusBar->showMessage("Patient ajouté");
 }
 
 void MainWindow::on_patientEdited()
 {
-	ui->statusBar->showMessage("Patient édité", 5000);
+	ui->statusBar->showMessage("Patient édité");
 }
 
 void MainWindow::on_healthWorkerInserted()
 {
-	ui->statusBar->showMessage("Personnel de soins ajouté", 5000);
+	ui->statusBar->showMessage("Personnel de soins ajouté");
 }
 
 void MainWindow::on_healthWorkerEdited()
 {
-	ui->statusBar->showMessage("Personnel de soins édité", 5000);
+	ui->statusBar->showMessage("Personnel de soins édité");
 }
-
 
 
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
@@ -290,12 +299,19 @@ QSqlDatabase MainWindow::getDb() const
 
 bool MainWindow::resetDb()
 {
+	if (patientModel != nullptr) {
+		delete patientModel;
+		delete patientProxy;
+		delete healthworkerModel;
+	}
+
 	db.close();
 	db.removeDatabase("QSQLITE");
 
-	if (! C_INIT_BD::Creation_BD(db) )
+	if (! C_INIT_BD::Creation_BD() )
 		return false;
 
+	initDb();
 	initModels();
 	createConnections();
 

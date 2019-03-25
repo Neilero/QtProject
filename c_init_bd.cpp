@@ -9,10 +9,10 @@ C_INIT_BD::C_INIT_BD()
 {
 }
 
-bool C_INIT_BD::Creation_BD(QSqlDatabase db)
+bool C_INIT_BD::Creation_BD()
 {
 	bool b_test;
-	db = QSqlDatabase::addDatabase("QSQLITE");
+	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 
 	if(db.isValid())
 	{
@@ -175,7 +175,8 @@ bool C_INIT_BD::Creation_BD(QSqlDatabase db)
 			return false;
 		}
 
-
+		db.close();
+		db.removeDatabase("QSQLITE");
 		return true;
 
 	}

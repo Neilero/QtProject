@@ -6,7 +6,6 @@ PatientProxyTableModel::PatientProxyTableModel(QObject* parent):
 	QSortFilterProxyModel (parent),
 	filterID(0)
 {
-
 }
 
 bool PatientProxyTableModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
