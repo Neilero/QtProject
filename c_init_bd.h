@@ -8,7 +8,7 @@ class C_INIT_BD
 	private:
 		C_INIT_BD();
 	public:
-		static bool Creation_BD(QSqlDatabase db = QSqlDatabase::database());
+		static bool Creation_BD();
 };
 
 #endif // C_INIT_BD_H
