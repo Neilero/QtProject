@@ -37,7 +37,19 @@ SOURCES += \
 	patientsqltablemodel.cpp \
 	patientproxytablemodel.cpp \
 	createhealthworkerdialog.cpp \
-	healthworkertreemodel.cpp
+	healthworkertreemodel.cpp \
+    controler/dao/c_init_bd.cpp \
+    controler/dao/healthworkertreemodel.cpp \
+    controler/dao/patientsqltablemodel.cpp \
+    controler/aboutdialog.cpp \
+    controler/authentificationdialog.cpp \
+    controler/createhealthworkerdialog.cpp \
+    controler/createpatientdialog.cpp \
+    controler/mainwindow.cpp \
+    controler/patientproxytablemodel.cpp \
+    model/healthworker.cpp \
+    model/patient.cpp \
+    main.cpp
 
 HEADERS += \
 		mainwindow.h \
@@ -51,14 +63,31 @@ HEADERS += \
 	patientsqltablemodel.h \
 	patientproxytablemodel.h \
 	createhealthworkerdialog.h \
-	healthworkertreemodel.h
+	healthworkertreemodel.h \
+    controler/dao/c_init_bd.h \
+    controler/dao/healthworkertreemodel.h \
+    controler/dao/patientsqltablemodel.h \
+    controler/aboutdialog.h \
+    controler/authentificationdialog.h \
+    controler/createhealthworkerdialog.h \
+    controler/createpatientdialog.h \
+    controler/mainwindow.h \
+    controler/patientproxytablemodel.h \
+    model/healthworker.h \
+    model/healthworkertype.h \
+    model/patient.h
 
 FORMS += \
 		mainwindow.ui \
 	authentificationdialog.ui \
 	aboutdialog.ui \
 	createpatientdialog.ui \
-	createhealthworkerdialog.ui
+	createhealthworkerdialog.ui \
+    view/aboutdialog.ui \
+    view/authentificationdialog.ui \
+    view/createhealthworkerdialog.ui \
+    view/createpatientdialog.ui \
+    view/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -67,3 +96,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
 	ressources.qrc
+
+DISTFILES += \
+    resources/polytechIcon_400x400.jpg \
+    resources/addDoctorIcon.png \
+    resources/addPatientIcon.png \
+    resources/baseline_delete_black_48dp.png \
+    resources/polytechIcon_400x400.png \
+    resources/polytechToursImage.png \
+    resources/searchIcon.png \
+    resources/univToursImage.png
