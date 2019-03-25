@@ -37,7 +37,7 @@ MainWindow::~MainWindow()
 	delete healthworkerModel;
 
 	db.close();
-	db.removeDatabase("QSQLITE");
+    db.removeDatabase("QSQLITE");
 	delete ui;
 }
 
