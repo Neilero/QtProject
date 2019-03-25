@@ -27,6 +27,11 @@ AuthentificationDialog::~AuthentificationDialog()
 void AuthentificationDialog::on_pushButtonConnect_clicked()
 {
 	if(checkPasswordIsValid()) {
+
+		if (ui->checkBoxResetDb->isChecked()) {
+			parent->resetDb();
+		}
+
 		parent->show();
 		this->close();
 	}

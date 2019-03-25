@@ -1,6 +1,8 @@
 #include <QMessageBox>
 #include <QSqlRecord>
 #include <QSqlField>
+#include <QSqlError>
+#include <QTimer>
 #include <QDebug>
 
 #include "mainwindow.h"
@@ -14,12 +16,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 	ui->setupUi(this);
 
-	if (!C_INIT_BD::Creation_BD()) {
+	if (!initDb()) {
 		QMessageBox::critical(this, "Erreur de base de données", "Erreur lors de l'initialisation de la base de données.");
-		QApplication::quit();
+		QTimer::singleShot(0, qApp, SLOT(quit()));
 	}
-
-	db = QSqlDatabase::database();
 
 	//init patient model
 	this->patientModel = new PatientSqlTableModel(this, db);
@@ -48,6 +48,30 @@ MainWindow::~MainWindow()
 {
 	db.close();
 	delete ui;
+}
+
+bool MainWindow::initDb()
+{
+	db = QSqlDatabase::addDatabase("QSQLITE");
+
+	if(db.isValid())
+	{
+		db.setHostName("localhost");
+		db.setUserName("root");
+		db.setPassword("password");
+
+		db.setDatabaseName("base_tmp.sqli");
+		db.open();
+
+		if(!db.isOpen())
+		{
+			qDebug() << db.lastError().text();
+			qDebug() << "Erreur à louverture de la base !\n";
+			return false;
+		}
+	}
+
+	return true;
 }
 
 void MainWindow::createConnections()
@@ -205,6 +229,7 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 
 void MainWindow::on_treeViewHealthWorker_doubleClicked(const QModelIndex &index)
 {
+	// if it's a HealthWorkerType, we don't want to be able to modify it.
 	if (index.parent() == QModelIndex()) return;
 
 	int healthWorkerId = healthworkerModel->itemFromIndex(index)->data().toInt();
@@ -235,11 +260,17 @@ void MainWindow::on_treeViewHealthWorker_doubleClicked(const QModelIndex &index)
 	}
 
 	//connect the dialog to the appropriate slot of the DAO
-	QObject::connect(createHealthWorkerDialog, SIGNAL(healthworkerEdited(HealthWorker, int)), healthworkerModel, SLOT(editHealthWorker(HealthWorker, int)));
+	QObject::connect(createHealthWorkerDialog,
+					 SIGNAL(healthworkerEdited(HealthWorker, int)),
+					 healthworkerModel,
+					 SLOT(editHealthWorker(HealthWorker, int)));
 
 	createHealthWorkerDialog->exec();
 
-	QObject::disconnect(createHealthWorkerDialog, SIGNAL(healthworkerEdited(HealthWorker, int)), healthworkerModel, SLOT(editHealthWorker(HealthWorker, int)));
+	QObject::disconnect(createHealthWorkerDialog,
+						SIGNAL(healthworkerEdited(HealthWorker, int)),
+						healthworkerModel,
+						SLOT(editHealthWorker(HealthWorker, int)));
 
 	delete createHealthWorkerDialog;
 }
@@ -247,4 +278,12 @@ void MainWindow::on_treeViewHealthWorker_doubleClicked(const QModelIndex &index)
 QSqlDatabase MainWindow::getDb() const
 {
 	return db;
+}
+
+bool MainWindow::resetDb()
+{
+	db.close();
+	db.removeDatabase("QSQLITE");
+
+	return C_INIT_BD::Creation_BD(db);
 }

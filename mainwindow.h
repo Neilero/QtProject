@@ -21,8 +21,10 @@ public:
 	~MainWindow();
 
 	QSqlDatabase getDb() const;
+	bool resetDb();
 
 private:
+	bool initDb();
 	void createConnections();
 
 private slots:
