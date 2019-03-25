@@ -3,7 +3,7 @@
 
 #include <QSqlTableModel>
 
-#include "patient.h"
+#include "model/patient.h"
 
 class PatientSqlTableModel : public QSqlTableModel
 {

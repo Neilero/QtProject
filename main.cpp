@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "authentificationdialog.h"
+#include "controler/mainwindow.h"
+#include "controler/authentificationdialog.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

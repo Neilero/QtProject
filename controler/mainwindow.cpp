@@ -8,7 +8,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "aboutdialog.h"
-#include "c_init_bd.h"
+#include "controler/dao/c_init_bd.h"
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
@@ -37,7 +37,7 @@ MainWindow::~MainWindow()
 	delete healthworkerModel;
 
 	db.close();
-    db.removeDatabase("QSQLITE");
+	db.removeDatabase("QSQLITE");
 	delete ui;
 }
 

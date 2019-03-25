@@ -27,67 +27,38 @@ CONFIG += c++11
 
 SOURCES += \
 		main.cpp \
-		mainwindow.cpp \
-	authentificationdialog.cpp \
-	aboutdialog.cpp \
-	createpatientdialog.cpp \
-	patient.cpp \
-	healthworker.cpp \
-	c_init_bd.cpp \
-	patientsqltablemodel.cpp \
-	patientproxytablemodel.cpp \
-	createhealthworkerdialog.cpp \
-	healthworkertreemodel.cpp \
-    controler/dao/c_init_bd.cpp \
-    controler/dao/healthworkertreemodel.cpp \
-    controler/dao/patientsqltablemodel.cpp \
-    controler/aboutdialog.cpp \
-    controler/authentificationdialog.cpp \
-    controler/createhealthworkerdialog.cpp \
-    controler/createpatientdialog.cpp \
-    controler/mainwindow.cpp \
-    controler/patientproxytablemodel.cpp \
-    model/healthworker.cpp \
-    model/patient.cpp \
-    main.cpp
+		controler/mainwindow.cpp \
+	controler/authentificationdialog.cpp \
+	controler/aboutdialog.cpp \
+	controler/createpatientdialog.cpp \
+	model/patient.cpp \
+	model/healthworker.cpp \
+	controler/dao/c_init_bd.cpp \
+	controler/dao/patientsqltablemodel.cpp \
+	controler/patientproxytablemodel.cpp \
+	controler/createhealthworkerdialog.cpp \
+	controler/dao/healthworkertreemodel.cpp
 
 HEADERS += \
-		mainwindow.h \
-	authentificationdialog.h \
-	aboutdialog.h \
-	createpatientdialog.h \
-	patient.h \
-	healthworker.h \
-	healthworkertype.h \
-	c_init_bd.h \
-	patientsqltablemodel.h \
-	patientproxytablemodel.h \
-	createhealthworkerdialog.h \
-	healthworkertreemodel.h \
-    controler/dao/c_init_bd.h \
-    controler/dao/healthworkertreemodel.h \
-    controler/dao/patientsqltablemodel.h \
-    controler/aboutdialog.h \
-    controler/authentificationdialog.h \
-    controler/createhealthworkerdialog.h \
-    controler/createpatientdialog.h \
-    controler/mainwindow.h \
-    controler/patientproxytablemodel.h \
-    model/healthworker.h \
-    model/healthworkertype.h \
-    model/patient.h
+		controler/mainwindow.h \
+	controler/authentificationdialog.h \
+	controler/aboutdialog.h \
+	controler/createpatientdialog.h \
+	model/patient.h \
+	model/healthworker.h \
+	model/healthworkertype.h \
+	controler/dao/c_init_bd.h \
+	controler/dao/patientsqltablemodel.h \
+	controler/patientproxytablemodel.h \
+	controler/createhealthworkerdialog.h \
+	controler/dao/healthworkertreemodel.h
 
 FORMS += \
-		mainwindow.ui \
-	authentificationdialog.ui \
-	aboutdialog.ui \
-	createpatientdialog.ui \
-	createhealthworkerdialog.ui \
-    view/aboutdialog.ui \
-    view/authentificationdialog.ui \
-    view/createhealthworkerdialog.ui \
-    view/createpatientdialog.ui \
-    view/mainwindow.ui
+		view/mainwindow.ui \
+	view/authentificationdialog.ui \
+	view/aboutdialog.ui \
+	view/createpatientdialog.ui \
+	view/createhealthworkerdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -96,13 +67,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
 	ressources.qrc
-
-DISTFILES += \
-    resources/polytechIcon_400x400.jpg \
-    resources/addDoctorIcon.png \
-    resources/addPatientIcon.png \
-    resources/baseline_delete_black_48dp.png \
-    resources/polytechIcon_400x400.png \
-    resources/polytechToursImage.png \
-    resources/searchIcon.png \
-    resources/univToursImage.png

@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 
-#include "patientsqltablemodel.h"
+#include "dao/patientsqltablemodel.h"
 #include "patientproxytablemodel.h"
-#include "healthworkertreemodel.h"
+#include "dao/healthworkertreemodel.h"
 #include "createpatientdialog.h"
 
 namespace Ui {

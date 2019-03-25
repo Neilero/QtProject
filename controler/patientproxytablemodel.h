@@ -5,7 +5,7 @@
 #include <QSortFilterProxyModel>
 #include <QDate>
 
-#include "patientsqltablemodel.h"
+#include "controler/dao/patientsqltablemodel.h"
 
 class PatientProxyTableModel : public QSortFilterProxyModel
 {

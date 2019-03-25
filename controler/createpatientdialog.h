@@ -7,7 +7,8 @@
 #include <QSqlField>
 #include <QSqlRecord>
 #include <QList>
-#include "patient.h"
+
+#include "model/patient.h"
 
 namespace Ui {
 class CreatePatientDialog;
@@ -42,10 +43,10 @@ private slots:
 	void on_buttonBox_rejected();
 
 private:
-    QListWidget* ressourceList;
+	QListWidget* ressourceList;
 	Ui::CreatePatientDialog *ui;
-    Patient* patient;
-    QSqlDatabase db;
+	Patient* patient;
+	QSqlDatabase db;
 	QSqlTableModel* resourceTable;
 	bool editMode;
 	int editedRow;

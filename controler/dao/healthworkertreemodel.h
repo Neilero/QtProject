@@ -5,7 +5,7 @@
 #include <QStandardItemModel>
 #include <QSqlTableModel>
 
-#include "createhealthworkerdialog.h"
+#include "controler/createhealthworkerdialog.h"
 
 class HealthWorkerTreeModel : public QStandardItemModel
 {

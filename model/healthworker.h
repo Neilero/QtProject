@@ -6,7 +6,7 @@
 #include <QString>
 #include <QDebug>
 
-#include <healthworkertype.h>
+#include <model/healthworkertype.h>
 
 class HealthWorker
 {

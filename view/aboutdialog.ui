@@ -33,7 +33,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="ressources.qrc">:/images/resources/polytechToursImage.png</pixmap>
+      <pixmap resource="../ressources.qrc">:/images/resources/polytechToursImage.png</pixmap>
      </property>
     </widget>
    </item>
@@ -43,7 +43,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="ressources.qrc">:/images/resources/univToursImage.png</pixmap>
+      <pixmap resource="../ressources.qrc">:/images/resources/univToursImage.png</pixmap>
      </property>
     </widget>
    </item>
@@ -121,7 +121,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="ressources.qrc"/>
+  <include location="../ressources.qrc"/>
  </resources>
  <connections/>
 </ui>

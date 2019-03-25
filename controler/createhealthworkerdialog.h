@@ -8,7 +8,8 @@
 #include <QSqlField>
 #include <QComboBox>
 #include <QDebug>
-#include "healthworker.h"
+
+#include "model/healthworker.h"
 
 namespace Ui {
 class CreateHealthWorkerDialog;
@@ -24,7 +25,7 @@ public:
 
 	void setName(QString name);
 	void setFirstName(QString firstName);
-    void setType(HealthWorkerType type);
+	void setType(HealthWorkerType type);
 	void setLogin(QString login);
 	void setPassword(QString password);
 

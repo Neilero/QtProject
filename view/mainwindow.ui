@@ -20,7 +20,7 @@
    <string>Fenêtre principale</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="ressources.qrc">
+   <iconset resource="../ressources.qrc">
     <normaloff>:/icon/resources/polytechIcon_400x400.png</normaloff>:/icon/resources/polytechIcon_400x400.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -97,7 +97,7 @@
            <string> Supprimer</string>
           </property>
           <property name="icon">
-           <iconset resource="ressources.qrc">
+           <iconset resource="../ressources.qrc">
             <normaloff>:/icon/resources/baseline_delete_black_48dp.png</normaloff>:/icon/resources/baseline_delete_black_48dp.png</iconset>
           </property>
          </widget>
@@ -209,7 +209,7 @@
            <string>Supprimer</string>
           </property>
           <property name="icon">
-           <iconset resource="ressources.qrc">
+           <iconset resource="../ressources.qrc">
             <normaloff>:/icon/resources/baseline_delete_black_48dp.png</normaloff>:/icon/resources/baseline_delete_black_48dp.png</iconset>
           </property>
          </widget>
@@ -266,7 +266,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionPatient">
    <property name="icon">
-    <iconset resource="ressources.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/icon/resources/addPatientIcon.png</normaloff>:/icon/resources/addPatientIcon.png</iconset>
    </property>
    <property name="text">
@@ -275,7 +275,7 @@
   </action>
   <action name="actionPersonnel_de_soin">
    <property name="icon">
-    <iconset resource="ressources.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/icon/resources/addDoctorIcon.png</normaloff>:/icon/resources/addDoctorIcon.png</iconset>
    </property>
    <property name="text">
@@ -307,7 +307,7 @@
   <tabstop>treeViewHealthWorker</tabstop>
  </tabstops>
  <resources>
-  <include location="ressources.qrc"/>
+  <include location="../ressources.qrc"/>
  </resources>
  <connections/>
 </ui>
