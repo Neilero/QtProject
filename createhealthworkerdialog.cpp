@@ -2,6 +2,11 @@
 #include "ui_createhealthworkerdialog.h"
 #include "mainwindow.h"
 
+/**
+ * @brief CreateHealthWorkerDialog::CreateHealthWorkerDialog Sole constructor with 2 arguments
+ * @param parent the parent QWidget
+ * @param editedRow the edited row in the model (-1 if the dialog is used to create instead of editing a healthworker)
+ */
 CreateHealthWorkerDialog::CreateHealthWorkerDialog(QWidget *parent, int editedRow) :
 	QDialog(parent),
 	ui(new Ui::CreateHealthWorkerDialog),
@@ -36,36 +41,65 @@ CreateHealthWorkerDialog::CreateHealthWorkerDialog(QWidget *parent, int editedRo
 	}
 }
 
+/**
+ * @brief CreateHealthWorkerDialog::~CreateHealthWorkerDialog basic destructor
+ */
 CreateHealthWorkerDialog::~CreateHealthWorkerDialog()
 {
 	delete ui;
 }
 
+/**
+ * @brief CreateHealthWorkerDialog::setName sets the lineEdit content corresponding to the line field
+ * @param name the value to show in the lineEdit
+ */
 void CreateHealthWorkerDialog::setName(QString name)
 {
 	ui->lineEditName->setText(name);
 }
 
+/**
+ * @brief CreateHealthWorkerDialog::setFirstName sets the lineEdit content corresponding to the firstName field
+ * @param firstName the value to show in the lineEdit
+ */
 void CreateHealthWorkerDialog::setFirstName(QString firstName)
 {
 	ui->lineEditFirstName->setText(firstName);
 }
 
+/**
+ * @brief CreateHealthWorkerDialog::setType sets the comboBox value corresponding to the type field
+ * @param type the value to show in the comboBox
+ */
 void CreateHealthWorkerDialog::setType(HealthWorkerType type)
 {
 	ui->comboBoxType->setCurrentIndex( static_cast<int>(type) -1 );
 }
 
+/**
+ * @brief CreateHealthWorkerDialog::setLogin sets the lineEdit content corresponding to the login field
+ * @param login the value to show in the lineEdit
+ */
 void CreateHealthWorkerDialog::setLogin(QString login)
 {
 	ui->lineEditLogin->setText(login);
 }
 
+/**
+ * @brief CreateHealthWorkerDialog::setPassword sets the lineEdit content corresponding to the password field
+ * @param password the value to show in the lineEdit
+ */
 void CreateHealthWorkerDialog::setPassword(QString password)
 {
 	ui->lineEditPassword->setText(password);
 }
 
+/**
+ * @brief CreateHealthWorkerDialog::accept override checking the contents of the form.
+ *
+ * Prompt a QMessageBox::warning in case of incorect content detected.
+ * Otherwise, sends a healthworkerCreated or a healthworkerEdited signal.
+ */
 void CreateHealthWorkerDialog::accept()
 {
 	//report all input error
@@ -147,11 +181,21 @@ void CreateHealthWorkerDialog::accept()
 	}
 }
 
+/**
+ * @brief CreateHealthWorkerDialog::on_buttonBox_rejected basic override closing the dialog
+ */
 void CreateHealthWorkerDialog::on_buttonBox_rejected()
 {
 	this->close();
 }
 
+/**
+ * @brief CreateHealthWorkerDialog::on_comboBoxType_currentIndexChanged slot for the currentIndexChanged of the comboBoxType
+ * @param index the new current index
+ *
+ * Sets the lineEdits and their associated labels corresponding to the login and password
+ * to either visible or not visible according to the given index.
+ */
 void CreateHealthWorkerDialog::on_comboBoxType_currentIndexChanged(int index)
 {
 	int typeID = ui->comboBoxType->itemData(index).toInt();

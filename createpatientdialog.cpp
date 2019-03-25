@@ -5,6 +5,11 @@
 #include <QMessageBox>
 #include <QDebug>
 
+/**
+ * @brief CreatePatientDialog::CreatePatientDialog sole constructor with 2 arguments
+ * @param parent the QWidget parent of the dialog
+ * @param editedRow the edited row in the model (-1 if the dialog is used to create instead of editing a patient)
+ */
 CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 	QDialog(parent),
 	ui(new Ui::CreatePatientDialog),
@@ -42,70 +47,123 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 	}
 }
 
+/**
+ * @brief CreatePatientDialog::~CreatePatientDialog basic destructor
+ */
 CreatePatientDialog::~CreatePatientDialog()
 {
 	delete ui;
 }
 
+/**
+ * @brief CreatePatientDialog::setName sets the lineEdit content corresponding to the name field
+ * @param name the value to show in the lineEdit
+ */
 void CreatePatientDialog::setName(QString name)
 {
 	ui->lineEditName->setText(name);
 }
 
+/**
+ * @brief CreatePatientDialog::setFirstname sets the lineEdit content corresponding to the firstName field
+ * @param firstname the value to show in the lineEdit
+ */
 void CreatePatientDialog::setFirstname(QString firstname)
 {
 	ui->lineEditSurname->setText(firstname);
 }
 
+/**
+ * @brief CreatePatientDialog::setAddress sets the lineEdit content corresponding to the address field
+ * @param address the value to show in the lineEdit
+ */
 void CreatePatientDialog::setAddress(QString address)
 {
 	ui->lineEditAddress->setText(address);
 }
 
+/**
+ * @brief CreatePatientDialog::setCommentary sets the plainTextEdit content corresponding to the commentary field
+ * @param commentary the value to show in the plainTextEdit
+ */
 void CreatePatientDialog::setCommentary(QString commentary)
 {
 	ui->plainTextEditCommentary->setPlainText(commentary);
 }
 
+/**
+ * @brief CreatePatientDialog::setConsultationDate sets the dateEdit value corresponding to the consultation date field
+ * @param consultationDate the value to show in the dateEdit
+ */
 void CreatePatientDialog::setConsultationDate(QDate consultationDate)
 {
 	ui->dateEditConsultationDay->setDate( consultationDate );
 }
 
+/**
+ * @brief CreatePatientDialog::setConsultationDuration sets the timeEdit value corresponding to the duration field
+ * @param duration the value to show in the timeEdit
+ */
 void CreatePatientDialog::setConsultationDuration(QTime duration)
 {
 	ui->timeEditDuration->setTime( duration );
 }
 
+/**
+ * @brief CreatePatientDialog::setPhoneNumber sets the lineEdit content corresponding to the phone number field
+ * @param phoneNumber the value to show in the lineEdit
+ */
 void CreatePatientDialog::setPhoneNumber(int phoneNumber)
 {
 	ui->lineEditPhone->setText( QString::number(phoneNumber, 10).insert(0, '0') );
 }
 
+/**
+ * @brief CreatePatientDialog::setPostalCode sets the lineEdit content corresponding to the postal code field
+ * @param postalCode the value to show in the lineEdit
+ */
 void CreatePatientDialog::setPostalCode(int postalCode)
 {
 	ui->lineEditPostCode->setText( QString::number(postalCode, 10) );
 }
 
+/**
+ * @brief CreatePatientDialog::setPriority sets the slider value corresponding to the priority field
+ * @param priority the value to show in the slider
+ */
 void CreatePatientDialog::setPriority(int priority)
 {
 	ui->horizontalSliderPriority->setValue(priority);
 }
 
+/**
+ * @brief CreatePatientDialog::setTown sets the lineEdit content corresponding to the town field
+ * @param town the value to show in the lineEdit
+ */
 void CreatePatientDialog::setTown(QString town)
 {
 	ui->lineEditTown->setText(town);
 	ui->lineEditTown->setCursorPosition(0);
 }
 
-void CreatePatientDialog::setResources(QList<int> resourcesList)
+/**
+ * @brief CreatePatientDialog::setResources sets the listWidget values corresponding to the consultations' ressource field
+ * @param resourceIndexesList the value to show in the listWidget
+ */
+void CreatePatientDialog::setResources(QList<int> resourceIndexesList)
 {
-	for(int resourceIndex=0; resourceIndex < resourcesList.size();resourceIndex++)
+	for(int resourceIndex=0; resourceIndex < resourceIndexesList.size();resourceIndex++)
 	{
-		ui->listWidget->item(resourcesList.at(resourceIndex))->setCheckState(Qt::Checked);
+		ui->listWidget->item(resourceIndexesList.at(resourceIndex))->setCheckState(Qt::Checked);
 	}
 }
 
+/**
+ * @brief CreatePatientDialog::accept override checking the contents of the form.
+ *
+ * Prompt a QMessageBox::warning in case of incorect content detected.
+ * Otherwise, sends a patientCreated or a patientEdited signal.
+ */
 void CreatePatientDialog::accept()
 {
 	//check the convertions errors
@@ -258,6 +316,9 @@ void CreatePatientDialog::accept()
 	}
 }
 
+/**
+ * @brief CreatePatientDialog::on_buttonBox_rejected basic override closing the dialog
+ */
 void CreatePatientDialog::on_buttonBox_rejected()
 {
 	this->close();
