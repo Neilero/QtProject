@@ -49,6 +49,8 @@ QString HealthWorker::getName() const
 /**
  * @brief Set a new name to the health worker
  * @param The name to set to the health worker
+ * @throw 1 if the value is empty
+ * @throw 2 if the first char is not an uppercase
  */
 void HealthWorker::setName(const QString &value)
 {
@@ -73,6 +75,8 @@ QString HealthWorker::getFirstname() const
 /**
  * @brief Set a new first name to the health worker
  * @param The first name to set to the health worker
+ * @throw 1 if the value is empty
+ * @throw 2 if the first char is not an uppercase
  */
 void HealthWorker::setFirstname(const QString &value)
 {
@@ -114,6 +118,7 @@ QString HealthWorker::getLogin() const
 /**
  * @brief Set a new login to the employee
  * @param The login to set to the employee
+ * @throw 1 if the value is empty
  */
 void HealthWorker::setLogin(const QString &value)
 {
@@ -135,6 +140,7 @@ QString HealthWorker::getPassword() const
 /**
  * @brief Set a new password to the employee
  * @param the password to set to the employee
+ * @throw 1 if the value is empty
  */
 void HealthWorker::setPassword(const QString &value)
 {

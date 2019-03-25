@@ -34,7 +34,7 @@ Patient::Patient(QString name, QString firstname, QString address, QString town,
 	this->setConsultationDuration(consultationDuration);
 	this->setPriority(priority);
 	this->setCommentary(commentary);
-    this->setPhoneNumber(phoneNumber);
+	this->setPhoneNumber(phoneNumber);
 }
 
 /**
@@ -49,15 +49,17 @@ QString Patient::getName() const
 /**
  * @brief Set a new name to the patient
  * @param The new name to set to the patient
+ * @throw 1 if the value is empty
+ * @throw 2 if the first char is not an uppercase
  */
 void Patient::setName(const QString& value)
 {
-    if (value.isEmpty())
-        throw(1);
-    else if (value.at(0).isUpper())
-        name = value;
-    else
-        throw(2);
+	if (value.isEmpty())
+		throw(1);
+	else if (value.at(0).isUpper())
+		name = value;
+	else
+		throw(2);
 }
 
 /**
@@ -72,15 +74,17 @@ QString Patient::getFirstname() const
 /**
  * @brief Set a new first name to the patient
  * @param The new fist name to set to the patient
+ * @throw 1 if the value is empty
+ * @throw 2 if the first char is not an uppercase
  */
 void Patient::setFirstname(const QString& value)
 {
-    if(value.isEmpty())
-        throw(1);
-    else if (value.at(0).isUpper())
-            firstname = value;
-        else
-            throw(2);
+	if(value.isEmpty())
+		throw(1);
+	else if (value.at(0).isUpper())
+			firstname = value;
+	else
+		throw(2);
 }
 
 /**
@@ -95,13 +99,14 @@ QString Patient::getAddress() const
 /**
  * @brief Set a new address to the patient
  * @param The new fist name to set to the patient
+ * @throw 1 if the value is empty
  */
 void Patient::setAddress(const QString& value)
 {
-    if(value.isEmpty())
-        throw(1);
-    else
-        address = value;
+	if(value.isEmpty())
+		throw(1);
+	else
+		address = value;
 }
 
 /**
@@ -116,15 +121,17 @@ QString Patient::getTown() const
 /**
  * @brief Set a new town to the patient
  * @param The new town to set to the patient
+ * @throw 1 if the value is empty
+ * @throw 2 if the first char is not an uppercase
  */
 void Patient::setTown(const QString& value)
 {
-    if(value.isEmpty())
-        throw(1);
-    else if(value.at(0).isUpper())
-        town = value;
-    else
-        throw(2);
+	if(value.isEmpty())
+		throw(1);
+	else if(value.at(0).isUpper())
+		town = value;
+	else
+		throw(2);
 }
 
 /**
@@ -139,15 +146,17 @@ int Patient::getPostalCode() const
 /**
  * @brief Set a new postal code to the patient
  * @param The new postal code to set to the patient
+ * @throw 1 if the value is empty
+ * @throw 2 if the value is less than 0 or greater than 99999
  */
 void Patient::setPostalCode(int value)
 {
-    if (value == 0)
-        throw(1);
-    else if (0 <= value && value <= 99999)
-        postalCode = value;
-    else
-        throw(2);
+	if (value == 0)
+		throw(1);
+	else if (0 <= value && value <= 99999)
+		postalCode = value;
+	else
+		throw(2);
 }
 
 /**
@@ -162,13 +171,14 @@ QDate Patient::getConsultationDate() const
 /**
  * @brief Set a new consultation date
  * @param The date of the consultation
+ * @throw 1 if the value is earlier than the current date
  */
 void Patient::setConsultationDate(const QDate& value)
 {
 	if (QDate::currentDate() <= value)
 		consultationDate = value;
-    else
-        throw(1);
+	else
+		throw(1);
 }
 
 /**
@@ -201,13 +211,14 @@ int Patient::getPriority() const
 /**
  * @brief Change the priority of the consultation
  * @param The new priority of the consultation
+ * @throw 1 if the value is less than 1 or greater than 5
  */
 void Patient::setPriority(int value)
 {
 	if (1 <= value && value <= 5)
 		priority = value;
-    else
-        throw(1);
+	else
+		throw(1);
 }
 
 /**
@@ -240,15 +251,16 @@ int Patient::getPhoneNumber() const
 /**
  * @brief Change the phone number of the patient
  * @param The new the phone number to set to the patient
+ * @throw 2 if the value is less than 01 00 00 00 00 or greater than 09 99 99 99 99
  */
 void Patient::setPhoneNumber(int value)
 {
    if(value == 0)
-      phoneNumber = 0;
+	  phoneNumber = 0;
    else if (100000000 <= value && value <= 999999999)
-       phoneNumber = value;
+	   phoneNumber = value;
    else
-       throw(2);
+	   throw(2);
 }
 
 /**
@@ -257,7 +269,7 @@ void Patient::setPhoneNumber(int value)
  */
 QList<int> Patient::getResourceList() const
 {
-    return resourceList;
+	return resourceList;
 }
 
 /**
@@ -266,7 +278,7 @@ QList<int> Patient::getResourceList() const
  */
 void Patient::setResourceList(const QList<int> &value)
 {
-    resourceList = value;
+	resourceList = value;
 }
 
 /**
@@ -275,5 +287,5 @@ void Patient::setResourceList(const QList<int> &value)
  */
 void Patient::addToResourceList(int value)
 {
-    resourceList.append(value);
+	resourceList.append(value);
 }

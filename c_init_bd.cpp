@@ -4,11 +4,17 @@
 #include <QDebug>
 #include <QFile>
 
-
+/**
+ * @brief C_INIT_BD::C_INIT_BD default constructor (useless)
+ */
 C_INIT_BD::C_INIT_BD()
 {
 }
 
+/**
+ * @brief C_INIT_BD::Creation_BD create the database with the default connection name
+ * @return true if the creation was successful
+ */
 bool C_INIT_BD::Creation_BD()
 {
 	bool b_test;
