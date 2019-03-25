@@ -21,23 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 		QTimer::singleShot(0, qApp, SLOT(quit()));
 	}
 
-	//init patient model
-	this->patientModel = new PatientSqlTableModel(this, db);
-	patientModel->setTable("TPatient");
-	patientModel->select();
-
-	//init patient proxy model
-	this->patientProxy = new PatientProxyTableModel(this);
-
-	//init patient table
-	patientProxy->setSourceModel(patientModel);
-	ui->tableView->setModel(patientProxy);
-
-	//init healthworker model
-	this->healthworkerModel = new HealthWorkerTreeModel(this, db);
-
-	//init healthworker tree
-	ui->treeViewHealthWorker->setModel(healthworkerModel);
+	initModels();
 
 	createConnections();
 
@@ -47,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
 	db.close();
+	db.removeDatabase("QSQLITE");
 	delete ui;
 }
 
@@ -60,6 +45,10 @@ bool MainWindow::initDb()
 		db.setUserName("root");
 		db.setPassword("password");
 
+		if (!QFile::exists("base_tmp.sqli")) {
+			return resetDb();
+		}
+
 		db.setDatabaseName("base_tmp.sqli");
 		db.open();
 
@@ -72,6 +61,25 @@ bool MainWindow::initDb()
 	}
 
 	return true;
+}
+
+void MainWindow::initModels()
+{
+	//init patient model
+	this->patientModel = new PatientSqlTableModel(this, db);
+
+	//init patient proxy model
+	this->patientProxy = new PatientProxyTableModel(this);
+
+	//init patient table
+	patientProxy->setSourceModel(patientModel);
+	ui->tableView->setModel(patientProxy);
+
+	//init healthworker model
+	this->healthworkerModel = new HealthWorkerTreeModel(this, db);
+
+	//init healthworker tree
+	ui->treeViewHealthWorker->setModel(healthworkerModel);
 }
 
 void MainWindow::createConnections()
@@ -285,5 +293,11 @@ bool MainWindow::resetDb()
 	db.close();
 	db.removeDatabase("QSQLITE");
 
-	return C_INIT_BD::Creation_BD(db);
+	if (! C_INIT_BD::Creation_BD(db) )
+		return false;
+
+	initModels();
+	createConnections();
+
+	return true;
 }

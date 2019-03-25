@@ -1,5 +1,6 @@
 #include "createhealthworkerdialog.h"
 #include "ui_createhealthworkerdialog.h"
+#include "mainwindow.h"
 
 CreateHealthWorkerDialog::CreateHealthWorkerDialog(QWidget *parent, int editedRow) :
 	QDialog(parent),
@@ -20,7 +21,7 @@ CreateHealthWorkerDialog::CreateHealthWorkerDialog(QWidget *parent, int editedRo
 	}
 
 	//get the datas from the db
-	QSqlDatabase db = QSqlDatabase::database();
+	QSqlDatabase db = static_cast<MainWindow>(parent).getDb();
 	healthWorkerTypeTable = new QSqlTableModel(this, db);
 	healthWorkerTypeTable->setTable("TType");
 	healthWorkerTypeTable->select();
@@ -52,7 +53,7 @@ void CreateHealthWorkerDialog::setFirstName(QString firstName)
 
 void CreateHealthWorkerDialog::setType(HealthWorkerType type)
 {
-    ui->comboBoxType->setCurrentIndex( static_cast<int>(type) -1 );
+	ui->comboBoxType->setCurrentIndex( static_cast<int>(type) -1 );
 }
 
 void CreateHealthWorkerDialog::setLogin(QString login)
@@ -73,7 +74,7 @@ void CreateHealthWorkerDialog::accept()
 	//Set the name
 	try
 	{
-        this->healthworker->setName(ui->lineEditName->text());
+		this->healthworker->setName(ui->lineEditName->text());
 	}
 	catch(int e)
 	{

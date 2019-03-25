@@ -25,6 +25,7 @@ public:
 
 private:
 	bool initDb();
+	void initModels();
 	void createConnections();
 
 private slots:

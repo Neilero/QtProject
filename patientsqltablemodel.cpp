@@ -8,6 +8,8 @@
 PatientSqlTableModel::PatientSqlTableModel(QObject* parent, QSqlDatabase db)
 	: QSqlTableModel(parent, db)
 {
+	setTable("TPatient");
+	select();
 }
 
 Qt::ItemFlags PatientSqlTableModel::flags(const QModelIndex& index) const

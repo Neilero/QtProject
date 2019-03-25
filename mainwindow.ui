@@ -180,20 +180,6 @@
         <string>Planification</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="3" column="0">
-         <widget class="QPushButton" name="pushButtonEditHealthWorker">
-          <property name="text">
-           <string>Editer</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="pushButtonDeleteHealthWorker">
-          <property name="text">
-           <string>Supprimer</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="0" colspan="2">
          <widget class="QTreeView" name="treeViewHealthWorker"/>
         </item>
@@ -216,6 +202,17 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="3" column="0" colspan="2" alignment="Qt::AlignHCenter">
+         <widget class="QPushButton" name="pushButtonDeleteHealthWorker">
+          <property name="text">
+           <string>Supprimer</string>
+          </property>
+          <property name="icon">
+           <iconset resource="ressources.qrc">
+            <normaloff>:/icon/resources/baseline_delete_black_48dp.png</normaloff>:/icon/resources/baseline_delete_black_48dp.png</iconset>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -306,7 +303,6 @@
   <tabstop>searchIDSpinBox</tabstop>
   <tabstop>pushButtonDeletePatient</tabstop>
   <tabstop>tableView</tabstop>
-  <tabstop>pushButtonEditHealthWorker</tabstop>
   <tabstop>pushButtonDeleteHealthWorker</tabstop>
   <tabstop>treeViewHealthWorker</tabstop>
  </tabstops>
