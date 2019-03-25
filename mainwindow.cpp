@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-	db.close();
-	db.removeDatabase("QSQLITE");
+    db.close();
+    db.removeDatabase("QSQLITE");
 	delete ui;
 }
 
