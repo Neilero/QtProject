@@ -30,11 +30,11 @@ HealthWorkerTreeModel::HealthWorkerTreeModel(QObject* parent, QSqlDatabase db)
 }
 
 /**
- * @brief Return string to set to the header
- * @param the section of the header
- * @param the orientation of the header
- * @param the role role of the header
- * @return
+ * @brief Return the string to set to the header
+ * @param section the section of the header
+ * @param orientation the orientation of the header
+ * @param role the role of the header
+ * @return The string to set to the header
  */
 QVariant HealthWorkerTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
@@ -153,7 +153,7 @@ bool HealthWorkerTreeModel::deleteHealthWorker(const QModelIndex& indexToDelete)
 
 /**
  * @brief add a health worker
- * @param the new health worker to ass
+ * @param newHealthWorker the new health worker to ass
  */
 void HealthWorkerTreeModel::insertHealthWorker(HealthWorker newHealthWorker)
 {
@@ -231,8 +231,8 @@ void HealthWorkerTreeModel::insertHealthWorker(HealthWorker newHealthWorker)
 
 /**
  * @brief edit an existing health worker
- * @param the new health worker
- * @param the line to edit
+ * @param editedHealthWorker the new health worker
+ * @param editedRow the line to edit
  */
 void HealthWorkerTreeModel::editHealthWorker(HealthWorker editedHealthWorker, int editedRow)
 {

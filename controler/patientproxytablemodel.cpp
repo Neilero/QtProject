@@ -4,7 +4,7 @@
 
 /**
  * @brief Constructor
- * @param the parent of the object
+ * @param parent the parent of the object
  */
 PatientProxyTableModel::PatientProxyTableModel(QObject* parent):
 	QSortFilterProxyModel (parent),
@@ -13,10 +13,10 @@ PatientProxyTableModel::PatientProxyTableModel(QObject* parent):
 }
 
 /**
- * @brief PatientProxyTableModel::filterAcceptsRow
- * @param source_row
- * @param source_parent
- * @return
+ * @brief filter the the given row
+ * @param source_row the row to filter
+ * @param source_parent the index of the row in the source model
+ * @return true if the row should be display on the view
  */
 bool PatientProxyTableModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
@@ -44,6 +44,13 @@ bool PatientProxyTableModel::filterAcceptsRow(int source_row, const QModelIndex&
 	return true;
 }
 
+/**
+ * @brief return the header data of the source model
+ * @param section
+ * @param orientation
+ * @param role
+ * @return the header data of the source model
+ */
 QVariant PatientProxyTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	return sourceModel()->headerData(section, orientation, role);
@@ -60,6 +67,10 @@ Qt::ItemFlags PatientProxyTableModel::flags(const QModelIndex& index) const
 	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
+/**
+ * @brief setter for name filter
+ * @param name the new value of the filter
+ */
 void PatientProxyTableModel::setFilterName(QString name)
 {
 	filterName = name;
@@ -67,6 +78,10 @@ void PatientProxyTableModel::setFilterName(QString name)
 	invalidateFilter();
 }
 
+/**
+ * @brief setter for firstname filter
+ * @param firstname the new value of the filter
+ */
 void PatientProxyTableModel::setFilterFirstname(QString firstname)
 {
 	filterFirstname = firstname;
@@ -74,6 +89,10 @@ void PatientProxyTableModel::setFilterFirstname(QString firstname)
 	invalidateFilter();
 }
 
+/**
+ * @brief setter for id filter
+ * @param id the new value of the filter
+ */
 void PatientProxyTableModel::setFilterID(int ID)
 {
 	filterID = ID;
@@ -81,6 +100,10 @@ void PatientProxyTableModel::setFilterID(int ID)
 	invalidateFilter();
 }
 
+/**
+ * @brief setter for beginDate filter
+ * @param nbeginDateame the new value of the filter
+ */
 void PatientProxyTableModel::setFilterBeginDate(QDate beginDate)
 {
 	if (beginDate < filterEndDate) {
@@ -90,6 +113,10 @@ void PatientProxyTableModel::setFilterBeginDate(QDate beginDate)
 	}
 }
 
+/**
+ * @brief setter for endDate filter
+ * @param endDate the new value of the filter
+ */
 void PatientProxyTableModel::setFilterEndDate(QDate endDate)
 {
 	if (endDate > filterBeginDate) {
@@ -99,6 +126,11 @@ void PatientProxyTableModel::setFilterEndDate(QDate endDate)
 	}
 }
 
+/**
+ * @brief delete the patient
+ * @param the index of the patient to delete
+ * @return if the patient is deleted
+ */
 bool PatientProxyTableModel::deletePatient(const QModelIndex& indexToDelete)
 {
 	int rowSelected = indexToDelete.row();

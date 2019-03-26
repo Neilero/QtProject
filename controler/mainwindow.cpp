@@ -11,6 +11,10 @@
 #include "aboutdialog.h"
 #include "controler/dao/c_init_bd.h"
 
+/**
+ * @brief constructor of the MainWindow
+ * @param the parent of the MainWindow
+ */
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
@@ -31,6 +35,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->statusBar->showMessage("Bienvenue");
 }
 
+/**
+ * @brief destructor of the MainWindow
+ */
 MainWindow::~MainWindow()
 {
 	delete patientModel;
@@ -42,6 +49,10 @@ MainWindow::~MainWindow()
 	delete ui;
 }
 
+/**
+ * @brief ititialize the database
+ * @return true is the database is initialized
+ */
 bool MainWindow::initDb()
 {
 	qDebug() << "Init DB";
@@ -72,6 +83,9 @@ bool MainWindow::initDb()
 	return true;
 }
 
+/**
+ * @brief initialize the models
+ */
 void MainWindow::initModels()
 {
 	qDebug() << "Init Models";
@@ -93,6 +107,9 @@ void MainWindow::initModels()
 	ui->treeViewHealthWorker->setModel(healthworkerModel);
 }
 
+/**
+ * @brief create a connection between the signals and the slots
+ */
 void MainWindow::createConnections()
 {
 	//connect ui filters to proxy filter model
@@ -123,17 +140,29 @@ void MainWindow::createConnections()
 	QObject::connect(healthworkerModel, SIGNAL(healthWorkerEdited(void)), this, SLOT(on_healthWorkerEdited(void)));
 }
 
+/**
+ * @brief slot associated to the triggered signal of actionQuitter button
+ * quit the application
+ */
 void MainWindow::on_actionQuitter_triggered()
 {
 	QApplication::quit();
 }
 
+/**
+ * @brief slot associated to the triggered signal of propos action
+ * show the about dialog
+ */
 void MainWindow::on_action_propos_triggered()
 {
 	AboutDialog about(this);
 	about.exec();
 }
 
+/**
+ * @brief slot associated to the triggered signal of create patient action
+ * show the create patient dialog
+ */
 void MainWindow::on_actionPatient_triggered()
 {
 	createPatientDialog = new CreatePatientDialog(this);
@@ -146,6 +175,10 @@ void MainWindow::on_actionPatient_triggered()
 	delete createPatientDialog;
 }
 
+/**
+ * @brief slot associated to the triggered signal of create health worker action
+ * show the create health worker dialog
+ */
 void MainWindow::on_actionPersonnel_de_soin_triggered()
 {
 	createHealthWorkerDialog = new CreateHealthWorkerDialog(this);
@@ -159,6 +192,10 @@ void MainWindow::on_actionPersonnel_de_soin_triggered()
 	delete createHealthWorkerDialog;
 }
 
+/**
+ * @brief slot associated to the triggered signal of delete health worker action
+ * delete health worker
+ */
 void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 {
 	QModelIndex currentIndex = ui->treeViewHealthWorker->currentIndex();
@@ -173,6 +210,10 @@ void MainWindow::on_pushButtonDeleteHealthWorker_clicked()
 	}
 }
 
+/**
+ * @brief slot associated to the triggered signal of delete patient action
+ * delete parient
+ */
 void MainWindow::on_pushButtonDeletePatient_clicked()
 {
 	QModelIndex currentIndex = ui->tableView->currentIndex();
@@ -187,27 +228,46 @@ void MainWindow::on_pushButtonDeletePatient_clicked()
 	}
 }
 
+/**
+ * @brief slot associated to the patient insered signal
+ * show a message on the statusBar
+ */
 void MainWindow::on_patientInserted()
 {
 	ui->statusBar->showMessage("Patient ajouté");
 }
 
+/**
+ * @brief slot associated to the patient edited signal
+ * show a message on the statusBar
+ */
 void MainWindow::on_patientEdited()
 {
 	ui->statusBar->showMessage("Patient édité");
 }
 
+/**
+ * @brief slot associated to the health worker insered signal
+ * show a message on the statusBar
+ */
 void MainWindow::on_healthWorkerInserted()
 {
 	ui->statusBar->showMessage("Personnel de soins ajouté");
 }
 
+/**
+ * @brief slot associated to the health worker edited signal
+ * show a message on the statusBar
+ */
 void MainWindow::on_healthWorkerEdited()
 {
 	ui->statusBar->showMessage("Personnel de soins édité");
 }
 
-
+/**
+ * @brief slot associated the the double click on tableView signal
+ * @param index the index of the double click
+ */
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
 	QSqlRecord patientRecord = patientModel->record( patientProxy->data( patientProxy->index( index.row(), 0 ) ).toInt() -1 );
@@ -245,6 +305,10 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 	delete createPatientDialog;
 }
 
+/**
+ * @brief slot associated the the double click on treeView signal
+ * @param index the index of the double click
+ */
 void MainWindow::on_treeViewHealthWorker_doubleClicked(const QModelIndex &index)
 {
 	// if it's a HealthWorkerType, we don't want to be able to modify it.
@@ -293,11 +357,19 @@ void MainWindow::on_treeViewHealthWorker_doubleClicked(const QModelIndex &index)
 	delete createHealthWorkerDialog;
 }
 
+/**
+ * @brief get the database in use
+ * @return the database in use
+ */
 QSqlDatabase MainWindow::getDb() const
 {
 	return db;
 }
 
+/**
+ * @brief reset the database
+ * @return true if the database is deleted
+ */
 bool MainWindow::resetDb()
 {
 	if (patientModel != nullptr) {

@@ -5,6 +5,11 @@
 #include <QSqlError>
 #include <QDebug>
 
+/**
+ * @brief Constructor
+ * @param parent the parent of the object
+ * @param db the database to connect to
+ */
 PatientSqlTableModel::PatientSqlTableModel(QObject* parent, QSqlDatabase db)
 	: QSqlTableModel(parent, db)
 {
@@ -12,6 +17,11 @@ PatientSqlTableModel::PatientSqlTableModel(QObject* parent, QSqlDatabase db)
 	select();
 }
 
+/**
+ * @brief Returns the item flags for the given index
+ * @param index the flags' index
+ * @return The item flags for the given index
+ */
 Qt::ItemFlags PatientSqlTableModel::flags(const QModelIndex& index) const
 {
 	if ( index.column() == 0 )
@@ -21,6 +31,10 @@ Qt::ItemFlags PatientSqlTableModel::flags(const QModelIndex& index) const
 	}
 }
 
+/**
+ * @brief Insert a new patient to the database
+ * @param newPatient the patient to add
+ */
 void PatientSqlTableModel::insertPatient(Patient newPatient)
 {
 	//start a transaction
@@ -70,6 +84,11 @@ void PatientSqlTableModel::insertPatient(Patient newPatient)
 	}
 }
 
+/**
+ * @brief edit a patient in the database
+ * @param the patient to edit
+ * @param the row to modify
+ */
 void PatientSqlTableModel::editPatient(Patient editedPatient, int row)
 {
 	//start a transaction
@@ -104,6 +123,13 @@ void PatientSqlTableModel::editPatient(Patient editedPatient, int row)
 	select();
 }
 
+/**
+ * @brief Return string to set to the header
+ * @param section the section of the header
+ * @param orientation the orientation of the header
+ * @param role the role of the header
+ * @return
+ */
 QVariant PatientSqlTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	if (role == Qt::DisplayRole)

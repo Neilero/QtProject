@@ -6,6 +6,10 @@
 
 #include "mainwindow.h"
 
+/**
+ * @brief Constructor
+ * @param parent the parent of the widget
+ */
 AuthentificationDialog::AuthentificationDialog(QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::AuthentificationDialog)
