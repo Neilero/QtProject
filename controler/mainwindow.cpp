@@ -55,8 +55,6 @@ MainWindow::~MainWindow()
  */
 bool MainWindow::initDb()
 {
-	qDebug() << "Init DB";
-
 	db = QSqlDatabase::addDatabase("QSQLITE");
 
 	if(db.isValid())
@@ -88,8 +86,6 @@ bool MainWindow::initDb()
  */
 void MainWindow::initModels()
 {
-	qDebug() << "Init Models";
-
 	//init patient model
 	this->patientModel = new PatientSqlTableModel(this, db);
 

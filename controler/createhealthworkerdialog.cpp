@@ -117,7 +117,7 @@ void CreateHealthWorkerDialog::accept()
 	   else if(e==2)
 		   error.append("La première lettre du nom doit être une majuscule.\n");
 	   else
-		   error.append("Le nom du patient est incorrect.\n");
+		   error.append("Le nom du personnel est incorrect.\n");
 	}
 
 	//Set the firstname
@@ -132,7 +132,7 @@ void CreateHealthWorkerDialog::accept()
 	   else if(e==2)
 		   error.append("La première lettre du prenom doit être une majuscule.\n");
 	   else
-		   error.append("Le prenom du patient est incorrect.\n");
+		   error.append("Le prenom du personnel est incorrect.\n");
 	}
 
 	//set the type
@@ -142,17 +142,31 @@ void CreateHealthWorkerDialog::accept()
 	//check login and password in case of type = "informaticien"
 	if(this->healthworker->getType() == HealthWorkerType::computerScientist)
 	{
-		//check login
-		if(ui->lineEditLogin->text().isEmpty())
-			error.append("Entrer le login.\n");
-		else
+		//Set the login
+		try
+		{
 			this->healthworker->setLogin(ui->lineEditLogin->text());
+		}
+		catch(int e)
+		{
+		   if(e==1)
+			   error.append("Completer le login du personnel.\n");
+		   else
+			   error.append("Le login du personnel est incorrect.\n");
+		}
 
-		//check password
-		if(ui->lineEditLogin->text().isEmpty())
-			error.append("Entrer le mot de passe.\n");
-		else
+		//Set the password
+		try
+		{
 			this->healthworker->setPassword(ui->lineEditPassword->text());
+		}
+		catch(int e)
+		{
+		   if(e==1)
+			   error.append("Completer le mot de passe du personnel.\n");
+		   else
+			   error.append("Le mot de passe du personnel est incorrect.\n");
+		}
 	}
 
 

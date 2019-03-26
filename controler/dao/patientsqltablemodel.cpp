@@ -73,6 +73,7 @@ void PatientSqlTableModel::insertPatient(Patient newPatient)
 
 	if( insertRecord(-1, patientLine) ){
 		//if ok, commit changes
+		database().commit();
 		submitAll();
 		select();
 
@@ -118,9 +119,15 @@ void PatientSqlTableModel::editPatient(Patient editedPatient, int row)
 	setData( index(row, 10), editedPatient.getPriority() );
 
 	//submit changes
-	if (submitAll())
+	if (submitAll()) {
+		database().commit();
+		select();
+
 		emit patientEdited();
-	select();
+	}
+	else {
+		database().rollback();
+	}
 }
 
 /**

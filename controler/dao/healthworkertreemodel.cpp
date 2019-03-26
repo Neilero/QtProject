@@ -56,7 +56,7 @@ QVariant HealthWorkerTreeModel::headerData(int section, Qt::Orientation orientat
  */
 QSqlTableModel* HealthWorkerTreeModel::getAccountTableModel() const
 {
-    return accountTableModel;
+	return accountTableModel;
 }
 
 /**
@@ -188,7 +188,7 @@ void HealthWorkerTreeModel::insertHealthWorker(HealthWorker newHealthWorker)
 
 		//set the other fields of the new patient db line
 
-		accountLine->setValue("IdRessource", healthWorkerTableModel->rowCount() );
+		accountLine->setValue("IdRessource", healthWorkerTableModel->rowCount()+1 );
 
 		accountLine->setValue("Login", newHealthWorker.getLogin());
 
@@ -199,6 +199,7 @@ void HealthWorkerTreeModel::insertHealthWorker(HealthWorker newHealthWorker)
 	if (accountLine == nullptr) {
 		if( healthWorkerTableModel->insertRecord(-1, healthWorkerLine) ){
 			//if ok, commit changes
+			healthWorkerTableModel->database().commit();
 			healthWorkerTableModel->submitAll();
 			healthWorkerTableModel->select();
 
@@ -212,6 +213,9 @@ void HealthWorkerTreeModel::insertHealthWorker(HealthWorker newHealthWorker)
 	else {
 		if( healthWorkerTableModel->insertRecord(-1, healthWorkerLine) && accountTableModel->insertRecord(-1, *accountLine) ){
 			//if ok, commit changes
+			healthWorkerTableModel->database().commit();
+			accountTableModel->database().commit();
+
 			healthWorkerTableModel->submitAll();
 			accountTableModel->submitAll();
 
@@ -254,6 +258,8 @@ void HealthWorkerTreeModel::editHealthWorker(HealthWorker editedHealthWorker, in
 		//start a transaction
 		accountTableModel->database().transaction();
 
+		bool accountFound = false;
+
 		for (int row=0; row < accountTableModel->rowCount(); row++) {
 
 			if ( accountTableModel->data( accountTableModel->index(row, 1) ).toInt() == editedHealthWorkerId ) {
@@ -262,24 +268,69 @@ void HealthWorkerTreeModel::editHealthWorker(HealthWorker editedHealthWorker, in
 
 				accountTableModel->setData( accountTableModel->index(row, 3), editedHealthWorker.getPassword() );
 
-				if (accountTableModel->submitAll())
+				if (accountTableModel->submitAll()) {
+					accountTableModel->database().commit();
 					accountTableModel->select();
+				}
 				else {
 					qDebug() << accountTableModel->lastError();
 					qDebug() << "Erreur lors de l'édition d'un compte";
+
+					accountTableModel->database().rollback();
 				}
+
+				accountFound = true;
+			}
+		}
+
+		if (!accountFound) {
+			//start a transaction
+			accountTableModel->database().transaction();
+
+			//create an empty record from the model structure
+			QSqlRecord accountLine = QSqlRecord( accountTableModel->record() );
+
+			//the Id is auto-increment so we don't set it up
+			accountLine.remove( accountLine.indexOf("Id") );
+
+			//set the other fields of the new patient db line
+
+			accountLine.setValue("IdRessource", editedHealthWorkerId );
+
+			accountLine.setValue("Login", editedHealthWorker.getLogin());
+
+			accountLine.setValue("MdP", editedHealthWorker.getPassword());
+
+			//commit new line
+			accountTableModel->insertRecord(-1, accountLine);
+			accountTableModel->database().commit();
+			accountTableModel->submitAll();
+			accountTableModel->select();
+		}
+
+	}
+	else {
+		//remove the account if there was one
+		int editedHealthWorkerId = healthWorkerTableModel->data( healthWorkerTableModel->index( editedRow, 0 ) ).toInt();
+
+		for (int row=0; row < accountTableModel->rowCount(); row++) {
+			if ( accountTableModel->data( accountTableModel->index(row, 1) ).toInt() == editedHealthWorkerId ) {
+				accountTableModel->removeRow(row);
 			}
 		}
 	}
 
 	//submit changes
 	if (healthWorkerTableModel->submitAll()) {
-		emit healthWorkerEdited();
+		healthWorkerTableModel->database().commit();
 		healthWorkerTableModel->select();
+		emit healthWorkerEdited();
 	}
 	else {
 		qDebug() << healthWorkerTableModel->lastError();
 		qDebug() << "Erreur lors de l'édition d'un personnel de soins";
+
+		healthWorkerTableModel->database().rollback();
 	}
 
 }

@@ -38,12 +38,19 @@ CreatePatientDialog::CreatePatientDialog(QWidget *parent, int editedRow) :
 	for(int resourceIndex = 0;resourceIndex < resourceTable->rowCount();resourceIndex++ )
 	{
 		//add the item to the list
-		ui->listWidget->addItem(resourceTable->record(resourceIndex).field(1).value().toString() + " " + resourceTable->record(resourceIndex).field(2).value().toString());
-		QListWidgetItem* item = ui->listWidget->item(resourceIndex);
+		QSqlRecord ressource = resourceTable->record(resourceIndex);
+		QString ressourceName = ressource.field(1).value().toString();
+		QString ressourceFirstname = ressource.field(2).value().toString();
+
+		QListWidgetItem * ressourceItem = new QListWidgetItem(ressourceName + " " + ressourceFirstname, ui->listWidget);
+
+		ui->listWidget->addItem( ressourceItem );
+
 		//add flag
-		item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+		ressourceItem->setFlags(ressourceItem->flags() | Qt::ItemIsUserCheckable);
+
 		//set the item unchecked
-		item->setCheckState(Qt::Unchecked);
+		ressourceItem->setCheckState(Qt::Unchecked);
 	}
 }
 
